@@ -1,7 +1,7 @@
 3 задача(правило): Tourist__r.Age__c    <    Trip__r.Minimum_Age__c
 
 
-4 задача(правило): NOT (ISPICKVAL(Status__c, "Flew out") && ISPICKVAL(Status__c, "Boarding is over"))
+4 задача(правило): ISPICKVAL(Status__c, "Flew out") && ISPICKVAL(Status__c, "Boarding is over")
 
 
 1 задача(формула): 	IF( NOT( ISBLANK(  Birthdate__c  ) ) ,
