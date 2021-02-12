@@ -1,0 +1,8 @@
+1) SELECT Start_Date__c, Name FROM Trip__c WHERE Start_Date__c>= 2020-01-01
+2) SELECT Age__c, Name FROM Tourist__c WHERE Name = 'John'
+3) SELECT Age__c, Name FROM Tourist__c WHERE Age__c IN (20, 22, 24)
+4) SELECT Trip__r.Name, Trip__r.Start_Date__c, Tourist__r.Name, Tourist__r.Age__c FROM Flight__c 
+5) SELECT Tourist__r.Name, Tourist__r.Age__c, Trip__r.Name, Trip__r.Start_Date__c FROM Flight__c
+6) SELECT Name, Age__c FROM Tourist__c WHERE Upcoming_Flights_Count__c = 0
+7) SELECT Tourist__r.Name, Tourist__r.Age__c FROM Flight__c WHERE CALENDAR_YEAR(Trip__r.Start_Date__c)>=2020
+8) SELECT Trip__r.Name, Trip__r.Start_Date__c FROM Flight__c WHERE (CALENDAR_YEAR(Trip__r.Start_Date__c)>=2020) AND (Tourist__r.Age__c>=20 AND Tourist__r.Age__c<30) AND Tourist__r.Name LIKE 'B%'
