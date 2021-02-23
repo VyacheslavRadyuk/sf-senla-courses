@@ -1,0 +1,12 @@
+List<string> Stroka = new List<string>{'all', 'privet', 'who', 'too', 'last', 'put', 'rggdrt', 'gtrrtg', 'fdgdeg', 'gtgtr'};
+List<string> OddStroka = new List<string>();    
+	integer n=0;
+	integer i=0;
+		while (i<Stroka.size()-1){
+    			i=2*n+1;
+    			OddStroka.add(Stroka[i]);
+    			n++;
+		}
+	system.debug(OddStroka);
+		
+

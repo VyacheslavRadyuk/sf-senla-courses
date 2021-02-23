@@ -1,0 +1,4 @@
+false
+true
+System.debug(b1 == b2) => System.debug(false == true) => false
+System.debug(b1 != b2) => System.debug(false != true) => true

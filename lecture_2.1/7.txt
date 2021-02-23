@@ -1,0 +1,11 @@
+Integer n1 = 1;
+Integer n2 = 2;
+Integer n3 = 3;
+Integer n4 = 2;
+System.debug(n1 == 1);                          1=1  будет выведено true
+System.debug(n2 == 3);  			2=3  будет выведено false
+System.debug(n1 >= 1 && n2 < 4);		1 >= 1 && 2 < 4  =>> true && false =>> false
+System.debug(n4 <= 99 && n3 < n4); 		2 <= 99 && 3 < 2 =>> true && false =>> false
+System.debug(n2 >= n1 || n3 == n4); 		2 >= 1 || 3 == 2 =>> true || False =>> True
+System.debug(n3 + n4< n2 || 3 - n2 >= n3);	3 + 2 < 2 || 3 - 2 >= 3          =>> 5 < 2 || 1 >=3 =>> false || False  =>> false
+System.debug(!(n3 > n4)); 			!(3>2) =>> !True =>> False

@@ -1,0 +1,8 @@
+integer vvedennoeZnachenie=10;
+integer i=1;
+integer n=i;
+while (i < vvedennoeZnachenie){
+    i++;
+	n+=i;
+}
+system.debug(n);

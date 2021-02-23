@@ -1,0 +1,12 @@
+Integer [] myArray = new List<Integer>{1,12,34,43,56,78,90,120};
+Integer [] even = new List<Integer>();
+Integer [] odd = new List<Integer>();
+    for (integer i=0; i<myArray.size(); i++){
+        If((math.mod(myArray[i], 2))==0){ 
+	    even.add(myArray[i]);  
+        } else{
+            odd.add(myArray[i]);   
+        }
+    }
+ system.debug('4etnie 4isla: ' + even) ; 	
+ system.debug('ne4etnie 4isla: ' + odd);

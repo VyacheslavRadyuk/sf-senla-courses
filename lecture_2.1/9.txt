@@ -1,0 +1,7 @@
+List<string> Stroka = new List<string> {'all', 'privet', 'who', 'too'};  
+    	String a = 'The First string: ' + Stroka[0]; 
+	String b = 'The Last string: ' + Stroka[Stroka.size()-1];
+system.debug(a);
+system.debug(b);
+
+
