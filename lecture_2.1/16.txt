@@ -2,8 +2,8 @@ integer numToCheck = 910019;
 integer result = 0;
 
 while (numToCheck > 0) {
-	integer ostatok = math.mod(numToCheck, 10);
-	result = result * 10 + ostatok;
+	integer left = math.mod(numToCheck, 10);
+	result = result * 10 + left;
 	numToCheck = numToCheck / 10;
 	if (numToCheck == result) {
 		system.debug('polindrom');

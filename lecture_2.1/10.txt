@@ -1,4 +1,4 @@
-List < string > Stroka = new List < string > {
+List < string > line = new List < string > {
 	'all',
 	'privet',
 	'who',
@@ -10,13 +10,13 @@ List < string > Stroka = new List < string > {
 	'fdgdeg',
 	'gtgtr'
 };
-List < string > OddStroka = new List < string > ();
+List < string > oddLine = new List < string > ();
 integer n = 0;
 integer i = 0;
 
-while (i < Stroka.size() - 1) {
+while (i < line.size() - 1) {
 	i = 2 * n + 1;
-	OddStroka.add(Stroka[i]);
+	oddLine.add(line[i]);
 	n++;
 }
-system.debug(OddStroka);
+system.debug(oddLine);

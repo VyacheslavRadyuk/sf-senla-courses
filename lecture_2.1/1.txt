@@ -1,2 +1,2 @@
-String a = 'Hello World'; 
-system.debug(a);
+String text = 'Hello World'; 
+system.debug(text);

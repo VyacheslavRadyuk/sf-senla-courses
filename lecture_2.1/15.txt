@@ -1,15 +1,15 @@
-List < integer > Prostie4isla = new List < Integer > ();
+List < integer > simpleNumbers = new List < Integer > ();
 integer N = 8;
 integer n0 = 1;
 integer n1 = 1;
 integer n2;
-Prostie4isla.add(n0);
-Prostie4isla.add(n1);
+simpleNumbers.add(n0);
+simpleNumbers.add(n1);
 
 for (integer i = 3; i <= N; i++) {
 	n2 = n0 + n1;
-	Prostie4isla.add(n2);
+	simpleNumbers.add(n2);
 	n0 = n1;
 	n1 = n2;
 }
-System.debug(Prostie4isla);
+System.debug(simpleNumbers);

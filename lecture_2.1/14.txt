@@ -1,4 +1,4 @@
-List < integer > Prostie4isla = new List < Integer > ();
+List < integer > simpleNumbers = new List < Integer > ();
 integer N = 100;
 
 for (integer i = 1; i <= N; i++) {
@@ -11,7 +11,7 @@ for (integer i = 1; i <= N; i++) {
 		}
 	}
 	if (rez != null) {
-		Prostie4isla.add(rez);
+		simpleNumbers.add(rez);
 	}
 }
-system.debug(Prostie4isla);
+system.debug(simpleNumbers);
