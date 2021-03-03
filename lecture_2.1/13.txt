@@ -1,15 +1,12 @@
 Map <Integer, String> keyValue = new Map <Integer, String> ();
 String Name = 'My is Slava one two six four tour';
 String[] wordsList = Name.split(' ');
-    for(string s : wordsList){
-        integer a=s.length();
-        if(keyValue.containsKey(a))
-		keyValue.put(a, keyValue.get(a) + ', ' + s);
-        else {
+
+for (string s: wordsList) {
+	integer a = s.length();
+	if (keyValue.containsKey(a)) keyValue.put(a, keyValue.get(a) + ', ' + s);
+	else {
 		keyValue.put(a, s);
-        }
-    }
-      system.debug(keyValue);
-
-        
-
+	}
+}
+system.debug(keyValue);

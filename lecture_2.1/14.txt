@@ -1,15 +1,17 @@
-List<integer> Prostie4isla = new List<Integer>();
+List < integer > Prostie4isla = new List < Integer > ();
 integer N = 100;
-	for (integer i = 1; i <= N; i++) {
-		Integer rez = i;
-		for (integer j = 2; j < i; j++) {
-			if (math.mod(i, j) == 0) {
-				rez = null;
-				break;
-        		}
-       		}
-		if (rez != null) {
-			Prostie4isla.add(rez);
-		}	  
-	}	
+
+for (integer i = 1; i <= N; i++) {
+	Integer rez = i;
+
+	for (integer j = 2; j < i; j++) {
+		if (math.mod(i, j) == 0) {
+			rez = null;
+			break;
+		}
+	}
+	if (rez != null) {
+		Prostie4isla.add(rez);
+	}
+}
 system.debug(Prostie4isla);

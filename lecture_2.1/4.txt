@@ -1,5 +1,5 @@
-for (integer i=1; i<10; i++){  
-    integer a=3*i;
-    string b='3*'+ i + '=';
-    system.debug( b + a );
+for (integer i = 1; i < 10; i++) {
+	integer a = 3 * i;
+	string b = '3*' + i + '=';
+	system.debug(b + a);
 }
