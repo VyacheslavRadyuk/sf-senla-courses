@@ -1,8 +1,16 @@
-Integer[] firstArr = new List<Integer>{2, 3, 1, 8, 5, 4, 7}; 
-Integer[] secondArr = new List < Integer > ();
+Integer[] firstArr = new List <Integer> {
+	2,
+	3,
+	1,
+	8,
+	5,
+	4,
+	7
+};
+Integer[] secondArr = new List <Integer> ();
 integer i = 0;
 
-While(i <= firstArr.size() - 1) {
+while (i <= firstArr.size() - 1) {
 	if (((math.mod(firstArr[i], 2)) == 0)) {
 		secondArr.add(firstArr[i]);
 	}
@@ -13,9 +21,9 @@ system.debug(secondArr);
 
 for (integer z = secondArr.size() - 1; z > 0; z--) {
 
-	for (integer j = 0; j < z; j++) {
+	for (Integer j = 0; j < z; j++) {
 		if (secondArr[j] > secondArr[j + 1]) {
-			integer tmp = secondArr[j];
+			Integer tmp = secondArr[j];
 			secondArr[j] = secondArr[j + 1];
 			secondArr[j + 1] = tmp;
 		}
@@ -25,4 +33,4 @@ system.debug(secondArr);
 
 //2 Вариант:// 	
 secondArr.sort();
-system.debug(secondArr);
+System.debug(secondArr);

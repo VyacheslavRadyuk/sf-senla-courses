@@ -2,11 +2,11 @@ Map <Integer, Integer> keyValue = new Map <Integer, Integer> ();
 String Name = 'My is Slava one two six four tour';
 String[] wordsList = Name.split(' ');
 
-for (string s: wordsList) {
-	integer a = s.length();
+for (String s: wordsList) {
+	Snteger a = s.length();
 	if (keyValue.containsKey(a)) keyValue.put(a, keyValue.get(a) + 1);
 	else {
 		keyValue.put(a, 1);
 	}
 }
-system.debug(keyValue);
+System.debug(keyValue);

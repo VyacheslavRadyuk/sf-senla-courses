@@ -1,4 +1,4 @@
-List < string > line = new List < string > {
+List <string> line = new List <string> {
 	'all',
 	'privet',
 	'who',
@@ -10,13 +10,13 @@ List < string > line = new List < string > {
 	'fdgdeg',
 	'gtgtr'
 };
-List < string > oddLine = new List < string > ();
-integer n = 0;
-integer i = 0;
+List <string> oddLine = new List <string> ();
+Integer n = 0;
+Integer i = 0;
 
 while (i < line.size() - 1) {
 	i = 2 * n + 1;
 	oddLine.add(line[i]);
 	n++;
 }
-system.debug(oddLine);
+System.debug(oddLine);

@@ -1,9 +1,9 @@
-integer input = 10;
-integer i = 1;
-integer n = i;
+Integer input = 10;
+Integer i = 1;
+Integer n = i;
 
 while (i < input) {
     i++;
     n += i;
 }
-system.debug(n);
+System.debug(n);

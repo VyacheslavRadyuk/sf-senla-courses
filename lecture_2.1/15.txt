@@ -1,12 +1,12 @@
-List < integer > simpleNumbers = new List < Integer > ();
-integer N = 8;
-integer n0 = 1;
-integer n1 = 1;
-integer n2;
+List <Integer> simpleNumbers = new List <Integer> ();
+Integer N = 8;
+Integer n0 = 1;
+Integer n1 = 1;
+Integer n2;
 simpleNumbers.add(n0);
 simpleNumbers.add(n1);
 
-for (integer i = 3; i <= N; i++) {
+for (Integer i = 3; i <= N; i++) {
 	n2 = n0 + n1;
 	simpleNumbers.add(n2);
 	n0 = n1;

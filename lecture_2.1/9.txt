@@ -1,4 +1,4 @@
-List < string > line = new List < string > {
+List <string> line = new List <string> {
 	'all',
 	'privet',
 	'who',
@@ -6,5 +6,5 @@ List < string > line = new List < string > {
 };
 String a = 'The First string: ' + line[0];
 String b = 'The Last string: ' + line[Line.size() - 1];
-system.debug(a);
-system.debug(b);
+System.debug(a);
+System.debug(b);

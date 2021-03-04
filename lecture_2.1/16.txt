@@ -1,15 +1,15 @@
-integer numToCheck = 910019;
-integer result = 0;
+Integer numToCheck = 910019;
+Integer result = 0;
 
 while (numToCheck > 0) {
-	integer left = math.mod(numToCheck, 10);
+	Integer left = math.mod(numToCheck, 10);
 	result = result * 10 + left;
 	numToCheck = numToCheck / 10;
 	if (numToCheck == result) {
-		system.debug('polindrom');
+		System.debug('polindrom');
 		break;
 	}
 }
 if (numToCheck != result) {
-	system.debug(' no polindrom');
+	System.debug(' no polindrom');
 }
