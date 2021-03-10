@@ -6,6 +6,8 @@ public class TouristTriggerHandler {
             IsDuplicate__c 
             FROM Tourist__c
         ];
+        List<Tourist__c> firstTourists = new List<Tourist__c>();
+        List<Tourist__c> secondTourists = new List<Tourist__c>();
         
         for (Tourist__c firstTourist: newTourists) {
             Integer coincidence = 0;
@@ -18,19 +20,23 @@ public class TouristTriggerHandler {
                     if (coincidence > 1) {
                         firstTourist.IsDuplicate__c = false;
                         secondTourist.IsDuplicate__c = true;
-                        update firstTourist;
-                        update secondTourist;
+                        firstTourists.add(firstTourist);
+                        secondTourists.add(secondTourist);    
                     }
                 }
             }
         }
+        update firstTourists;
+        update secondTourists;
+        
         
     }
     
     public static void afterUpdate (List<Tourist__c> checkActiveFields) {
+        list<flight__c> ids = new list<flight__c>();
         
         for (Tourist__c a : checkActiveFields) {
-			flight__c status = [
+            flight__c status = [
                 SELECT Tourist__r.id,  
                 Tourist__r.Active__c, 
                 SecondStatus__c
@@ -40,8 +46,9 @@ public class TouristTriggerHandler {
             
             if(!status.Tourist__r.Active__c) {
                 status.SecondStatus__c = 'Declined';
-                update status;
+                ids.add(status);
             }
         }
+        update ids;
     }
 }
