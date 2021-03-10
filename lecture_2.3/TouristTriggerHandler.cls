@@ -33,7 +33,7 @@ public class TouristTriggerHandler {
     }
     
     public static void afterUpdate (List<Tourist__c> checkActiveFields) {
-        list<flight__c> ids = new list<flight__c>();
+        List<flight__c> ids = new List<flight__c>();
         
         for (Tourist__c a : checkActiveFields) {
             flight__c status = [
