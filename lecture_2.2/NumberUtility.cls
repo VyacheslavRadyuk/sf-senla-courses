@@ -8,8 +8,7 @@ public class NumberUtility {
 			for (integer j = 2; j < i; j++) {
                 
 				if (math.mod(i, j) == 0) {
-					rez = null;
-					break;
+					rez = null;					
         		}
        		}
             
