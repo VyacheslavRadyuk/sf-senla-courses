@@ -1,27 +1,36 @@
 public class TouristService {
 	public static void markDuplicates(List<Tourist__c> newTourists) {
-		newTourists = [SELECT Name, Email__c, IsDuplicate__c FROM Tourist__c];
+	newTourists = [
+            SELECT  Name, 
+            Email__c, 
+            IsDuplicate__c 
+            FROM Tourist__c
+        ];
+        List<Tourist__c> firstTourists = new List<Tourist__c>();
+        List<Tourist__c> secondTourists = new List<Tourist__c>();
         
-		for (Tourist__c firstTourist: newTourists) {
-			Integer coincidence = 0;
+        for (Tourist__c firstTourist: newTourists) {
+            Integer coincidence = 0;
             
-			for (Tourist__c secondTourist: newTourists) {
+            for (Tourist__c secondTourist: newTourists) {
                 
-				if (firstTourist.Email__c == secondTourist.Email__c && firstTourist.Name == secondTourist.Name) {
-					coincidence++;
+                if (firstTourist.Email__c == secondTourist.Email__c && firstTourist.Name == secondTourist.Name) {
+                    coincidence++;
                     
-					if (coincidence > 1) {
-						firstTourist.IsDuplicate__c = false;
-						secondTourist.IsDuplicate__c = true;
-						update firstTourist;
-						update secondTourist;
-					}
-				}
-			}
-		}
-
-	}
-}
+                    if (coincidence > 1) {
+                        firstTourist.IsDuplicate__c = false;
+                        secondTourist.IsDuplicate__c = true;
+                        firstTourists.add(firstTourist);
+                        secondTourists.add(secondTourist);    
+                    }
+                }
+            }
+        }
+        update firstTourists;
+        update secondTourists;
+        
+        
+    }
 
 /* анонимус окно
  
