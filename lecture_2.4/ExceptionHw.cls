@@ -8,7 +8,7 @@ public class ExceptionHw {
                 throw new CusomException('Очень плохо!!!');
             }
         } catch(CusomException ex) {
-            System.debug(ex.getMessage());
+            throw ex;
         }
     }  
     
@@ -17,19 +17,21 @@ public class ExceptionHw {
         try {
            Integer b = 1 / i;
         } catch(MathException ex) {
-            System.debug(ex.getMessage());
+            throw ex;
         }
     }
     
     public static void methodeThree() {
-        try{
-            integer i = 1;
-            if(i >= 5 && i != 0) {
+        try{      
                 ExceptionHw.methodeOne();
+        } catch (Exception ex) {
+            	System.debug('Исключениe 1 погашено!');
+        }
+         try{      
                 ExceptionHw.methodeTwo();
-            }
-        } finally {
-            System.debug('Исключения погашены');
+        } catch (Exception ex) {
+            	System.debug('Исключениe 2 погашено!');
         }
     }
 }
+
