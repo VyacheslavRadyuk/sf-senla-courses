@@ -7,8 +7,7 @@ public class TouristService {
             IsDuplicate__c 
             FROM Tourist__c
         ];
-        List<Tourist__c> firstTourists = new List<Tourist__c>();
-        List<Tourist__c> secondTourists = new List<Tourist__c>();
+        List<Tourist__c> duplicates = new List<Tourist__c>();
         
         for (Tourist__c firstTourist: newTourists) {
             Integer coincidence = 0;
@@ -19,18 +18,13 @@ public class TouristService {
                     coincidence++;
                     
                     if (coincidence > 1 && firstTourist.Id == secondTourist.Id) {
-                        firstTourist.IsDuplicate__c = false;
                         secondTourist.IsDuplicate__c = true;
-                        firstTourists.add(firstTourist);
-                        secondTourists.add(secondTourist);    
+                        duplicates.add(secondTourist);    
                     }
                 }
             }
         }
-        update firstTourists;
-        update secondTourists;
-        
-        
+        upsert duplicates; 
     }
 }
 
@@ -39,6 +33,18 @@ Tourist__c n = new Tourist__c();
 n.Name='Barsuk';
 n.Birthdate__c = Date.newInstance(2000, 01, 28);
 n.Email__c='vyacheslavradyuk@gmail.com';
+Tourist__c c = new Tourist__c();
+c.Name='Barsuk';
+c.Birthdate__c = Date.newInstance(2000, 01, 28);
+c.Email__c='vyacheslavradyuk@gmail.com';
 newTourists.add(n);
+newTourists.add(c);
 TouristService.markDuplicates(newTourists);
+*/
+
+/*в строчках 32-41 создается 2 экземпляра туриста. далее в 31 создается пустой лист туристов, в 40-41 в этот пустой лист добавляется наш созданный ранее турист.
+в 42 строке вызываем наш метод. в 3 строке инсертим наш список добавленных туристов. в 4 строке добавляем в лист всех туристов с нужными нам полями.
+создаем лист дубликатов в 10 строке, в 12 строке начинаем первый цикл перебора всего списка туристов, так же добавляем счетчик так как СТАРЫЙ турист из первого и СТАРЫЙ турист второго циклов одного id не должны быть добавлены в дубликаты,
+так как это один и тот же турист.  в 15 строке начинаем второй цикл перебора( сравниваем по очереди туриста из первого цикла со всеми туристами в списке). 17 строка если совпадает емейл и имя, то прибавить к счетчику 1
+далее ,когда мы отсеяли СТАРЫХ туристов, у нас осталось в 20 строчке проверить айдишники НОВЫХ туристов и если они совпадают добавить в лист дубликатов. Прикладываю файл с общей схемой в комментарии к issue. 
 */
