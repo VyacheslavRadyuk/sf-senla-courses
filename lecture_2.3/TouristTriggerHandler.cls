@@ -1,13 +1,12 @@
 public class TouristTriggerHandler {
     public static void afterInsert (List<Tourist__c> newTourists) {
         newTourists = [
-            SELECT Name, 
+            SELECT  Name, 
             Email__c, 
             IsDuplicate__c 
             FROM Tourist__c
         ];
-        List<Tourist__c> firstTourists = new List<Tourist__c>();
-        List<Tourist__c> secondTourists = new List<Tourist__c>();
+        List<Tourist__c> duplicates = new List<Tourist__c>();
         
         for (Tourist__c firstTourist: newTourists) {
             Integer coincidence = 0;
@@ -17,19 +16,14 @@ public class TouristTriggerHandler {
                 if (firstTourist.Email__c == secondTourist.Email__c && firstTourist.Name == secondTourist.Name) {
                     coincidence++;
                     
-                    if (coincidence > 1) {
-                        firstTourist.IsDuplicate__c = false;
+                    if (coincidence > 1 && firstTourist.Id == secondTourist.Id) {
                         secondTourist.IsDuplicate__c = true;
-                        firstTourists.add(firstTourist);
-                        secondTourists.add(secondTourist);    
+                        duplicates.add(secondTourist);    
                     }
                 }
             }
         }
-        update firstTourists;
-        update secondTourists;
-        
-        
+        update duplicates; 
     }
     
     public static void afterUpdate (List<Tourist__c> checkActiveFields) {
