@@ -1,6 +1,7 @@
 public class TouristService {
-	public static void markDuplicates(List<Tourist__c> newTourists) {
-	newTourists = [
+    public static void markDuplicates(List<Tourist__c> newTourists) {
+        insert newTourists;
+        newTourists = [
             SELECT  Name, 
             Email__c, 
             IsDuplicate__c 
@@ -17,7 +18,7 @@ public class TouristService {
                 if (firstTourist.Email__c == secondTourist.Email__c && firstTourist.Name == secondTourist.Name) {
                     coincidence++;
                     
-                    if (coincidence > 1) {
+                    if (coincidence > 1 && firstTourist.Id == secondTourist.Id) {
                         firstTourist.IsDuplicate__c = false;
                         secondTourist.IsDuplicate__c = true;
                         firstTourists.add(firstTourist);
@@ -31,14 +32,13 @@ public class TouristService {
         
         
     }
+}
 
-/* анонимус окно
- 
+/*List<Tourist__c> newTourists= new List<Tourist__c>();
 Tourist__c n = new Tourist__c();
 n.Name='Barsuk';
 n.Birthdate__c = Date.newInstance(2000, 01, 28);
 n.Email__c='vyacheslavradyuk@gmail.com';
-List<Tourist__c> newTourists= new List<Tourist__c>();
-insert n;
+newTourists.add(n);
 TouristService.markDuplicates(newTourists);
 */
