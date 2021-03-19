@@ -29,10 +29,10 @@ public class NumberUtility {
         fiboNumbers.add(n1);
         
         for (integer i = 3; i <= N; i++) {
-            n2=n0+n1;
+            n2 = n0 + n1;
             fiboNumbers.add(n2);
-            n0=n1;
-            n1=n2;
+            n0 = n1;
+            n1 = n2;
         }
         System.debug(fiboNumbers);
         return fiboNumbers;
