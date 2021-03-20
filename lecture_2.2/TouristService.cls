@@ -1,18 +1,13 @@
 public class TouristService {
     public static void markDuplicates(List<Tourist__c> newTourists) {
         insert newTourists;
-        newTourists = [
-            SELECT  Name, 
-            Email__c, 
-            IsDuplicate__c 
-            FROM Tourist__c
-        ];
+        List<Tourist__c> allTourists = TouristManager.getByNameEmailIsDuplicate();
         List<Tourist__c> duplicates = new List<Tourist__c>();
         
-        for (Tourist__c firstTourist: newTourists) {
+        for (Tourist__c firstTourist: allTourists) {
             Integer coincidence = 0;
             
-            for (Tourist__c secondTourist: newTourists) {
+            for (Tourist__c secondTourist: allTourists) {
                 
                 if (firstTourist.Email__c == secondTourist.Email__c && firstTourist.Name == secondTourist.Name) {
                     coincidence++;
@@ -24,7 +19,7 @@ public class TouristService {
                 }
             }
         }
-        upsert duplicates; 
+        update duplicates; 
     }
 }
 

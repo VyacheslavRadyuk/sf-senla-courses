@@ -15,13 +15,13 @@ public class TouristManager {
     }
     
     
-        /*   List<Integer> ages = new List<Integer>();
-                ages.add(20);
-                ages.add(22);
-                ages.add(24);
-   		    TouristManager.getTouristsByAge(ages);
-        */
-         
+    /*   List<Integer> ages = new List<Integer>();
+			ages.add(20);
+			ages.add(22);
+			ages.add(24);
+			TouristManager.getTouristsByAge(ages);
+	*/
+    
     public static List<Tourist__c> getTouristsByAge(List<Integer> ages){         
         for (Integer age : ages ) {
             if (age == null) {
@@ -75,6 +75,18 @@ public class TouristManager {
         ];
         System.debug(listTourists);
         return (listTourists);
+        
+    }
+    
+    public static List<Tourist__c> getByNameEmailIsDuplicate() {
+        List<Tourist__c> newTourists = [
+            SELECT  Name, 
+            Email__c, 
+            IsDuplicate__c 
+            FROM Tourist__c
+        ];
+        System.debug(newTourists);
+        return (newTourists);
         
     }
 }
