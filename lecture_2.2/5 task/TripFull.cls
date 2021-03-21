@@ -3,14 +3,11 @@ public class TripFull {
     
     public static void autoCreateFlights(List<Trip__c> trip){
         
-        List<Tourist__c> freeTourists = [
-            SELECT Id
-            FROM Tourist__c
-            WHERE Age__c > :trip[0].Minimum_Age__c AND Upcoming_Flights_Count__c = 0
-        ];
+        List<Tourist__c> freeTourists = TouristManager.getFreeTourists();
         List<Flight__c> newFlights = new List<Flight__c>();        
-        
+         
         for (Tourist__c a : freeTourists) {
+            if(a.Age__c > trip[0].Minimum_Age__c) {
             Flight__c createFlight = new Flight__c(
                 Tourist__c = a.id,
                 Trip__c = Trip[0].Id,
@@ -18,8 +15,7 @@ public class TripFull {
             );
             newFlights.add(createFlight);
         }
+        }
         insert newFlights; 
     }
 }
-
-

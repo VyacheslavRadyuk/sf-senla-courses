@@ -1,6 +1,6 @@
 public class TouristManager {
     
-    public static List<Tourist__c> getTouristsByName(String name){
+    public static List<Tourist__c> getByName(String name){
         if(String.isBlank(name)) {
             return new List<Tourist__c>();
         }
@@ -13,16 +13,8 @@ public class TouristManager {
         System.debug(listTourists);
         return listTourists;   
     }
-    
-    
-    /*   List<Integer> ages = new List<Integer>();
-			ages.add(20);
-			ages.add(22);
-			ages.add(24);
-			TouristManager.getTouristsByAge(ages);
-	*/
-    
-    public static List<Tourist__c> getTouristsByAge(Set<Integer> ages){         
+     
+    public static List<Tourist__c> getByAge(Set<Integer> ages){         
         if (Ages.contains(null)) {
 	    return new List<Tourist__c>();   
         }
@@ -36,35 +28,7 @@ public class TouristManager {
         return listTourists;
     }
     
-    public static List<Flight__c> getFlightsByYear(Integer year){
-        if(year == null || year == 0) {
-            return new List<Flight__c>();
-        }
-        List<Flight__c> listFlights = [
-            SELECT Tourist__r.Name, 
-            Tourist__r.Age__c 
-            FROM Flight__c 
-            WHERE CALENDAR_YEAR(Trip__r.Start_Date__c)>= :year
-        ];
-        System.debug(listFlights);
-        return listFlights;
-        
-    }
-    
-    public static List<Flight__c> getFlights(){
-        List<Flight__c> listFlights = [
-            SELECT Tourist__r.Name, 
-            Tourist__r.Age__c, 
-            Trip__r.Name, 
-            Trip__r.Start_Date__c 
-            FROM Flight__c
-        ];
-        System.debug(listFlights);
-        return listFlights;
-        
-    }
-    
-    public static List<Tourist__c > getTouristsByFlightsCount(Integer count){
+    public static List<Tourist__c> getByFlightsCount(Integer count){
         List<Tourist__c > listTourists = [
             SELECT Name, 
             Age__c 
@@ -86,5 +50,16 @@ public class TouristManager {
         System.debug(newTourists);
         return (newTourists);
         
+    }
+    
+    public static List<Tourist__c> getFreeTourists() {
+    List<Tourist__c> freeTourist = [
+            SELECT Id,
+        	Age__c
+            FROM Tourist__c
+            WHERE Upcoming_Flights_Count__c = 0
+        ];
+        System.debug(freeTourist);
+        return freeTourist;
     }
 }
