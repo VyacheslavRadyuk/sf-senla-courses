@@ -38,9 +38,9 @@ public class NumberUtility {
         return fiboNumbers;
     }
     
-    public static String calculationOfPolyindrome(Integer numToCheck ) {
+    public static Boolean isPolyndrome(Integer numToCheck ) {
         Integer result = 0;
-        String polindromOrNo;
+        Boolean polindromOrNo;
         while (numToCheck > 0) {
             Integer ostatok = math.mod(numToCheck, 10);
             result = result * 10 + ostatok;
@@ -48,14 +48,14 @@ public class NumberUtility {
             
             if (numToCheck == result) {
                 System.debug('polindrom');
-                polindromOrNo = 'polindrom';
+                polindromOrNo = true;
                 break;
             }		
         }
         
         if (numToCheck != result) {
             System.debug(' no polindrom');
-            polindromOrNo = 'no polindrom';
+            polindromOrNo = false;
         }
         return polindromOrNo;
     }
