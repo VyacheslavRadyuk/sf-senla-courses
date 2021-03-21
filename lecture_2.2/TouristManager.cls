@@ -22,11 +22,9 @@ public class TouristManager {
 			TouristManager.getTouristsByAge(ages);
 	*/
     
-    public static List<Tourist__c> getTouristsByAge(List<Integer> ages){         
-        for (Integer age : ages ) {
-            if (age == null) {
-                return new List<Tourist__c>();
-            }
+    public static List<Tourist__c> getTouristsByAge(Set<Integer> ages){         
+        if (Ages.contains(null)) {
+	    return new List<Tourist__c>();   
         }
         List<Tourist__c> listTourists = [							
             SELECT Age__c, 
