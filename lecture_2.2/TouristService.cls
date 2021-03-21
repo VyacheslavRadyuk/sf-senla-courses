@@ -1,7 +1,7 @@
 public class TouristService {
     public static void markDuplicates(List<Tourist__c> newTourists) {
         insert newTourists;
-        List<Tourist__c> allTourists = TouristManager.getByNameEmailIsDuplicate();
+        List<Tourist__c> allTourists = TouristManager.getTourists();
         List<Tourist__c> duplicates = new List<Tourist__c>();
         
         for (Tourist__c firstTourist: allTourists) {

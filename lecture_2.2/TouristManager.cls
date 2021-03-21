@@ -76,7 +76,7 @@ public class TouristManager {
         
     }
     
-    public static List<Tourist__c> getByNameEmailIsDuplicate() {
+    public static List<Tourist__c> getTourists() {
         List<Tourist__c> newTourists = [
             SELECT  Name, 
             Email__c, 
