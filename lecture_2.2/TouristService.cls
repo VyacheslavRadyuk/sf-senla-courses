@@ -1,20 +1,14 @@
 public class TouristService {
     public static void markDuplicates(List<Tourist__c> newTourists) {
-        List<Tourist__c> oldTourists = TouristManager.getTourists();
         
         if (!newTourists.isEmpty() && newTourists != null) {
             
             for (Tourist__c newTourist : newTourists) {
-                
-                for (Tourist__c Tourist: oldTourists) {
-                    
-                    if (Tourist.Email__c == newTourist.Email__c && Tourist.Name == newTourist.Name) {
-                        newTourist.IsDuplicate__c = true;  
-                    } 
-                }
-            }        
-        }
-        insert newTourists;
+                List<Tourist__c> oldTourists = TouristManager.getByNameEmailNoDuplicates(newTourist.Name, newTourist.Email__c);
+                newTourist.IsDuplicate__c = true;  
+            } 
+            insert newTourists;
+        } 
     }
 }
 

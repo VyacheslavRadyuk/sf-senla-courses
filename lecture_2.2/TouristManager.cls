@@ -40,15 +40,19 @@ public class TouristManager {
         
     }
     
-    public static List<Tourist__c> getTourists() {
-        List<Tourist__c> newTourists = [
+    public static List<Tourist__c> getByNameEmailNoDuplicates(String name, String email) {
+        if (String.isBlank(name) || String.isBlank(email)) {
+            return new List<Tourist__c>();
+        }
+        List<Tourist__c> allTourists = [
             SELECT  Name, 
             Email__c, 
             IsDuplicate__c 
             FROM Tourist__c
+            WHERE Name = :name AND Email__c = :email AND IsDuplicate__c = false
         ];
-        System.debug(newTourists);
-        return (newTourists);
+        System.debug(allTourists);
+        return (allTourists);
         
     }
     
