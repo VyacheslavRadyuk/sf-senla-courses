@@ -15,7 +15,7 @@ public class TouristManager {
     }
      
     public static List<Tourist__c> getByAge(Set<Integer> ages){         
-        if (ages != null && ages.isEmpty()) {
+        if (ages == null && ages.isEmpty()) {
 	    return new List<Tourist__c>();   
         }
         List<Tourist__c> listTourists = [							
@@ -40,8 +40,8 @@ public class TouristManager {
         
     }
     
-    public static List<Tourist__c> getTourists(String name, String email) {
-        if (String.isBlank(name) || String.isBlank(email)) {
+    public static List<Tourist__c> getTourists(List<String> name, List<String> email) {
+        if (name == null && name.isEmpty() || email == null && email.isEmpty()) {
             return new List<Tourist__c>();
         }
         List<Tourist__c> allTourists = [
@@ -49,7 +49,7 @@ public class TouristManager {
             Email__c, 
             IsDuplicate__c 
             FROM Tourist__c
-            WHERE Name = :name AND Email__c = :email AND IsDuplicate__c = false
+            WHERE Name IN :name AND Email__c IN :email AND IsDuplicate__c = false
         ];
         System.debug(allTourists);
         return (allTourists);
