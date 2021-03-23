@@ -4,9 +4,11 @@ public class TouristService {
         if (!newTourists.isEmpty() && newTourists != null) {
             List<String> nameList = new List<String>();
             List<String> emailList = new List<String>();
+            
             for (Tourist__c names : newTourists ) {
                 nameList.add(names.Name);
             }
+            
             for (Tourist__c emails : newTourists ) {
                 emailList.add(emails.Email__c);
             }
