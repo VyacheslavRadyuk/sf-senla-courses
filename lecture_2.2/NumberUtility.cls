@@ -20,7 +20,7 @@ public class NumberUtility {
         return primeNumbers;
     }
     
-    public static List<Integer> fibonacciNumbers (Integer n){
+    public static List<Integer> getFibonacciNumbers (Integer n){
         List<Integer> fiboNumbers = new List<Integer>();
         Integer n0 = 1;
         Integer n1 = 1;
@@ -29,10 +29,10 @@ public class NumberUtility {
         fiboNumbers.add(n1);
         
         for (integer i = 3; i <= N; i++) {
-            n2 = n0 + n1;
+            n2=n0+n1;
             fiboNumbers.add(n2);
-            n0 = n1;
-            n1 = n2;
+            n0=n1;
+            n1=n2;
         }
         System.debug(fiboNumbers);
         return fiboNumbers;
