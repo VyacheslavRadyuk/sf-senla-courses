@@ -16,7 +16,6 @@ public class NumberUtility {
                 primeNumbers.add(rez);
             }	  
         }	
-        System.debug(primeNumbers);
         return primeNumbers;
     }
     
@@ -34,7 +33,6 @@ public class NumberUtility {
             n0=n1;
             n1=n2;
         }
-        System.debug(fiboNumbers);
         return fiboNumbers;
     }
     
@@ -47,14 +45,12 @@ public class NumberUtility {
             numToCheck = numToCheck / 10;
             
             if (numToCheck == result) {
-                System.debug('polindrom');
                 polindromOrNo = true;
                 break;
             }		
         }
         
         if (numToCheck != result) {
-            System.debug(' no polindrom');
             polindromOrNo = false;
         }
         return polindromOrNo;

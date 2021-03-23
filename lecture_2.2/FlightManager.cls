@@ -10,9 +10,7 @@ public class FlightManager {
             FROM Flight__c 
             WHERE CALENDAR_YEAR(Trip__r.Start_Date__c)>= :year
         ];
-        System.debug(listFlights);
-        return listFlights;
-        
+        return listFlights; 
     }
     
     public static List<Flight__c> getFlights(){
@@ -23,8 +21,6 @@ public class FlightManager {
             Trip__r.Start_Date__c 
             FROM Flight__c
         ];
-        System.debug(listFlights);
-        return listFlights;
-        
+        return listFlights;  
     }
 }

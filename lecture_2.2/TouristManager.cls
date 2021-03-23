@@ -10,7 +10,6 @@ public class TouristManager {
             FROM Tourist__c 
             WHERE Name = :name
         ]; 
-        System.debug(listTourists);
         return listTourists;   
     }
      
@@ -24,7 +23,6 @@ public class TouristManager {
             FROM Tourist__c 
             WHERE Age__c IN :ages
         ];
-        system.debug(listTourists);
         return listTourists;
     }
     
@@ -35,7 +33,6 @@ public class TouristManager {
             FROM Tourist__c 
             WHERE Upcoming_Flights_Count__c = :count
         ];
-        System.debug(listTourists);
         return (listTourists);
         
     }
@@ -51,7 +48,6 @@ public class TouristManager {
             FROM Tourist__c
             WHERE Name IN :name AND Email__c IN :email AND IsDuplicate__c = false
         ];
-        System.debug(allTourists);
         return (allTourists);
         
     }
@@ -63,7 +59,6 @@ public class TouristManager {
             FROM Tourist__c
             WHERE Upcoming_Flights_Count__c = 0
         ];
-        System.debug(freeTourist);
         return freeTourist;
     }
 }
