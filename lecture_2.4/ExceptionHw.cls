@@ -21,7 +21,7 @@ public class ExceptionsPlayground {
         }
     }
     
-    public static void handleExceptions() {
+    public static void stopExceptions() {
         try{      
                 ExceptionsPlayground.generateCustomException();
         } catch (Exception ex) {
