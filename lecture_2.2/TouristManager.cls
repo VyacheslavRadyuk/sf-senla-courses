@@ -15,7 +15,7 @@ public class TouristManager {
     }
      
     public static List<Tourist__c> getByAge(Set<Integer> ages){         
-        if (ages == null && ages.isEmpty()) {
+        if (ages == null || ages.isEmpty()) {
 	    return new List<Tourist__c>();   
         }
         List<Tourist__c> listTourists = [							
@@ -41,7 +41,7 @@ public class TouristManager {
     }
     
     public static List<Tourist__c> getTourists(List<String> name, List<String> email) {
-        if (name == null && name.isEmpty() || email == null && email.isEmpty()) {
+        if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
             return new List<Tourist__c>();
         }
         List<Tourist__c> allTourists = [
