@@ -15,7 +15,7 @@ public class TouristManager {
     }
      
     public static List<Tourist__c> getByAge(Set<Integer> ages){         
-        if (Ages.contains(null)) {
+        if (ages != null && ages.isEmpty()) {
 	    return new List<Tourist__c>();   
         }
         List<Tourist__c> listTourists = [							
@@ -40,7 +40,7 @@ public class TouristManager {
         
     }
     
-    public static List<Tourist__c> getByNameEmailNoDuplicates(String name, String email) {
+    public static List<Tourist__c> getTourists(String name, String email) {
         if (String.isBlank(name) || String.isBlank(email)) {
             return new List<Tourist__c>();
         }

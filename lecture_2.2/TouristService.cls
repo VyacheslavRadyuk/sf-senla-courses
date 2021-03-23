@@ -4,7 +4,7 @@ public class TouristService {
         if (!newTourists.isEmpty() && newTourists != null) {
 
             for (Tourist__c newTourist : newTourists) {
-                List<Tourist__c> oldTourists = TouristManager.getByNameEmailNoDuplicates(newTourist.Name, newTourist.Email__c);
+                List<Tourist__c> oldTourists = TouristManager.getTourists(newTourist.Name, newTourist.Email__c);
 
                 for (Tourist__c Tourist: oldTourists) {
 

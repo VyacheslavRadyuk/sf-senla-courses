@@ -1,18 +1,18 @@
-public class ExceptionHw {    
-    public class CusomException extends Exception {}
+public class ExceptionsPlayground {    
+    public class CustomException extends Exception {}
     
-    public static void methodeOne() {
+    public static void generateCustomException() {
         Integer i = 0; 
         try {               
             if (i < 5) {
-                throw new CusomException('Очень плохо!!!');
+                throw new CustomException('Очень плохо!!!');
             }
-        } catch(CusomException ex) {
+        } catch(CustomException ex) {
             throw ex;
         }
     }  
     
-    public static void methodeTwo() { 
+    public static void generateRegularException() { 
         Integer i = 0;
         try {
            Integer b = 1 / i;
@@ -21,17 +21,16 @@ public class ExceptionHw {
         }
     }
     
-    public static void methodeThree() {
+    public static void handleExceptions() {
         try{      
-                ExceptionHw.methodeOne();
+                ExceptionsPlayground.generateCustomException();
         } catch (Exception ex) {
             	System.debug('Исключениe 1 погашено!');
         }
          try{      
-                ExceptionHw.methodeTwo();
+                ExceptionsPlayground.generateRegularException();
         } catch (Exception ex) {
             	System.debug('Исключениe 2 погашено!');
         }
     }
 }
-
