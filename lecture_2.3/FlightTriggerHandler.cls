@@ -1,26 +1,25 @@
 public class FlightTriggerHandler {
     public static void beforeInsert (List<Flight__c> newFlights) { 
+        List<String> touristId = new List<String>();
+        List<String> tripId = new List<String>();
+        
+        for (Flight__c a : newFlights) {
+            touristId.add(a.Tourist__c);
+            tripId.add(a.Trip__c);
+        }
+        List<Flight__c> flightsDb = FlightManager.getBytouristIdTripId(touristId, tripId);
         
         for (Flight__c a : newFlights) {
             
-            Tourist__c tourists = [
-                SELECT id, Age__c
-                FROM Tourist__c
-                WHERE id = :a.Tourist__c
-            ];
-            
-            Trip__c trips = [
-                SELECT id, Minimum_Age__c, Start_Date__c
-                FROM Trip__c
-                WHERE id = :a.Trip__c
-            ];
-            
-            if (tourists.Age__c < trips.Minimum_Age__c) {
-                a.Tourist__c.addError('Insufficient age');
-            }
-            
-            if (trips.Start_Date__c < date.today()) {
-                a.Trip__c.addError('The plane flew away');
+            for(Flight__c b : flightsDb) {
+                
+                if (b.Tourist__r.Age__c < b.trip__r.Minimum_Age__c) {
+                    a.Tourist__c.addError('Insufficient age');
+                }
+                
+                if (b.trip__r.Start_Date__c < date.today()) {
+                    a.Trip__c.addError('The plane flew away');
+                }
             }
         }
     }
