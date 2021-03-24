@@ -24,7 +24,10 @@ public class FlightManager {
         return listFlights;  
     }
     
-    public static List<Flight__c> getById(List<String> ids) {
+    public static List<Flight__c> getByTouristsId(List<String> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return new List<Flight__c>();
+        }
         List<Flight__c> status = [
             SELECT Tourist__r.id,  
             Tourist__r.Active__c, 
@@ -33,16 +36,5 @@ public class FlightManager {
             WHERE Tourist__r.id IN :ids
         ];
         return status;
-    }
-    
-    public static List<Flight__c> getBytouristIdTripId(List<String> touristId, List<String> tripId) {
-        List<Flight__c> status = [
-            SELECT Tourist__r.Age__c,  
-            Trip__r.Minimum_Age__c,
-            Trip__r.Start_Date__c
-            FROM flight__c
-            WHERE Tourist__c IN :touristId OR Trip__c IN :tripId         
-        ];
-        return status;
-    }
+    }  
 }

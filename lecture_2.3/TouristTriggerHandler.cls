@@ -5,7 +5,7 @@ public class TouristTriggerHandler {
         for (Tourist__c a : checkActiveFields) {
             ids.add(a.Id);
         }
-        List<Flight__c> idsDb = FlightManager.getById(ids);
+        List<Flight__c> idsDb = FlightManager.getByTouristsId(ids);
         List<flight__c> modifiedSecondStatus = new List<flight__c>();
         
         for (Tourist__c a : checkActiveFields) {

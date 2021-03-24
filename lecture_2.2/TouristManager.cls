@@ -12,10 +12,10 @@ public class TouristManager {
         ]; 
         return listTourists;   
     }
-     
+    
     public static List<Tourist__c> getByAge(Set<Integer> ages){         
         if (ages == null || ages.isEmpty()) {
-	    return new List<Tourist__c>();   
+            return new List<Tourist__c>();   
         }
         List<Tourist__c> listTourists = [							
             SELECT Age__c, 
@@ -53,12 +53,24 @@ public class TouristManager {
     }
     
     public static List<Tourist__c> getFreeTourists() {
-    List<Tourist__c> freeTourist = [
+        List<Tourist__c> freeTourist = [
             SELECT Id,
-        	Age__c
+            Age__c
             FROM Tourist__c
             WHERE Upcoming_Flights_Count__c = 0
         ];
         return freeTourist;
+    }
+    
+    public static List<Tourist__c> getById(List<String> touristId) {
+        if (touristId == null || touristId.isEmpty()) {
+            return new List<Tourist__c>();
+        }
+        List<Tourist__c> status = [
+            SELECT Age__c  
+            FROM Tourist__c
+            WHERE Id IN :touristId     
+        ];
+        return status;
     }
 }
