@@ -23,4 +23,15 @@ public class FlightManager {
         ];
         return listFlights;  
     }
+    
+       public static List<Flight__c> getById(List<String> ids) {
+        List<Flight__c> status = [
+            SELECT Tourist__r.id,  
+            Tourist__r.Active__c, 
+            SecondStatus__c
+            FROM flight__c
+            WHERE Tourist__r.id IN :ids
+        ];
+        return status;
+    }
 }

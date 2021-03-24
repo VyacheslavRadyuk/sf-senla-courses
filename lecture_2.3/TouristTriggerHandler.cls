@@ -1,21 +1,23 @@
 public class TouristTriggerHandler {
     public static void afterUpdate (List<Tourist__c> checkActiveFields) {
-        List<flight__c> ids = new List<flight__c>();
+        List<String> ids = new List<String>();
         
         for (Tourist__c a : checkActiveFields) {
-            flight__c status = [
-                SELECT Tourist__r.id,  
-                Tourist__r.Active__c, 
-                SecondStatus__c
-                FROM flight__c
-                WHERE Tourist__r.id = :a.Id
-            ];
+            ids.add(a.Id);
+        }
+        List<Flight__c> idsDb = FlightManager.getById(ids);
+        List<flight__c> modifiedSecondStatus = new List<flight__c>();
+        
+        for (Tourist__c a : checkActiveFields) {
             
-            if(!status.Tourist__r.Active__c) {
-                status.SecondStatus__c = 'Declined';
-                ids.add(status);
+            for (Flight__c b : idsDb) {
+                
+                if(!b.Tourist__r.Active__c) {
+                    b.SecondStatus__c = 'Declined';
+                    modifiedSecondStatus.add(b);
+                }
             }
         }
-        update ids;
+        update modifiedSecondStatus;
     }
 }
