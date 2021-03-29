@@ -1,5 +1,6 @@
 public class TripManager {
-    public static List<Trip__c> getById(List<String> tripId) {
+    public static List<Trip__c> getById(Set<Id> tripId) {
+        
         if (tripId == null || tripId.isEmpty()) {
             return new List<Trip__c>();
         }

@@ -1,8 +1,8 @@
 public class FlightTriggerHandler {
     public static void beforeInsert (List<Flight__c> newFlights) { 
         if (newFlights == null || newFlights.isEmpty()) return;
-        List<String> touristId = new List<String>();
-        List<String> tripId = new List<String>();
+        Set<Id> touristId = new Set<Id>();
+        Set<Id> tripId = new Set<Id>();
         
         for(Flight__c a : newFlights) {
             touristId.add(a.Tourist__c);

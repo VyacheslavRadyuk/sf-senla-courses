@@ -1,6 +1,7 @@
 public class FlightManager {
     
     public static List<Flight__c> getByYear(Integer year){
+        
         if(year == null || year == 0) {
             return new List<Flight__c>();
         }
@@ -25,6 +26,7 @@ public class FlightManager {
     }
     
     public static List<Flight__c> getByTouristsId(List<String> ids) {
+        
         if (ids == null || ids.isEmpty()) {
             return new List<Flight__c>();
         }

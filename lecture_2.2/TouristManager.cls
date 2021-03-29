@@ -1,6 +1,7 @@
 public class TouristManager {
     
     public static List<Tourist__c> getByName(String name){
+        
         if(String.isBlank(name)) {
             return new List<Tourist__c>();
         }
@@ -13,7 +14,8 @@ public class TouristManager {
         return listTourists;   
     }
     
-    public static List<Tourist__c> getByAge(Set<Integer> ages){         
+    public static List<Tourist__c> getByAge(Set<Integer> ages){ 
+        
         if (ages == null || ages.isEmpty()) {
             return new List<Tourist__c>();   
         }
@@ -38,6 +40,7 @@ public class TouristManager {
     }
     
     public static List<Tourist__c> getTourists(List<String> name, List<String> email) {
+        
         if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
             return new List<Tourist__c>();
         }
@@ -62,27 +65,18 @@ public class TouristManager {
         return freeTourist;
     }
     
-    public static List<Tourist__c> getById(List<String> touristId) {
+    public static List<Tourist__c> getById(Set<Id> touristId) {
+        
         if (touristId == null || touristId.isEmpty()) {
             return new List<Tourist__c>();
         }
         List<Tourist__c> status = [
-            SELECT Age__c  
+            SELECT Age__c,
+            Name, 
+            Email__c 
             FROM Tourist__c
             WHERE Id IN :touristId     
         ];
         return status;
-    }
-    
-    public static List<Tourist__c> getByIds(Set<Id> touristId) {
-        if (touristId == null || touristId.isEmpty()) {
-            return new List<Tourist__c>();
-        }
-        List<Tourist__c> newTourists = [
-            SELECT Name, Email__c  
-            FROM Tourist__c
-            WHERE Id IN :touristId     
-        ];
-        return newTourists;
     }
 }
