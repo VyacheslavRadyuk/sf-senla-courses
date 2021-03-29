@@ -12,18 +12,12 @@ public class FlightTriggerHandler {
         
         for(Flight__c a : newFlights) {
             
-            for(Trip__c b : tripDb) {
-                
-                if(b.Start_Date__c < date.today()) {
-                    a.Trip__c.addError('The plane flew away'); 
-                }
-                
-                for(Tourist__c c : touristDb) {
-                    
-                    if(c.Age__c < b.Minimum_Age__c) {
-                        a.Tourist__c.addError('Insufficient age');
-                    }
-                }
+            if(a.Trip__r.Start_Date__c < date.today()) {
+                a.Trip__c.addError('The plane flew away'); 
+            }
+            
+            if(a.Tourist__r.Age__c < a.Trip__r.Minimum_Age__c) {
+                a.Tourist__c.addError('Insufficient age');
             }
         }
     }
