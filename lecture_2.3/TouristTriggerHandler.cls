@@ -1,7 +1,7 @@
 public class TouristTriggerHandler {
     
-    public static void onBeforeInsert(List<Tourist__c> newTourists) {
-        TouristService.markDuplicates(newTourists);
+    public static void onBeforeInsert(List<Tourist__c> newTourists, Set<Id> newIds) {
+        TouristService.markDuplicates(newTourists, newIds);
     }
     
     public static void afterUpdate (List<Tourist__c> checkActiveFields) {

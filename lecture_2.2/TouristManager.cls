@@ -39,7 +39,7 @@ public class TouristManager {
         
     }
     
-    public static List<Tourist__c> getTourists(List<String> name, List<String> email) {
+    public static List<Tourist__c> getTourists(List<String> name, List<String> email, Set<Id> newIds) {
         
         if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
             return new List<Tourist__c>();
@@ -49,7 +49,7 @@ public class TouristManager {
             Email__c, 
             IsDuplicate__c 
             FROM Tourist__c
-            WHERE Name IN :name AND Email__c IN :email AND IsDuplicate__c = false
+            WHERE Name IN :name AND Email__c IN :email AND IsDuplicate__c = false AND Id NOT IN :newIds
         ];
         return (allTourists);
         

@@ -1,5 +1,5 @@
 public class TouristService {
-    public static List<Tourist__c> markDuplicates(List<Tourist__c> newTourists) {    
+    public static List<Tourist__c> markDuplicates(List<Tourist__c> newTourists, Set<Id> newIds) {    
         
         if (newTourists.isEmpty() || newTourists == null) {
             return new List<Tourist__c>();
@@ -14,7 +14,7 @@ public class TouristService {
             for (Tourist__c emails : newTourists ) {
                 emailList.add(emails.Email__c);
             }
-            List<Tourist__c> oldTourists = TouristManager.getTourists(nameList, emailList);
+            List<Tourist__c> oldTourists = TouristManager.getTourists(nameList, emailList , newIds);
             
             for (Tourist__c newTourist : newTourists) {
                 
