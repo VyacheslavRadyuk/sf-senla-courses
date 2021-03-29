@@ -1,5 +1,6 @@
 public class FlightTriggerHandler {
     public static void beforeInsert (List<Flight__c> newFlights) { 
+        if (newFlights == null || newFlights.isEmpty()) return;
         List<String> touristId = new List<String>();
         List<String> tripId = new List<String>();
         
@@ -8,17 +9,23 @@ public class FlightTriggerHandler {
             tripId.add(a.Trip__c);
         }
         List<Trip__c> tripDb = TripManager.getById(tripId);
+        Map<Id,Trip__c> tripMap = new Map<Id,Trip__c> (tripDb);
+        
         List<Tourist__c> touristDb = TouristManager.getById(touristId);
+        Map<Id,Tourist__c> touristMap = new Map<Id,Tourist__c> (touristDb);
         
         for(Flight__c a : newFlights) {
+            Tourist__c tourist = touristMap.get(a.Tourist__c);
+            Trip__c trip = tripMap.get(a.Trip__c);
             
-            if(a.Trip__r.Start_Date__c < date.today()) {
+            if(trip.Start_Date__c < date.today()) {
                 a.Trip__c.addError('The plane flew away'); 
-            }
+            }       
             
-            if(a.Tourist__r.Age__c < a.Trip__r.Minimum_Age__c) {
+            if(tourist.Age__c < trip.Minimum_Age__c) {
                 a.Tourist__c.addError('Insufficient age');
             }
         }
+        
     }
 }
