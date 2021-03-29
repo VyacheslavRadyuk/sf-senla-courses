@@ -1,7 +1,9 @@
 public class TouristService {
     public static List<Tourist__c> markDuplicates(List<Tourist__c> newTourists) {    
         
-        if (!newTourists.isEmpty() && newTourists != null) {
+        if (newTourists.isEmpty() || newTourists == null) {
+            return new List<Tourist__c>();
+        }
             List<String> nameList = new List<String>();
             List<String> emailList = new List<String>();
             
@@ -23,7 +25,6 @@ public class TouristService {
                     } 
                 }
             }   
-        }
         return newTourists;
     }
 }
