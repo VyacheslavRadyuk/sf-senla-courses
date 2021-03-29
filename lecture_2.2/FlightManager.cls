@@ -25,7 +25,7 @@ public class FlightManager {
         return listFlights;  
     }
     
-    public static List<Flight__c> getByTouristsId(List<String> ids) {
+    public static List<Flight__c> getByTouristsId(Set<Id> ids) {
         
         if (ids == null || ids.isEmpty()) {
             return new List<Flight__c>();
@@ -35,7 +35,7 @@ public class FlightManager {
             Tourist__r.Active__c, 
             SecondStatus__c
             FROM flight__c
-            WHERE Tourist__r.id IN :ids
+            WHERE Tourist__r.id IN :ids AND Tourist__r.Active__c = false
         ];
         return status;
     }  
