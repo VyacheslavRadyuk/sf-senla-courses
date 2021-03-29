@@ -73,4 +73,16 @@ public class TouristManager {
         ];
         return status;
     }
+    
+    public static List<Tourist__c> getByIds(Set<Id> touristId) {
+        if (touristId == null || touristId.isEmpty()) {
+            return new List<Tourist__c>();
+        }
+        List<Tourist__c> newTourists = [
+            SELECT Name, Email__c  
+            FROM Tourist__c
+            WHERE Id IN :touristId     
+        ];
+        return newTourists;
+    }
 }
