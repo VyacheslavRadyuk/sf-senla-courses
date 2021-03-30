@@ -29,13 +29,13 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful {
         DataBase.emptyRecycleBin(scope); 
         system.debug(mapTourists);
     }
-    	
+    
     global void finish(Database.BatchableContext BC) {  
         
-        	Email__mdt a = [SELECT Id, 
-                          Email__c
-                          FROM Email__mdt 
-                         ];
+        Email__mdt a = [SELECT Id, 
+                        Email__c
+                        FROM Email__mdt 
+                       ];
         
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
         String[] toAddresses = new String[] {a.Email__c};
