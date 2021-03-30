@@ -1,6 +1,6 @@
 global class Batch implements Database.Batchable<sObject>, Database.Stateful {
-    
-    Integer i = 0;
+    Integer j = 1;
+    Integer i = 1;
     Map<Id, Integer> mapTourists = new Map<Id, Integer>();
     
     global Database.QueryLocator start(Database.BatchableContext bc) { 
@@ -17,26 +17,31 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful {
     
     global void execute(Database.BatchableContext BC, List<Flight__c> scope) {
         
-        for(Flight__c a : scope) {           
-            mapTourists.put(a.Tourist__c, i++);
-        }
-        
+        for(Flight__c a : scope) {
+            
+            if (!mapTourists.containsKey(a.Tourist__c)) {
+                mapTourists.put(a.Tourist__c, i);
+            } else {
+                mapTourists.put(a.Tourist__c, i + j);
+            }
+        }     
         delete scope;   
         DataBase.emptyRecycleBin(scope); 
+        system.debug(mapTourists);
     }
-    
+    	
     global void finish(Database.BatchableContext BC) {  
         
-        Email__mdt a = [SELECT Id, 
-                        Email__c
-                        FROM Email__mdt 
-                       ];
+        	Email__mdt a = [SELECT Id, 
+                          Email__c
+                          FROM Email__mdt 
+                         ];
         
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
         String[] toAddresses = new String[] {a.Email__c};
             mail.setToAddresses(toAddresses);
         mail.setSubject('Batch was completed');
-        mail.setPlainTextBody('Турист: ' + mapTourists.keySet() + 'Количество: ' + mapTourists.values());
+        mail.setPlainTextBody('Туристы и количество отмененных рейсов для каждого из них: ' + mapTourists);
         Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
     }
 }
