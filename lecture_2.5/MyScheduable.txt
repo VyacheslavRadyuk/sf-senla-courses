@@ -1,0 +1,3 @@
+MySchedulable myBatch = new MySchedulable();
+String sch = '0 0 0 * * ?';
+String jobID = system.schedule('My Schedulable', sch, myBatch);
