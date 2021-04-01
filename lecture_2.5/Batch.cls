@@ -1,4 +1,4 @@
-global class Batch implements Database.Batchable<sObject>, Database.Stateful {
+global class Batch implements Database.Batchable<sObject>, Database.Stateful, Database.RaisesPlatformEvents {
     Integer j = 1;
     Integer i = 1;
     Map<Id, Integer> mapTourists = new Map<Id, Integer>();
@@ -11,7 +11,7 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful {
                                         'Tourist__c ' +
                                         'FROM Flight__c ' +
                                         'WHERE SecondStatus__c = \'Declined\' ' +  
-                                        'AND CreatedDate = LAST_N_DAYS:1'
+                                        'AND CreatedDate != LAST_N_DAYS:30'
                                        );
     } 
     
@@ -27,7 +27,6 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful {
         }     
         delete scope;   
         DataBase.emptyRecycleBin(scope); 
-        system.debug(mapTourists);
     }
     
     global void finish(Database.BatchableContext BC) {  
