@@ -35,7 +35,7 @@ public class FlightManager {
             Tourist__r.Active__c, 
             SecondStatus__c
             FROM flight__c
-            WHERE Tourist__r.id IN :ids AND Tourist__r.Active__c = false AND SecondStatus__c != 'Declined'
+            WHERE Tourist__r.id IN :ids
         ];
         return status;
     }  

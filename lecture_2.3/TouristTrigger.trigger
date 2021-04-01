@@ -4,7 +4,7 @@ trigger TouristTrigger on Tourist__c (after insert, after update) {
             AsynchTouristService.markDuplicates(Trigger.newMap.keyset()); 
         }
         when AFTER_UPDATE {
-            TouristTriggerHandler.afterUpdate(Trigger.new);   
+            TouristTriggerHandler.afterUpdate(Trigger.oldMap, Trigger.new);   
         }
     }
 }
