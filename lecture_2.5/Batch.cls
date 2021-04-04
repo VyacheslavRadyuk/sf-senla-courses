@@ -1,6 +1,5 @@
 global class Batch implements Database.Batchable<sObject>, Database.Stateful, Database.RaisesPlatformEvents {
-    Integer j = 1;
-    Integer i = 1;
+    
     Map<Id, Integer> mapTourists = new Map<Id, Integer>();
     
     global Database.QueryLocator start(Database.BatchableContext bc) { 
@@ -18,11 +17,13 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful, Da
     global void execute(Database.BatchableContext BC, List<Flight__c> scope) {
         
         for(Flight__c a : scope) {
+            Integer count = 1;
             
             if (!mapTourists.containsKey(a.Tourist__c)) {
-                mapTourists.put(a.Tourist__c, i);
-            } else {
-                mapTourists.put(a.Tourist__c, i + j);
+                mapTourists.put(a.Tourist__c, count);
+            } else {  
+                count = mapTourists.get(a.Tourist__c) + 1;
+                mapTourists.put(a.Tourist__c, count);
             }
         }     
         delete scope;   
