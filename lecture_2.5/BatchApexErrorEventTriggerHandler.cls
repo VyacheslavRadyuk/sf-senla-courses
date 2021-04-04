@@ -1,6 +1,6 @@
 public class BatchApexErrorEventTriggerHandler {
     
-    public static void logErrors (List<BatchApexErrorEvent> scope) {
+    public static void onAfterInsert (List<BatchApexErrorEvent> scope) {
         Set<Id> asyncApexJobIds = new Set<Id>();
         
         for(BatchApexErrorEvent evt : scope){
