@@ -10,7 +10,7 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful, Da
                                         'Tourist__c ' +
                                         'FROM Flight__c ' +
                                         'WHERE SecondStatus__c = \'Declined\' ' +  
-                                        'AND CreatedDate = LAST_N_DAYS:1'
+                                        'AND CreatedDate != LAST_N_DAYS:30'
                                        );
     } 
     
