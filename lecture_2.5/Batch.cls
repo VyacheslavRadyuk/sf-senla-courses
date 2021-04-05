@@ -10,7 +10,7 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful, Da
                                         'Tourist__c ' +
                                         'FROM Flight__c ' +
                                         'WHERE SecondStatus__c = \'Declined\' ' +  
-                                        'AND CreatedDate != LAST_N_DAYS:30'
+                                        'AND CreatedDate = LAST_N_DAYS:1'
                                        );
     } 
     
@@ -27,7 +27,7 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful, Da
             }
         }     
         delete scope;   
-        DataBase.emptyRecycleBin(scope); 
+        DataBase.emptyRecycleBin(scope);
     }
     
     global void finish(Database.BatchableContext BC) {  
@@ -41,7 +41,14 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful, Da
         String[] toAddresses = new String[] {a.Email__c};
             mail.setToAddresses(toAddresses);
         mail.setSubject('Batch was completed');
-        mail.setPlainTextBody('Туристы и количество отмененных рейсов для каждого из них: ' + mapTourists);
+        String linkToHtml = '';
+        
+        for (Id b : mapTourists.keySet()) {
+            Integer valueById = mapTourists.get(b);
+            linkToHtml += '<a href="' + URL.getSalesforceBaseUrl().toExternalForm() + '/' + b + '">"' 
+                + b + '"</a>' + ' : ' + valueById + '<br>';
+        }
+        mail.setHtmlBody('Туристы и количество отмененных рейсов для каждого из них: ' + '<br>' + linkToHtml);
         Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
     }
 }
