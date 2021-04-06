@@ -1,9 +1,9 @@
 public class BatchApexErrorEventTriggerHandler {
     
-    public static void onAfterInsert(List<BatchApexErrorEvent> scope) {
+    public static void onAfterInsert(List<BatchApexErrorEvent> errorEvents) {
         Set<Id> asyncApexJobIds = new Set<Id>();
         
-        for(BatchApexErrorEvent evt : scope){
+        for(BatchApexErrorEvent evt : errorEvents){
             asyncApexJobIds.add(evt.AsyncApexJobId);
         }   
         Map<Id,AsyncApexJob> jobs = new Map<Id,AsyncApexJob>([
@@ -14,7 +14,7 @@ public class BatchApexErrorEventTriggerHandler {
         ]); 
         List<Error_Log__c> records = new List<Error_Log__c>();
         
-        for(BatchApexErrorEvent evt : scope){
+        for(BatchApexErrorEvent evt : errorEvents){
             
             if(jobs.get(evt.AsyncApexJobId).ApexClass.Name == 'DeleteFlightsBatch'){
                 

@@ -1,3 +1,3 @@
-MySchedulable myBatch = new MySchedulable();
+DeleteFlightsBatchSchedulable myBatch = new DeleteFlightsBatchSchedulable();
 String sch = '0 0 0 * * ?';
-String jobID = system.schedule('My Schedulable', sch, myBatch);
+String jobID = system.schedule('Process Batches at 12 pm', sch, myBatch);

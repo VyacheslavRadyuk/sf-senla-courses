@@ -1,6 +1,6 @@
-global class MySchedulable implements Schedulable {
+global class DeleteFlightsBatchSchedulable implements Schedulable {
     global void execute(SchedulableContext ctx) {
-        Batch myBatch = new Batch();
+        DeleteFlightsBatch myBatch = new DeleteFlightsBatch();
         database.executebatch(myBatch);
     }
 }
