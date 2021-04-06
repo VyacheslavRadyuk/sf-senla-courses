@@ -9,7 +9,7 @@ global class DeleteFlightsBatch implements Database.Batchable<sObject>, Database
                                         'Tourist__c ' +
                                         'FROM Flight__c ' +
                                         'WHERE SecondStatus__c = \'' + Constants.APP_STATUS_ACTIVE + '\'' +  
-                                        'AND CreatedDate = LAST_N_DAYS:' + Constants.LAST_N_DAYS + ''
+                                        'AND CreatedDate != LAST_N_DAYS:' + Constants.LAST_N_DAYS + ''
                                        );
     } 
     
@@ -30,20 +30,6 @@ global class DeleteFlightsBatch implements Database.Batchable<sObject>, Database
     }
     
     global void finish(Database.BatchableContext BC) {   
-        Email__mdt getMail = MetadataManager.getEmail();
-        
-        Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        String[] toAddresses = new String[] {getMail.Email__c};
-            mail.setToAddresses(toAddresses);
-        mail.setSubject(Constants.MAIL_SUBJECT);
-        String linkToHtml = '';
-        
-        for (Id b : mapTourists.keySet()) {
-            Integer valueById = mapTourists.get(b);
-            linkToHtml += '<a href="' + URL.getSalesforceBaseUrl().toExternalForm() + '/' + b + '">"' 
-                + b + '"</a>' + ' : ' + valueById + '<br>';
-        }
-        mail.setHtmlBody(Constants.MAIL_HTML_BODY + ' ' + '<br>' + linkToHtml);
-        Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
+        EmailService.sendEmailMessage(mapTourists);
     }
 }
