@@ -1,16 +1,15 @@
-global class Batch implements Database.Batchable<sObject>, Database.Stateful, Database.RaisesPlatformEvents {
-    
+global class DeleteFlightsBatch implements Database.Batchable<sObject>, Database.Stateful, Database.RaisesPlatformEvents {   
     Map<Id, Integer> mapTourists = new Map<Id, Integer>();
     
     global Database.QueryLocator start(Database.BatchableContext bc) { 
         
-        return Database.getQueryLocator('SELECT id, ' + 
+        return Database.getQueryLocator('SELECT Id, ' + 
                                         'SecondStatus__c, ' + 
                                         'CreatedDate, ' +
                                         'Tourist__c ' +
                                         'FROM Flight__c ' +
-                                        'WHERE SecondStatus__c = \'Declined\' ' +  
-                                        'AND CreatedDate != LAST_N_DAYS:30'
+                                        'WHERE SecondStatus__c = \'Constants.FLIGHT_STATUS_DECLINED\' ' +  
+                                        'AND CreatedDate != LAST_N_DAYS:Constants.LAST_N_DAYS'
                                        );
     } 
     
@@ -32,15 +31,15 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful, Da
     
     global void finish(Database.BatchableContext BC) {  
         
-        Email__mdt a = [SELECT Id, 
+        Email__mdt getMail = [SELECT Id, 
                         Email__c
                         FROM Email__mdt 
                        ];
         
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        String[] toAddresses = new String[] {a.Email__c};
+        String[] toAddresses = new String[] {getMail.Email__c};
             mail.setToAddresses(toAddresses);
-        mail.setSubject('Batch was completed');
+        mail.setSubject(Constants.MAIL_SUBJECT);
         String linkToHtml = '';
         
         for (Id b : mapTourists.keySet()) {
@@ -48,7 +47,7 @@ global class Batch implements Database.Batchable<sObject>, Database.Stateful, Da
             linkToHtml += '<a href="' + URL.getSalesforceBaseUrl().toExternalForm() + '/' + b + '">"' 
                 + b + '"</a>' + ' : ' + valueById + '<br>';
         }
-        mail.setHtmlBody('Туристы и количество отмененных рейсов для каждого из них: ' + '<br>' + linkToHtml);
+        mail.setHtmlBody('Constants.MAIL_HTML_BODY ' + '<br>' + linkToHtml);
         Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });
     }
 }
