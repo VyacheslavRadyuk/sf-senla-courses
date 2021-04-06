@@ -1,4 +1,4 @@
-DeleteFlightsBatchSchedulable myBatch = new DeleteFlightsBatchSchedulable();
+DeleteFlightsSchedulable myBatch = new DeleteFlightsSchedulable();
 String sch1 = '0 0 * * * ?';
 String sch2 = '0 30 * * * ?';
 String jobID1 = system.schedule('Process Batches at Half Hours', sch1, myBatch);
