@@ -6,16 +6,12 @@ public class BatchApexErrorEventTriggerHandler {
         for(BatchApexErrorEvent evt : errorEvents){
             asyncApexJobIds.add(evt.AsyncApexJobId);
         }   
-        Map<Id,AsyncApexJob> jobs = new Map<Id,AsyncApexJob>([
-            SELECT id, 
-            ApexClass.Name 
-            FROM AsyncApexJob 
-            WHERE Id IN :asyncApexJobIds
-        ]); 
+        Map<Id,AsyncApexJob> jobs = new Map<Id,AsyncApexJob>(
+        AsyncApexJobManager.getById(asyncApexJobIds)
+        ); 
         List<Error_Log__c> records = new List<Error_Log__c>();
         
-        for(BatchApexErrorEvent evt : errorEvents){
-            
+        for(BatchApexErrorEvent evt : errorEvents){    
             if(jobs.get(evt.AsyncApexJobId).ApexClass.Name == 'DeleteFlightsBatch'){
                 
                 for (String item : evt.JobScope.split(',')) {
@@ -28,6 +24,6 @@ public class BatchApexErrorEventTriggerHandler {
                 }
             }
         }
-        update records;
+        insert records;
     }
 }
