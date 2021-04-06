@@ -1,6 +1,5 @@
 public class TouristService {
-    public static List<Tourist__c> markDuplicates(List<Tourist__c> newTourists, Set<Id> newIds) {    
-        
+    public static List<Tourist__c> markDuplicates(List<Tourist__c> newTourists, Set<Id> newIds) {           
         if (newTourists.isEmpty() || newTourists == null) {
             return new List<Tourist__c>();
         }
@@ -18,8 +17,7 @@ public class TouristService {
             
             for (Tourist__c newTourist : newTourists) {
                 
-                for (Tourist__c Tourist: oldTourists) {
-                    
+                for (Tourist__c Tourist: oldTourists) {                   
                     if (Tourist.Email__c == newTourist.Email__c && Tourist.Name == newTourist.Name) {
                         newTourist.IsDuplicate__c = true;  
                     } 

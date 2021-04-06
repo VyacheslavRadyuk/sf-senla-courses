@@ -1,7 +1,6 @@
 public class TouristManager {
     
-    public static List<Tourist__c> getByName(String name){
-        
+    public static List<Tourist__c> getByName(String name){       
         if(String.isBlank(name)) {
             return new List<Tourist__c>();
         }
@@ -14,8 +13,7 @@ public class TouristManager {
         return listTourists;   
     }
     
-    public static List<Tourist__c> getByAge(Set<Integer> ages){ 
-        
+    public static List<Tourist__c> getByAge(Set<Integer> ages){         
         if (ages == null || ages.isEmpty()) {
             return new List<Tourist__c>();   
         }
@@ -39,8 +37,7 @@ public class TouristManager {
         
     }
     
-    public static List<Tourist__c> getTourists(List<String> name, List<String> email, Set<Id> newIds) {
-        
+    public static List<Tourist__c> getTourists(List<String> name, List<String> email, Set<Id> newIds) {    
         if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
             return new List<Tourist__c>();
         }
@@ -65,8 +62,7 @@ public class TouristManager {
         return freeTourist;
     }
     
-    public static List<Tourist__c> getById(Set<Id> touristId) {
-        
+    public static List<Tourist__c> getById(Set<Id> touristId) {   
         if (touristId == null || touristId.isEmpty()) {
             return new List<Tourist__c>();
         }
