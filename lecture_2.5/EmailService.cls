@@ -9,10 +9,10 @@ public class EmailService {
         mail.setSubject(Constants.MAIL_SUBJECT);
         String linkToHtml = '';
         
-        for (Id b : mapTourists.keySet()) {
-            Integer valueById = mapTourists.get(b);
-            linkToHtml += '<a href="' + URL.getSalesforceBaseUrl().toExternalForm() + '/' + b + '">"' 
-                + b + '"</a>' + ' : ' + valueById + '<br>';
+        for (Id touristId : mapTourists.keySet()) {
+            Integer valueById = mapTourists.get(touristId);
+            linkToHtml += '<a href="' + URL.getSalesforceBaseUrl().toExternalForm() + '/' + touristId + '">"' 
+                + touristId + '"</a>' + ' : ' + valueById + '<br>';
         }
         mail.setHtmlBody(Constants.MAIL_HTML_BODY + ' ' + '<br>' + linkToHtml);
         Messaging.sendEmail(new Messaging.SingleEmailMessage[] { mail });       

@@ -8,21 +8,21 @@ global class DeleteFlightsBatch implements Database.Batchable<sObject>, Database
                                         'CreatedDate, ' +
                                         'Tourist__c ' +
                                         'FROM Flight__c ' +
-                                        'WHERE SecondStatus__c = \'' + Constants.APP_STATUS_ACTIVE + '\'' +  
-                                        'AND CreatedDate != LAST_N_DAYS:' + Constants.LAST_N_DAYS + ''
+                                        'WHERE SecondStatus__c = \'' + Constants.FLIGHT_STATUS_DECLINED + '\'' +  
+                                        'AND CreatedDate != LAST_N_DAYS:' + Constants.FLIGHT_DELETION_PERIOD + ''
                                        );
     } 
     
     global void execute(Database.BatchableContext BC, List<Flight__c> scope) {
         
-        for(Flight__c a : scope) {
+        for(Flight__c record : scope) {
             Integer count = 1;
             
-            if (!mapTourists.containsKey(a.Tourist__c)) {
-                mapTourists.put(a.Tourist__c, count);
+            if (!mapTourists.containsKey(record.Tourist__c)) {
+                mapTourists.put(record.Tourist__c, count);
             } else {  
-                count = mapTourists.get(a.Tourist__c) + 1;
-                mapTourists.put(a.Tourist__c, count);
+                count = mapTourists.get(record.Tourist__c) + 1;
+                mapTourists.put(record.Tourist__c, count);
             }
         }     
         delete scope;   
