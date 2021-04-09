@@ -1,7 +1,7 @@
 public class TouristTriggerHandler {
     
     public static void onAfterInsert(Set<Id> touristIds) {
-        TouristServiceAsynch.markDuplicatesAsync(touristIds);
+        TouristServiceFuture.markDuplicates(touristIds);
     }
     
     public static void afterUpdate (Map<Id, Tourist__c> oldMap, List<Tourist__c> checkActiveFields) {     
