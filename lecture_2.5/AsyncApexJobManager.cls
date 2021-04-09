@@ -5,7 +5,7 @@ public class AsyncApexJobManager {
             return new List<AsyncApexJob>();   
         }
         List<AsyncApexJob> AsyncApexJobList = [
-            SELECT id, 
+            SELECT Id, 
             ApexClass.Name 
             FROM AsyncApexJob 
             WHERE Id IN :asyncApexJobIds

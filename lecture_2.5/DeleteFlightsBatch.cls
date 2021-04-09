@@ -1,8 +1,7 @@
 global class DeleteFlightsBatch implements Database.Batchable<sObject>, Database.Stateful, Database.RaisesPlatformEvents {   
-    Map<Id, Integer> mapTourists = new Map<Id, Integer>();
+    private Map<Id, Integer> mapTourists = new Map<Id, Integer>();
     
-    global Database.QueryLocator start(Database.BatchableContext bc) { 
-        
+    global Database.QueryLocator start(Database.BatchableContext bc) {    
         return Database.getQueryLocator('SELECT Id, ' + 
                                         'SecondStatus__c, ' + 
                                         'CreatedDate, ' +
@@ -11,25 +10,24 @@ global class DeleteFlightsBatch implements Database.Batchable<sObject>, Database
                                         'WHERE SecondStatus__c = \'' + Constants.FLIGHT_STATUS_DECLINED + '\'' +  
                                         'AND CreatedDate != LAST_N_DAYS:' + Constants.FLIGHT_DELETION_PERIOD + ''
                                        );
-    } 
+    }  
     
-    global void execute(Database.BatchableContext BC, List<Flight__c> scope) {
-        
-        for(Flight__c record : scope) {
+    global void execute(Database.BatchableContext bc, List<Flight__c> flights) {   
+        for(Flight__c flight : flights) {
             Integer count = 1;
             
-            if (!mapTourists.containsKey(record.Tourist__c)) {
-                mapTourists.put(record.Tourist__c, count);
+            if (!mapTourists.containsKey(flight.Tourist__c)) {
+                mapTourists.put(flight.Tourist__c, count);
             } else {  
-                count = mapTourists.get(record.Tourist__c) + 1;
-                mapTourists.put(record.Tourist__c, count);
+                count = mapTourists.get(flight.Tourist__c) + 1;
+                mapTourists.put(flight.Tourist__c, count);
             }
         }     
-        delete scope;   
-        DataBase.emptyRecycleBin(scope);
+        delete flights;   
+        DataBase.emptyRecycleBin(flights);
     }
     
-    global void finish(Database.BatchableContext BC) {   
+    global void finish(Database.BatchableContext bc) {   
         EmailService.sendEmailMessage(mapTourists);
     }
 }

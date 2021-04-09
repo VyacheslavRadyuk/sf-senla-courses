@@ -1,10 +1,10 @@
 public class EmailService {
     
     public static void sendEmailMessage(Map<Id, Integer> mapTourists) {
-        Email__mdt getMail = MetadataManager.getEmail();
+        Email__mdt emailSetting = MetadataManager.getEmail();
         
         Messaging.SingleEmailMessage mail = new Messaging.SingleEmailMessage();
-        List<String> toAddresses = new List<String> {getMail.Email__c};
+        List<String> toAddresses = new List<String> {emailSetting.Email__c};
         mail.setToAddresses(toAddresses);
         mail.setSubject(Constants.MAIL_SUBJECT);
         String linkToHtml = '';

@@ -12,7 +12,7 @@ public class BatchApexErrorEventTriggerHandler {
         List<Error_Log__c> records = new List<Error_Log__c>();
         
         for(BatchApexErrorEvent evt : errorEvents){    
-            if(jobs.get(evt.AsyncApexJobId).ApexClass.Name == 'DeleteFlightsBatch'){
+            if(jobs.get(evt.AsyncApexJobId).ApexClass.Name == DeleteFlightsBatch.class.getName()){
                 
                 for (String item : evt.JobScope.split(',')) {
                     Error_Log__c record = new Error_Log__c(
