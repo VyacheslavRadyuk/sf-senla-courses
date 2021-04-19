@@ -1,10 +1,10 @@
 @RestResource(urlMapping='/Tourist/*')
 global with sharing class TouristRestService {
+
     @HttpGet
     global static void getTourists() {    
         RestRequest touristRequest = RestContext.request;
-        RestResponse response = RestContext.response;
-        
+        RestResponse response = RestContext.response;       
         String touristAgeString = touristRequest.params.get('age');
         String touristName = touristRequest.params.get('name');
         Integer touristAge;
@@ -34,10 +34,8 @@ global with sharing class TouristRestService {
             response.responseBody = Blob.valueOf(errorString);
             response.statusCode = 404;
             return; 
-        }     
-        
-        List<List<sObject>> touristList = TouristManager.getByParams(touristName, touristAge);
-        
+        }         
+        List<List<sObject>> touristList = TouristManager.getByParams(touristName, touristAge);    
         response.statusCode = 200;
         response.responseBody = Blob.valueOf(JSON.serializePretty(touristList));
     }    
