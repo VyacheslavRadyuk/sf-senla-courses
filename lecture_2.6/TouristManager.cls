@@ -84,4 +84,18 @@ public class TouristManager {
         ];
         return touristList;
     }
+    
+    public static List<Tourist__c> getByResponseBody(String name, String email){
+        if(String.isBlank(name) || String.isBlank(email)) {
+            return new List<Tourist__c>();
+        }
+        List<Tourist__c> touristsList = [
+            SELECT Name, 
+            Birthdate__c, 
+            Email__c 
+            FROM Tourist__c
+            WHERE Name = :name AND Email__c = :email
+        ];
+        return touristsList;
+    }
 }

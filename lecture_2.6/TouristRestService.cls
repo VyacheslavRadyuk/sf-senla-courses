@@ -1,6 +1,6 @@
 @RestResource(urlMapping='/Tourist/*')
 global with sharing class TouristRestService {
-
+    
     @HttpGet
     global static void getTourists() {    
         RestRequest touristRequest = RestContext.request;
@@ -38,5 +38,24 @@ global with sharing class TouristRestService {
         List<List<sObject>> touristList = TouristManager.getByParams(touristName, touristAge);    
         response.statusCode = 200;
         response.responseBody = Blob.valueOf(JSON.serializePretty(touristList));
+    } 
+    
+    @HttpPost
+    global static void createTourist(String name, String birthday, String email) {
+        RestResponse response = RestContext.response;
+        Tourist__c thisTourist = new Tourist__c(
+            Name = name,
+            Birthdate__c = date.valueOf(birthday),
+            Email__c = email
+        );
+        List<Tourist__c> touristsList = TouristManager.getByResponseBody(name, email);
+        If (!touristsList.isEmpty()) {
+            String errorMessage = Constants.RESPONSE_BODY_DUPLICATE_RECORD;
+            response.responseBody = Blob.valueOf(errorMessage);
+            response.statusCode = 409;
+            return;   
+        }  
+        insert thisTourist;
+        return;
     }    
 }
