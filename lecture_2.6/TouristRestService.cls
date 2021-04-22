@@ -49,7 +49,8 @@ global with sharing class TouristRestService {
             Email__c = email
         );
         List<Tourist__c> touristsList = TouristManager.getByResponseBody(name, email);
-        If (!touristsList.isEmpty()) {
+        
+        if (!touristsList.isEmpty()) {
             String errorMessage = Constants.RESPONSE_BODY_DUPLICATE_RECORD;
             response.responseBody = Blob.valueOf(errorMessage);
             response.statusCode = 409;

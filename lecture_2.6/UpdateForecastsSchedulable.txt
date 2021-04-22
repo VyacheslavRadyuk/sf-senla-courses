@@ -1,0 +1,3 @@
+UpdateForecastsSchedulable executeSchedule = new UpdateForecastsSchedulable();
+String cron = '0 0 0 * * ?';
+String jobID = system.schedule('Add or remove a weather forecast', cron, executeSchedule);
