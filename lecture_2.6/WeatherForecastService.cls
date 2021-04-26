@@ -1,5 +1,5 @@
 public class WeatherForecastService {
-    public class CustomException extends Exception {}
+    public class WeatherForecastException extends Exception {}
     
     public static  Map<Date, Decimal>  getForecasts(Decimal latitude, Decimal longitude) {   
         String apiKey = Constants.WEATHERBIT_API_KEY;
@@ -17,21 +17,22 @@ public class WeatherForecastService {
         
         try {
             if(response.getStatusCode() != 200) { 
-                throw new CustomException(Constants.WEATHER_FORECAST_SERVICE_CUSTOM_EXCEPTION_ERROR);
+                throw new WeatherForecastException(Constants.WEATHER_FORECAST_SERVICE_CUSTOM_EXCEPTION_ERROR);
+            } else {    
+                if (response.getStatusCode() == 200) {
+                    Map<String, Object> meta = (Map<String, Object>) JSON.deserializeUntyped(response.getBody()); 
+                    List<Object> myMapObjects = (List<Object>) meta.get('data');
+                    
+                    for (Integer i = 0; i < myMapObjects.size(); i++) {
+                        Map<String, Object> temporaryMap = (Map<String, Object>)myMapObjects[i]; 
+                        dataMap.put(Date.valueOf(String.valueOf(temporaryMap.get('datetime'))), (Decimal)(temporaryMap.get('temp')));                     
+                    }     
+                }
             }
-        } catch (CustomException ex) {
-            System.debug(ex.getMessage());
+        } catch (WeatherForecastException ex) {
+            throw ex;
         }
-           
-        if (response.getStatusCode() == 200) {
-            Map<String, Object> meta = (Map<String, Object>) JSON.deserializeUntyped(response.getBody()); 
-            List<Object> myMapObjects = (List<Object>) meta.get('data');
-                  
-            for (Integer i = 0; i < myMapObjects.size(); i++) {
-                Map<String, Object> temporaryMap = (Map<String, Object>)myMapObjects[i]; 
-                dataMap.put(Date.valueOf(String.valueOf(temporaryMap.get('datetime'))), (Decimal)(temporaryMap.get('temp')));                     
-            }     
-        }
+        system.debug(dataMap);
         return dataMap;
     }                         
 }
