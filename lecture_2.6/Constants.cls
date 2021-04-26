@@ -9,4 +9,5 @@ public class Constants {
     public static final String WEATHERBIT_API_KEY = 'e522f7f77d114325939fa1492206cb01';
     public static final String WEATHERBIT_END_POINT = 'https://api.weatherbit.io/v2.0/forecast/daily';
     public static final String WEATHER_FORECAST_SERVICE_CUSTOM_EXCEPTION_ERROR = 'An error occurred in the callout process, or the responsive returned with an error!!!';
+    public static final String HTTP_METHOD_GET = 'GET';
 }

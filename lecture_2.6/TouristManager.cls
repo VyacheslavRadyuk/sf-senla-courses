@@ -75,12 +75,13 @@ public class TouristManager {
         return status;
     }
     
-    public static List<List<Tourist__c>> getByParams(String name, Integer age) {
-        if (String.isBlank(name) || age == null) {
+    public static List<List<Tourist__c>> getByParams(String name, String age) {
+        if (String.isBlank(name) || String.isBlank(age)) {
             return new List<List<Tourist__c>>();
         }
+        Integer touristAge = Integer.valueOf(age);
         List<List<Tourist__c>> touristList = [
-            FIND :name IN Name FIELDS RETURNING Tourist__c(Id, Name, Age__c WHERE Age__c = :age)
+            FIND :name IN Name FIELDS RETURNING Tourist__c(Id, Name, Age__c WHERE Age__c = :touristAge)
         ];
         return touristList;
     }

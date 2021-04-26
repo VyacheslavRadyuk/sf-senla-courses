@@ -11,7 +11,7 @@ public class WeatherForecastService {
         Http http = new Http();
         HttpRequest request = new HttpRequest();
         request.setEndpoint(requestEndPoint);
-        request.setMethod('GET');
+        request.setMethod(Constants.HTTP_METHOD_GET);
         HTTPResponse response = http.send(request);
         Map<Date, Decimal> dataMap = new Map<Date, Decimal>();
         
