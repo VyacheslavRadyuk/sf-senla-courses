@@ -11,24 +11,25 @@ global with sharing class TouristRestService {
         
         if (String.isEmpty(touristName) || String.isEmpty(touristAgeString) || !touristAgeString.isNumeric()) {
             if (String.isEmpty(touristName)) {
-                String errorString = constants.RESPONSE_BODY_EMPTY_NAME;
+                String errorString = Constants.RESPONSE_BODY_EMPTY_NAME;
                 response.responseBody = Blob.valueOf(errorString);
                 response.statusCode = 404;
             } else if (String.isEmpty(touristAgeString)) {
-                List<Tourist__c> touristList = TouristManager.getByName(touristName);
-                response.responseBody = Blob.valueOf(JSON.serializePretty(touristList));  
+                List<sObject> tourists = TouristManager.getByNameSosl(touristName);
+                response.responseBody = Blob.valueOf(JSON.serializePretty(tourists));
+                response.statusCode = 200;
             } else if (!touristAgeString.isNumeric()) {
-                String errorString = constants.RESPONSE_NOT_INTEGER_TYPE_AGE; 
+                String errorString = Constants.RESPONSE_NOT_INTEGER_TYPE_AGE; 
                 response.responseBody = Blob.valueOf(errorString);
                 response.statusCode = 404;
             }
             return;
         }
-            touristAge = Integer.valueOf(touristAgeString);
-            List<List<sObject>> touristList = TouristManager.getByParams(touristName, touristAge);    
-            response.statusCode = 200;
-            response.responseBody = Blob.valueOf(JSON.serializePretty(touristList));
-            } 
+        touristAge = Integer.valueOf(touristAgeString);
+        List<sObject> tourists = TouristManager.getByParams(touristName, touristAge);    
+        response.statusCode = 200;
+        response.responseBody = Blob.valueOf(JSON.serializePretty(tourists));
+    } 
     
     @HttpPost
     global static void createTourist(String name, String birthday, String email) {
@@ -38,9 +39,9 @@ global with sharing class TouristRestService {
             Birthdate__c = Date.valueOf(birthday),
             Email__c = email
         );
-        List<Tourist__c> touristsList = TouristManager.getByResponseBody(name, email);
+        List<Tourist__c> tourists = TouristManager.getByResponseBody(name, email);
         
-        if (!touristsList.isEmpty()) {
+        if (!tourists.isEmpty()) {
             String errorMessage = Constants.RESPONSE_BODY_DUPLICATE_RECORD;
             response.responseBody = Blob.valueOf(errorMessage);
             response.statusCode = 409;
