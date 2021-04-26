@@ -22,13 +22,13 @@ global with sharing class TouristRestService {
                 String errorString = Constants.RESPONSE_NOT_INTEGER_TYPE_AGE; 
                 response.responseBody = Blob.valueOf(errorString);
                 response.statusCode = 404;
-            }
-            return;
-        }
-        touristByAge = Integer.valueOf(touristByAgeString);
-        List<Tourist__c> tourists = TouristManager.getByParams(touristByName, touristByAge);    
-        response.statusCode = 200;
-        response.responseBody = Blob.valueOf(JSON.serializePretty(tourists));
+            }           
+        } else {
+            touristByAge = Integer.valueOf(touristByAgeString);
+            List<Tourist__c> tourists = TouristManager.getByParams(touristByName, touristByAge);    
+            response.statusCode = 200;
+            response.responseBody = Blob.valueOf(JSON.serializePretty(tourists));
+        }  
     } 
     
     @HttpPost
@@ -39,15 +39,14 @@ global with sharing class TouristRestService {
             Birthdate__c = Date.valueOf(birthday),
             Email__c = email
         );
-        List<Tourist__c> tourists = TouristManager.getByResponseBody(name, email);
+        List<Tourist__c> matchingTourists = TouristManager.getByResponseBody(name, email);
         
-        if (!tourists.isEmpty()) {
+        if (!matchingTourists.isEmpty()) {
             String errorMessage = Constants.RESPONSE_BODY_DUPLICATE_RECORD;
             response.responseBody = Blob.valueOf(errorMessage);
-            response.statusCode = 409;
-            return;   
-        }  
-        insert newTourist;
-        return;
+            response.statusCode = 409;   
+        } else {
+            insert newTourist;
+        }    
     }    
 }
