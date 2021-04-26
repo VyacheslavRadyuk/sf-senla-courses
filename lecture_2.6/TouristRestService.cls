@@ -7,6 +7,7 @@ global with sharing class TouristRestService {
         RestResponse response = RestContext.response;       
         String touristAgeString = touristRequest.params.get('age');
         String touristName = touristRequest.params.get('name');
+        Integer touristAge;
         
         if (String.isEmpty(touristName) || String.isEmpty(touristAgeString) || !touristAgeString.isNumeric()) {
             if (String.isEmpty(touristName)) {
@@ -22,8 +23,9 @@ global with sharing class TouristRestService {
                 response.statusCode = 404;
             }
             return;
-        }                           
-            List<List<sObject>> touristList = TouristManager.getByParams(touristName, touristAgeString);    
+        }
+            touristAge = Integer.valueOf(touristAgeString);
+            List<List<sObject>> touristList = TouristManager.getByParams(touristName, touristAge);    
             response.statusCode = 200;
             response.responseBody = Blob.valueOf(JSON.serializePretty(touristList));
             } 
