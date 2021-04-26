@@ -45,7 +45,7 @@ global with sharing class TouristRestService {
         RestResponse response = RestContext.response;
         Tourist__c thisTourist = new Tourist__c(
             Name = name,
-            Birthdate__c = date.valueOf(birthday),
+            Birthdate__c = Date.valueOf(birthday),
             Email__c = email
         );
         List<Tourist__c> touristsList = TouristManager.getByResponseBody(name, email);

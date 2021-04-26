@@ -6,12 +6,12 @@ public class WeatherForecastUpdater {
         List<Weather_Daily_Forecast__c> dailyForecasts = new List<Weather_Daily_Forecast__c>();
         
         for (Space_Point__c spacePoint : listSpacePoint) {
-            Map<Date, Decimal> myMap = WeatherForecastService.getForecasts(spacePoint.Latitude__c, spacePoint.Longitude__c);
+            Map<Date, Decimal> mapByCoordinates = WeatherForecastService.getForecasts(spacePoint.Latitude__c, spacePoint.Longitude__c);
             
-            for (Date a : myMap.keyset()) {
+            for (Date mapId : mapByCoordinates.keyset()) {
                 Weather_Daily_Forecast__c dailyForecast = new Weather_Daily_Forecast__c();
-                dailyForecast.Date__c = date.valueOf(a);
-                dailyForecast.Average_Temperature__c = myMap.get(a);
+                dailyForecast.Date__c = Date.valueOf(mapId);
+                dailyForecast.Average_Temperature__c = mapByCoordinates.get(mapId);
                 dailyForecast.Space_Point__c = spacePoint.Id;
                 dailyForecast.Name = spacePoint.City__c;
                 dailyForecasts.add(dailyForecast);

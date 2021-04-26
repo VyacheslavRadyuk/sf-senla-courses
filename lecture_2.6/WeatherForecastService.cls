@@ -13,7 +13,7 @@ public class WeatherForecastService {
         request.setEndpoint(requestEndPoint);
         request.setMethod('GET');
         HTTPResponse response = http.send(request);
-        Map<Date, Decimal> newMap = new Map<Date, Decimal>();
+        Map<Date, Decimal> dataMap = new Map<Date, Decimal>();
         
         try {
             if(response.getStatusCode() != 200) { 
@@ -28,10 +28,10 @@ public class WeatherForecastService {
             List<Object> myMapObjects = (List<Object>) meta.get('data');
                   
             for (Integer i = 0; i < myMapObjects.size(); i++) {
-                Map<String, Object> a2 = (Map<String, Object>)myMapObjects[i]; 
-                newMap.put(date.valueOf(string.valueOf(a2.get('datetime'))), (decimal)(a2.get('temp')));                     
+                Map<String, Object> temporaryMap = (Map<String, Object>)myMapObjects[i]; 
+                dataMap.put(Date.valueOf(String.valueOf(temporaryMap.get('datetime'))), (Decimal)(temporaryMap.get('temp')));                     
             }     
         }
-        return newMap;
+        return dataMap;
     }                         
 }
