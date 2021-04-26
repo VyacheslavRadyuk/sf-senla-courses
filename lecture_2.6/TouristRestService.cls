@@ -5,28 +5,28 @@ global with sharing class TouristRestService {
     global static void getTourists() {    
         RestRequest touristRequest = RestContext.request;
         RestResponse response = RestContext.response;       
-        String touristAgeString = touristRequest.params.get('age');
-        String touristName = touristRequest.params.get('name');
-        Integer touristAge;
+        String touristByAgeString = touristRequest.params.get('age');
+        String touristByName = touristRequest.params.get('name');
+        Integer touristByAge;
         
-        if (String.isEmpty(touristName) || String.isEmpty(touristAgeString) || !touristAgeString.isNumeric()) {
-            if (String.isEmpty(touristName)) {
+        if (String.isEmpty(touristByName) || String.isEmpty(touristByAgeString) || !touristByAgeString.isNumeric()) {
+            if (String.isEmpty(touristByName)) {
                 String errorString = Constants.RESPONSE_BODY_EMPTY_NAME;
                 response.responseBody = Blob.valueOf(errorString);
                 response.statusCode = 404;
-            } else if (String.isEmpty(touristAgeString)) {
-                List<sObject> tourists = TouristManager.getByNameSosl(touristName);
+            } else if (String.isEmpty(touristByAgeString)) {
+                List<Tourist__c> tourists = TouristManager.getByNameSosl(touristByName);
                 response.responseBody = Blob.valueOf(JSON.serializePretty(tourists));
                 response.statusCode = 200;
-            } else if (!touristAgeString.isNumeric()) {
+            } else if (!touristByAgeString.isNumeric()) {
                 String errorString = Constants.RESPONSE_NOT_INTEGER_TYPE_AGE; 
                 response.responseBody = Blob.valueOf(errorString);
                 response.statusCode = 404;
             }
             return;
         }
-        touristAge = Integer.valueOf(touristAgeString);
-        List<sObject> tourists = TouristManager.getByParams(touristName, touristAge);    
+        touristByAge = Integer.valueOf(touristByAgeString);
+        List<Tourist__c> tourists = TouristManager.getByParams(touristByName, touristByAge);    
         response.statusCode = 200;
         response.responseBody = Blob.valueOf(JSON.serializePretty(tourists));
     } 
