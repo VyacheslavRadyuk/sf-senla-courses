@@ -2,7 +2,7 @@ public class WeatherForecastService {
     public class WeatherForecastException extends Exception {}
     
     public static  Map<Date, Decimal>  getForecasts(Decimal latitude, Decimal longitude) {      
-        String template = '{0}?lat={1}&lon={2}&key={3}';
+        String template = Constants.URL_TEMPLATE_WEATHERBIT_REMOTE_SITE;
         List<Object> parameters = new List<Object> {Constants.WEATHERBIT_END_POINT, latitude, longitude, Constants.WEATHERBIT_API_KEY};
         String url = String.format(template, parameters);
         
@@ -14,7 +14,7 @@ public class WeatherForecastService {
         Map<Date, Decimal> dataMap = new Map<Date, Decimal>();
         
         try {
-            if(response.getStatusCode() != 200) { 
+            if(response.getStatusCode() != Constants.RESPONSE_STATUS_CODE_200) { 
                 throw new WeatherForecastException(Constants.WEATHER_FORECAST_SERVICE_CUSTOM_EXCEPTION_ERROR);
             } else {    
                 Map<String, Object> meta = (Map<String, Object>) JSON.deserializeUntyped(response.getBody()); 

@@ -15,20 +15,20 @@ global with sharing class TouristRestService {
             if (String.isEmpty(touristByName)) {
                 String errorString = Constants.RESPONSE_BODY_EMPTY_NAME;
                 response.responseBody = Blob.valueOf(errorString);
-                response.statusCode = 404;
+                response.statusCode = Constants.RESPONSE_STATUS_CODE_404;
             } else if (String.isEmpty(touristByAgeString)) {
                 List<Tourist__c> tourists = TouristManager.getByNameSosl(touristByName);
                 response.responseBody = Blob.valueOf(JSON.serializePretty(tourists));
-                response.statusCode = 200;
+                response.statusCode = Constants.RESPONSE_STATUS_CODE_200;
             } else if (!touristByAgeString.isNumeric()) {
                 String errorString = Constants.RESPONSE_NOT_INTEGER_TYPE_AGE; 
                 response.responseBody = Blob.valueOf(errorString);
-                response.statusCode = 404;
+                response.statusCode = Constants.RESPONSE_STATUS_CODE_404;
             }           
         } else {
             touristByAge = Integer.valueOf(touristByAgeString);
             List<Tourist__c> tourists = TouristManager.getByParams(touristByName, touristByAge);    
-            response.statusCode = 200;
+            response.statusCode = Constants.RESPONSE_STATUS_CODE_200;
             response.responseBody = Blob.valueOf(JSON.serializePretty(tourists));
         }  
     } 
@@ -46,7 +46,7 @@ global with sharing class TouristRestService {
         if (!matchingTourists.isEmpty()) {
             String errorMessage = Constants.RESPONSE_BODY_DUPLICATE_RECORD;
             response.responseBody = Blob.valueOf(errorMessage);
-            response.statusCode = 409;   
+            response.statusCode = Constants.RESPONSE_STATUS_CODE_409;   
         } else {
             insert newTourist;
         }    
