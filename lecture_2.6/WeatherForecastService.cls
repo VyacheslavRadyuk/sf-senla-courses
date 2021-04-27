@@ -1,7 +1,7 @@
 public class WeatherForecastService {
     public class WeatherForecastException extends Exception {}
     
-    public static  Map<Date, Decimal>  getForecasts(Decimal latitude, Decimal longitude) {         
+    public static  Map<Date, Decimal>  getForecasts(Decimal latitude, Decimal longitude) {      
         String template = '{0}?lat={1}&lon={2}&key={3}';
         List<Object> parameters = new List<Object> {Constants.WEATHERBIT_END_POINT, latitude, longitude, Constants.WEATHERBIT_API_KEY};
         String url = String.format(template, parameters);
