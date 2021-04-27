@@ -1,16 +1,14 @@
 public class WeatherForecastService {
     public class WeatherForecastException extends Exception {}
     
-    public static  Map<Date, Decimal>  getForecasts(Decimal latitude, Decimal longitude) {   
-        String apiKey = Constants.WEATHERBIT_API_KEY;
-        String requestEndPoint = Constants.WEATHERBIT_END_POINT;
-        requestEndPoint += '?lat=' + latitude;
-        requestEndPoint += '&lon=' + longitude;
-        requestEndPoint += '&key=' + apiKey;
+    public static  Map<Date, Decimal>  getForecasts(Decimal latitude, Decimal longitude) {         
+        String template = '{0}?lat={1}&lon={2}&key={3}';
+        List<Object> parameters = new List<Object> {Constants.WEATHERBIT_END_POINT, latitude, longitude, Constants.WEATHERBIT_API_KEY};
+        String url = String.format(template, parameters);
         
         Http http = new Http();
         HttpRequest request = new HttpRequest();
-        request.setEndpoint(requestEndPoint);
+        request.setEndpoint(url);
         request.setMethod(Constants.HTTP_METHOD_GET);
         HTTPResponse response = http.send(request);
         Map<Date, Decimal> dataMap = new Map<Date, Decimal>();
@@ -30,7 +28,6 @@ public class WeatherForecastService {
         } catch (WeatherForecastException ex) {
             throw ex;
         }
-        system.debug(dataMap);
         return dataMap;
     }                         
 }

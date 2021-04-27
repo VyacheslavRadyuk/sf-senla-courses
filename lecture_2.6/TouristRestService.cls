@@ -1,12 +1,14 @@
 @RestResource(urlMapping='/Tourist/*')
 global with sharing class TouristRestService {
+    private static final String REQUEST_PARAM_AGE = 'age';
+    private static final String REQUEST_PARAM_NAME = 'name';
     
     @HttpGet
     global static void getTourists() {    
         RestRequest touristRequest = RestContext.request;
         RestResponse response = RestContext.response;       
-        String touristByAgeString = touristRequest.params.get('age');
-        String touristByName = touristRequest.params.get('name');
+        String touristByAgeString = touristRequest.params.get(REQUEST_PARAM_AGE);
+        String touristByName = touristRequest.params.get(REQUEST_PARAM_NAME);
         Integer touristByAge;
         
         if (String.isEmpty(touristByName) || String.isEmpty(touristByAgeString) || !touristByAgeString.isNumeric()) {
