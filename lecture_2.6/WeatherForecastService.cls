@@ -15,7 +15,7 @@ public class WeatherForecastService {
         
         try {
             if(response.getStatusCode() != Constants.RESPONSE_STATUS_CODE_200) { 
-                throw new WeatherForecastException(Constants.WEATHER_FORECAST_SERVICE_CUSTOM_EXCEPTION_ERROR);
+                throw new WeatherForecastException(Constants.WEATHER_FORECAST_CUSTOM_EXCEPTION_ERROR);
             } else {    
                 Map<String, Object> meta = (Map<String, Object>) JSON.deserializeUntyped(response.getBody()); 
                 List<Object> myMapObjects = (List<Object>) meta.get('data');
