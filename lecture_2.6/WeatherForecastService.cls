@@ -3,7 +3,7 @@ public class WeatherForecastService {
     
     public static  Map<Date, Decimal>  getForecasts(Decimal latitude, Decimal longitude) {      
         String template = Constants.URL_TEMPLATE_WEATHERBIT_REMOTE_SITE;
-        List<Object> parameters = new List<Object> {Constants.WEATHERBIT_END_POINT, latitude, longitude, Constants.WEATHERBIT_API_KEY};
+        List<Object> parameters = new List<Object> {Constants.WEATHERBIT_NAMED_CREDENTIAL_END_POINT, latitude, longitude, Constants.WEATHERBIT_API_KEY};
         String url = String.format(template, parameters);
         
         Http http = new Http();

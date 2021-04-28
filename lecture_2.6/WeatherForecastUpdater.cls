@@ -18,7 +18,7 @@ public class WeatherForecastUpdater {
                     dailyForecasts.add(dailyForecast);
                 }      
             } catch (Exception ex) {
-                System.debug(LoggingLevel.ERROR, Constants.WEATHER_FORECAST_CUSTOM_EXCEPTION_ERROR);  
+                System.debug(LoggingLevel.ERROR, ex.getMessage());  
             }
         }
         List<Weather_Daily_Forecast__c> weatherList = WeatherDailyForecastManager.getByNotEmptySpacePoint();
