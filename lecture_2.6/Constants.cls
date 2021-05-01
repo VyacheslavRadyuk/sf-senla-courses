@@ -5,6 +5,7 @@ public class Constants {
     public static final Integer FLIGHT_DELETION_PERIOD = 30;
     public static final String RESPONSE_BODY_EMPTY_NAME = 'The name must be not empty';
     public static final String RESPONSE_NOT_INTEGER_TYPE_AGE = 'The age must be a number';
+    public static final String RESPONSE_BODY_INTERNAL_SERVER_ERROR = 'Internal server Error';
     public static final String RESPONSE_BODY_DUPLICATE_RECORD = 'This tourist is already in the database';
     public static final String WEATHERBIT_API_KEY = 'e522f7f77d114325939fa1492206cb01';
     public static final String WEATHERBIT_NAMED_CREDENTIAL_END_POINT = 'callout:Weatherbit_Endpoint';
@@ -14,4 +15,5 @@ public class Constants {
     public static final Integer RESPONSE_STATUS_CODE_200 = 200;
     public static final Integer RESPONSE_STATUS_CODE_404 = 404;
     public static final Integer RESPONSE_STATUS_CODE_409 = 409;
+    public static final Integer RESPONSE_STATUS_CODE_500 = 500;
 }
