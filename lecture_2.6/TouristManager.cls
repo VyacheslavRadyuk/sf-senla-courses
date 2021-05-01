@@ -79,30 +79,20 @@ public class TouristManager {
         if (String.isBlank(name) || age == null) {
             return new List<Tourist__c>();
         }
-        Search.SearchResults searchResults = Search.find('FIND :name IN Name FIELDS RETURNING Tourist__c(Id, Name, Age__c WHERE Age__c = :age)');
-        List<Search.SearchResult> articlelist = searchResults.get('Tourist__c');
-        List<Tourist__c> touristList = new List<Tourist__c>();
-        
-        for (Search.SearchResult searchResult : articleList) { 
-            Tourist__c article = (Tourist__c) searchResult.getSObject();
-            touristList.add(article);
-        }
-        return touristList;
+        List<List<Tourist__c>> touristList = [
+            FIND :name IN Name FIELDS RETURNING Tourist__c(Id, Name, Age__c WHERE Age__c = :age)
+        ];
+        return touristList[0];
     }
     
     public static List<Tourist__c> getByNameSosl(String name) {
         if (String.isBlank(name)) {
             return new List<Tourist__c>();
         }
-        Search.SearchResults searchResults = Search.find('FIND :name IN Name FIELDS RETURNING Tourist__c(Id, Name, Age__c)');
-        List<Search.SearchResult> articlelist = searchResults.get('Tourist__c');
-        List<Tourist__c> touristList = new List<Tourist__c>();
-        
-        for (Search.SearchResult searchResult : articleList) { 
-            Tourist__c article = (Tourist__c) searchResult.getSObject();
-            touristList.add(article);
-        }
-        return touristList; 
+        List<List<Tourist__c>> touristList = [
+            FIND :name IN Name FIELDS RETURNING Tourist__c(Id, Name, Age__c)
+        ];
+        return touristList[0];
     }
     
     public static List<Tourist__c> getByResponseBody(String name, String email){

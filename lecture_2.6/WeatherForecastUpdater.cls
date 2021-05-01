@@ -9,20 +9,20 @@ public class WeatherForecastUpdater {
             try{
                 Map<Date, Decimal> forecastByCoordinates = WeatherForecastService.getForecasts(spacePoint.Latitude__c, spacePoint.Longitude__c);
                 
-                for (Date forecastId : forecastByCoordinates.keyset()) {
+                for (Date forecast : forecastByCoordinates.keyset()) {
                     Weather_Daily_Forecast__c dailyForecast = new Weather_Daily_Forecast__c();
-                    dailyForecast.Date__c = Date.valueOf(forecastId);
-                    dailyForecast.Average_Temperature__c = forecastByCoordinates.get(forecastId);
+                    dailyForecast.Date__c = Date.valueOf(forecast);
+                    dailyForecast.Average_Temperature__c = forecastByCoordinates.get(forecast);
                     dailyForecast.Space_Point__c = spacePoint.Id;
                     dailyForecast.Name = spacePoint.City__c;
                     dailyForecasts.add(dailyForecast);
                 }      
-            } catch (Exception ex) {
+            } catch (WeatherForecastService.WeatherForecastException ex) {
                 System.debug(LoggingLevel.ERROR, ex.getMessage());  
             }
         }
-        List<Weather_Daily_Forecast__c> weatherList = WeatherDailyForecastManager.getByNotEmptySpacePoint();
-        delete weatherList;
+        List<Weather_Daily_Forecast__c> oldDailyForecasts = WeatherDailyForecastManager.getByNotEmptySpacePoint();
+        delete oldDailyForecasts;
         insert dailyForecasts;
     }
 }

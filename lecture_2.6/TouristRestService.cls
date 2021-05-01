@@ -31,6 +31,7 @@ global with sharing class TouristRestService {
         if (!matchingTourists.isEmpty()) {
             TouristRestService.createTouristValidationTrue();  
         } else {
+            response.statusCode = Constants.RESPONSE_STATUS_CODE_200;
             insert newTourist;
         }    
     }
