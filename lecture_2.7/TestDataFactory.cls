@@ -20,8 +20,8 @@ public class TestDataFactory {
     
     public static List<Trip__c> createTrips() {
         List<Trip__c> tripsToInsert = new List<Trip__c> {
-            new Trip__c(Name = 'Minsk', Start_Date__c = date.newInstance(2021,03,03)),
-            new Trip__c(Name = 'Moskow',Start_Date__c = date.newInstance(2021,03,03))    
+            new Trip__c(Name = 'Minsk', Start_Date__c = date.newInstance(2021,07,07)),
+            new Trip__c(Name = 'Moskow',Start_Date__c = date.newInstance(2021,07,07))    
         };
         insert tripsToInsert;
         return tripsToInsert;
@@ -37,9 +37,11 @@ public class TestDataFactory {
     }
          
     public static List<Flight__c> createFlights() {
+        List<Trip__c> tripsToInsert = createTrips();
+        List<Tourist__c> touristToInsert = createTourists();
         List<Flight__c> flightsToInsert = new List<Flight__c> {
-            new Flight__c(Name = '777', Tourist__c = createTourists().get(0).Id, Trip__c = createTrips().get(0).Id),
-            new Flight__c(Name = '888', Tourist__c = createTourists().get(0).Id, Trip__c = createTrips().get(0).Id)   
+            new Flight__c(Name = '777', Tourist__c = touristToInsert.get(0).Id, Trip__c = tripsToInsert.get(0).Id),
+            new Flight__c(Name = '888', Tourist__c = touristToInsert.get(0).Id, Trip__c = tripsToInsert.get(0).Id)   
         };
         insert flightsToInsert;
         return flightsToInsert;
