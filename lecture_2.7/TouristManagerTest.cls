@@ -1,5 +1,8 @@
 @IsTest
 private class TouristManagerTest {
+    private static final Integer AGE_PARTICULAR_TOURIST = 21;
+    private static final String NAME_FIRST_NEW_TOURIST = 'Ivan';
+    private static final String NAME_SECOND_NEW_TOURIST = 'Ivanovich';
     
     @IsTest
     static void testGetByName() {
@@ -13,7 +16,7 @@ private class TouristManagerTest {
     static void testGetByAge() {
         List<Tourist__c> touristsToInsert = TestDataFactory.createTourists();
         Set<Integer> ages = new Set<Integer>();
-        ages.add(21);
+        ages.add(AGE_PARTICULAR_TOURIST);
         List<Tourist__c> touristsFromDb = TouristManager.getByAge(ages);
         List<Tourist__c> touristsFromDbNull = TouristManager.getByAge(null);
         System.assertEquals(2, touristsFromDb.size());
@@ -34,8 +37,8 @@ private class TouristManagerTest {
     static void testGetTourists(){
         List<Tourist__c> touristsToInsert = TestDataFactory.createTourists();
         List<Tourist__c> newTouristToInsert = new List<Tourist__c> {
-            new Tourist__c(Name = 'Ivan', birthdate__c = date.newInstance(2000,03,03)),
-            new Tourist__c(Name = 'Ivanovich', birthdate__c = date.newInstance(2000,03,03))    
+            new Tourist__c(Name = NAME_FIRST_NEW_TOURIST, birthdate__c = date.newInstance(2000,03,03)),
+            new Tourist__c(Name = NAME_SECOND_NEW_TOURIST, birthdate__c = date.newInstance(2000,03,03))    
         };
         insert newTouristToInsert;
         List<String> oldNames = new List<String>();
@@ -84,7 +87,7 @@ private class TouristManagerTest {
     static void testGetByParams() {
         List<Tourist__c> touristsToInsert = TestDataFactory.createTourists();
         String touristName = touristsToInsert.get(0).Name;
-        Integer touristAge = 21;
+        Integer touristAge = AGE_PARTICULAR_TOURIST;
         Id [] fixedSearchResults = new Id[1];
         fixedSearchResults[0] = touristsToInsert[0].Id;
         System.Test.setFixedSearchResults(fixedSearchResults);
