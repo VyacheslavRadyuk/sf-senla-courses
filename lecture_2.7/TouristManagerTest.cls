@@ -57,7 +57,7 @@ private class TouristManagerTest {
         List<Tourist__c> touristsFromDbNull = TouristManager.getTourists(null, null, null);
         System.assertEquals(2, touristsFromDb.size());
         System.assertEquals(0, touristsFromDbNull.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
+        System.assertEquals(touristsToInsert.get(1).Id, touristsFromDb.get(0).Id);
     }
     
     @IsTest
