@@ -1,7 +1,7 @@
 @RestResource(urlMapping='/Tourist/*')
 global with sharing class TouristRestService {
     private static final String REQUEST_PARAM_AGE = 'age';
-    private static final String REQUEST_PARAM_NAME = 'name';
+    private static final String REQUEST_PARAM_NAME = 'fuzzyname';
     
     @HttpGet
     global static void getTourists() {    
