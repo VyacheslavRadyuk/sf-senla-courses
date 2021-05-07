@@ -1,5 +1,16 @@
 public class TouristManager {
     
+    public static List<Tourist__c> getAllTourists(){
+        List<Tourist__c > listTourists = [
+            SELECT Id,
+            Name, 
+            Age__c,
+            Email__c
+            FROM Tourist__c 
+        ];
+        return (listTourists);
+    }
+    
     public static List<Tourist__c> getByName(String name){
         if(String.isBlank(name)) {
             return new List<Tourist__c>();
@@ -33,12 +44,11 @@ public class TouristManager {
             FROM Tourist__c 
             WHERE Upcoming_Flights_Count__c = :count
         ];
-        return (listTourists);
-        
+        return (listTourists);        
     }
     
     public static List<Tourist__c> getTourists(List<String> name, List<String> email, Set<Id> newIds) {  
-        if (name == null || name.isEmpty() || email == null || email.isEmpty()) {
+        if (name == null || name.isEmpty() || email == null || email.isEmpty() || newIds == null || newIds.isEmpty()) {
             return new List<Tourist__c>();
         }
         List<Tourist__c> allTourists = [
