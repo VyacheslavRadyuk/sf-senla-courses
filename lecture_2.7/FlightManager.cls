@@ -19,7 +19,8 @@ public class FlightManager {
             SELECT Tourist__r.Name, 
             Tourist__r.Age__c, 
             Trip__r.Name, 
-            Trip__r.Start_Date__c 
+            Trip__r.Start_Date__c,
+            SecondStatus__c
             FROM Flight__c
         ];
         return listFlights;  

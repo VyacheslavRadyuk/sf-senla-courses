@@ -61,6 +61,17 @@ public class TouristManager {
         return (allTourists);  
     }
     
+    public static List<Tourist__c> getDuplicateTourists() {    
+        List<Tourist__c> allTourists = [
+            SELECT  Name, 
+            Email__c, 
+            IsDuplicate__c 
+            FROM Tourist__c
+            WHERE IsDuplicate__c = true
+        ];
+        return (allTourists);  
+    }
+    
     public static List<Tourist__c> getFreeTourists() {
         List<Tourist__c> freeTourist = [
             SELECT Id,

@@ -31,9 +31,9 @@ public class TestDataFactory {
     
     public static List<Tourist__c> createTourists() {
         List<Tourist__c> touristToInsert = new List<Tourist__c> {
-            new Tourist__c(Name = 'Slava', Birthdate__c = date.newInstance(2000,03,03), Email__c = 'vyacheslavradyuk@gmail.com', IsDuplicate__c = false),
             new Tourist__c(Name = 'Sasha', Birthdate__c = date.newInstance(2000,03,03), Email__c = 'vyacheslavradyuk@gmail.com', IsDuplicate__c = false),
-            new Tourist__c(Name = 'Solve', Birthdate__c = date.newInstance(2020,03,03), Email__c = 'vyacheslavradyuk@gmail.com', IsDuplicate__c = false)
+            new Tourist__c(Name = 'Slava', Birthdate__c = date.newInstance(2000,03,03), Email__c = 'vyacheslavradyuk@gmail.com', IsDuplicate__c = false),
+            new Tourist__c(Name = 'Slava', Birthdate__c = date.newInstance(2020,03,03), Email__c = 'vyacheslavradyuk@gmail.com', IsDuplicate__c = true)
         };
         insert touristToInsert;
         return touristToInsert;
@@ -43,7 +43,7 @@ public class TestDataFactory {
         List<Trip__c> tripsToInsert = createTrips();
         List<Tourist__c> touristToInsert = createTourists();
         List<Flight__c> flightsToInsert = new List<Flight__c> {
-            new Flight__c(Name = '777', Tourist__c = touristToInsert.get(0).Id, Trip__c = tripsToInsert.get(0).Id),
+            new Flight__c(Name = '777', Tourist__c = touristToInsert.get(0).Id, Trip__c = tripsToInsert.get(0).Id, SecondStatus__c = 'Declined'),
             new Flight__c(Name = '888', Tourist__c = touristToInsert.get(1).Id, Trip__c = tripsToInsert.get(1).Id)   
         };
         insert flightsToInsert;

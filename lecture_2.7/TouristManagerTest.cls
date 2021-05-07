@@ -45,7 +45,7 @@ private class TouristManagerTest {
         List<Tourist__c> touristsToInsert = TouristManager.getAllTourists();
         Integer count = 0;
         List<Tourist__c> touristsFromDb = TouristManager.getByFlightsCount(count);
-        System.assertEquals(2, touristsFromDb.size());
+        System.assertEquals(3, touristsFromDb.size());
         System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
     }
     
@@ -107,7 +107,7 @@ private class TouristManagerTest {
     private static void testGetFreeTourists() {
         List<Tourist__c> touristsToInsert = TouristManager.getAllTourists();
         List<Tourist__c> touristsFromDb = TouristManager.getFreeTourists();
-        System.assertEquals(2, touristsFromDb.size());
+        System.assertEquals(3, touristsFromDb.size());
         System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
     }
     
@@ -120,7 +120,7 @@ private class TouristManagerTest {
             touristIds.add(tourist.Id);
         }
         List<Tourist__c> touristsFromDb = TouristManager.getById(touristIds);
-        System.assertEquals(2, touristsFromDb.size());
+        System.assertEquals(3, touristsFromDb.size());
         System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
     }
     
