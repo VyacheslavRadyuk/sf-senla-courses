@@ -28,7 +28,10 @@ private class TouristTriggerTest {
             WHERE IsDuplicate__c = true
         ];
         
+        System.assertNotEquals(null, touristDuplicates);
         System.assertEquals(1, touristDuplicates.size());
+        System.assertEquals(flightsToInsert[0].Id, touristDuplicates[1].Id);
+        System.assertEquals(flightsToInsert[1].Id, touristDuplicates[2].Id);               
     }
     
     @IsTest

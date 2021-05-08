@@ -15,7 +15,11 @@ private class TripManagerTest {
         }
         List<Trip__c> tripsDb = TripManager.getById(tripsId);
         
-        System.assertEquals(3, tripsDb.size());        
+        System.assertNotEquals(null, tripsDb);
+        System.assertEquals(3, tripsDb.size());
+        System.assertEquals(tripsToInsert[0].Id, tripsDb[0].Id);
+        System.assertEquals(tripsToInsert[1].Id, tripsDb[1].Id);
+        System.assertEquals(tripsToInsert[2].Id, tripsDb[2].Id);    
     }
     
     @IsTest

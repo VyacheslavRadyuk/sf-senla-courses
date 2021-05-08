@@ -10,7 +10,10 @@ private class FlightManagerTest {
     private static void testGetByYear() {
         List<Flight__c> flightFromDb = FlightManager.getByYear(2021);
         
+        System.assertNotEquals(null, flightFromDb);
         System.assertEquals(2, flightFromDb.size());
+        System.assertEquals(flightsToInsert[0].Id, flightFromDb[0].Id);
+        System.assertEquals(flightsToInsert[1].Id, flightFromDb[1].Id);    
     }
     
     @IsTest
@@ -26,7 +29,10 @@ private class FlightManagerTest {
     private static void testGetFlights() {
         List<Flight__c> flightFromDb = FlightManager.getFlights();
         
+        System.assertNotEquals(null, flightFromDb);
         System.assertEquals(2, flightFromDb.size());
+        System.assertEquals(flightsToInsert[0].Id, flightFromDb[0].Id);
+        System.assertEquals(flightsToInsert[1].Id, flightFromDb[1].Id); 
     }
     
     @IsTest
@@ -36,9 +42,12 @@ private class FlightManagerTest {
         for (Flight__c flight : flightsToInsert) {
             touristsId.add(flight.Tourist__c);
         }
-        List<Flight__c> touristsFromDb = FlightManager.getByTouristsId(touristsId);
+        List<Flight__c> flightsFromDb = FlightManager.getByTouristsId(touristsId);
         
-        System.assertEquals(2, touristsFromDb.size());
+        System.assertNotEquals(null, flightsFromDb);
+        System.assertEquals(2, flightsFromDb.size());
+        System.assertEquals(flightsToInsert[0].Id, flightsFromDb[0].Id);
+        System.assertEquals(flightsToInsert[1].Id, flightsFromDb[1].Id); 
     }
     
     @IsTest
