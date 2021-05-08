@@ -43,8 +43,8 @@ public class TestDataFactory {
         List<Trip__c> tripsToInsert = createTrips();
         List<Tourist__c> touristToInsert = createTourists();
         List<Flight__c> flightsToInsert = new List<Flight__c> {
-            new Flight__c(Name = '777', Tourist__c = touristToInsert.get(0).Id, Trip__c = tripsToInsert.get(0).Id, SecondStatus__c = 'Declined'),
-            new Flight__c(Name = '888', Tourist__c = touristToInsert.get(1).Id, Trip__c = tripsToInsert.get(1).Id)   
+            new Flight__c(Name = '777', Tourist__c = touristToInsert.get(0).Id, Trip__c = tripsToInsert.get(0).Id, SecondStatus__c = Constants.FLIGHT_STATUS_DECLINED),
+            new Flight__c(Name = '888', Tourist__c = touristToInsert.get(1).Id, Trip__c = tripsToInsert.get(1).Id, SecondStatus__c = Constants.FLIGHT_STATUS_DECLINED)   
         };
         insert flightsToInsert;
         return flightsToInsert;

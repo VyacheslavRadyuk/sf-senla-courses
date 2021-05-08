@@ -30,8 +30,7 @@ private class TouristTriggerTest {
         
         System.assertNotEquals(null, touristDuplicates);
         System.assertEquals(1, touristDuplicates.size());
-        System.assertEquals(flightsToInsert[0].Id, touristDuplicates[1].Id);
-        System.assertEquals(flightsToInsert[1].Id, touristDuplicates[2].Id);               
+        System.assertEquals(tourists[2].Id, touristDuplicates[0].Id);               
     }
     
     @IsTest
