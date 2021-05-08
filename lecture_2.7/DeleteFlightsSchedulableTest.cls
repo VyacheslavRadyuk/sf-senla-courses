@@ -2,14 +2,14 @@
 private class DeleteFlightsSchedulableTest {
     
     @IsTest
-	private static void testschedule() {
+    private static void testschedule() {
         TestDataFactory.createFlights();
         DeleteFlightsSchedulable deleteFlights = new DeleteFlightsSchedulable();
-		String sch = '0 0 0 * * ?'; 
+        String sch = '0 0 0 * * ?'; 
         
-		Test.StartTest();	
-		System.schedule('Delete flights', sch, deleteFlights );
-		Test.stopTest();       
+        Test.StartTest();	
+        System.schedule('Delete flights', sch, deleteFlights );
+        Test.stopTest();       
         
         List<AsyncApexJob> jobsScheduled  = [
             SELECT Id, 
@@ -35,5 +35,5 @@ private class DeleteFlightsSchedulableTest {
         System.assertEquals('DeleteFlightsSchedulable', jobsScheduled[0].ApexClass.Name);  
         System.assertEquals(1, jobsApexBatch.size());
         System.assertEquals('DeleteFlightsBatch', jobsApexBatch[0].ApexClass.Name);        
-	}
+    }
 }
