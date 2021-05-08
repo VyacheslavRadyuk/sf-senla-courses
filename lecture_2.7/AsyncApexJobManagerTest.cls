@@ -11,7 +11,7 @@ private class AsyncApexJobManagerTest {
         Test.StartTest();	
         String JobId = System.schedule('Delete flights', sch, deleteFlights);
         Test.stopTest();  
-         
+        
         List<AsyncApexJob> jobs  = [
             SELECT Id, 
             ApexClassID, 
@@ -23,12 +23,17 @@ private class AsyncApexJobManagerTest {
         
         for (AsyncApexJob job : jobs) {
             jobIds.add(job.Id);
-        }   
-        List<AsyncApexJob> jobsNull = AsyncApexJobManager.getById(null); 
+        }    
         List<AsyncApexJob> jobsApexBatch = AsyncApexJobManager.getById(jobIds);
         
-        System.assertEquals(0, jobsNull.size());
         System.assertEquals(2, jobsApexBatch.size());
         System.assertEquals('DeleteFlightsBatch', jobsApexBatch[1].ApexClass.Name);  
+    }
+    
+    @IsTest
+    private static void testGetJobsNullParameter() {    
+        List<AsyncApexJob> jobsNull = AsyncApexJobManager.getById(null); 
+        
+        System.assertEquals(0, jobsNull.size());  
     }
 }
