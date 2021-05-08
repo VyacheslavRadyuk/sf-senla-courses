@@ -7,9 +7,11 @@ private class FlightTriggerTest {
         Tourist__c tourist =  TestDataFactory.createTourists()[1];
         Trip__c trip =  TestDataFactory.createTrips()[1];
         Flight__c flight = new Flight__c(Name = TOURIST_NAME, Tourist__c = tourist.Id, Trip__c = trip.Id); 
+        
         Test.startTest();
         Database.SaveResult result = Database.insert(flight, false);    
-        Test.stopTest();  
+        Test.stopTest(); 
+        
         System.assert(result.isSuccess()); 
     }
     
@@ -18,9 +20,11 @@ private class FlightTriggerTest {
         Tourist__c tourist =  TestDataFactory.createTourists()[2];
         Trip__c trip =  TestDataFactory.createTrips()[2];
         Flight__c flight = new Flight__c(Name = TOURIST_NAME, Tourist__c = tourist.Id, Trip__c = trip.Id); 
+        
         Test.startTest();
         Database.SaveResult result = Database.insert(flight, false);    
-        Test.stopTest();  
+        Test.stopTest(); 
+        
         System.assert(!result.isSuccess());
         System.assertEquals(Constants.TRIP_PLANE_FLEW_AWAY_ERROR, result.getErrors()[0].getMessage());
     }
@@ -30,9 +34,11 @@ private class FlightTriggerTest {
         Tourist__c tourist =  TestDataFactory.createTourists()[2];
         Trip__c trip =  TestDataFactory.createTrips()[1];
         Flight__c flight = new Flight__c(Name = TOURIST_NAME, Tourist__c = tourist.Id, Trip__c = trip.Id); 
+        
         Test.startTest();
         Database.SaveResult result = Database.insert(flight, false);    
-        Test.stopTest();  
+        Test.stopTest(); 
+        
         System.assert(!result.isSuccess());
         System.assertEquals(Constants.TRIP_INSUFFICIENT_AGE_ERROR, result.getErrors()[0].getMessage());
     }

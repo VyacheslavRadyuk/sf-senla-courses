@@ -1,16 +1,5 @@
 public class TouristManager {
-    
-    public static List<Tourist__c> getAllTourists(){
-        List<Tourist__c > listTourists = [
-            SELECT Id,
-            Name, 
-            Age__c,
-            Email__c
-            FROM Tourist__c 
-        ];
-        return (listTourists);
-    }
-    
+       
     public static List<Tourist__c> getByName(String name){
         if(String.isBlank(name)) {
             return new List<Tourist__c>();
@@ -60,18 +49,7 @@ public class TouristManager {
         ];
         return (allTourists);  
     }
-    
-    public static List<Tourist__c> getDuplicateTourists() {    
-        List<Tourist__c> allTourists = [
-            SELECT  Name, 
-            Email__c, 
-            IsDuplicate__c 
-            FROM Tourist__c
-            WHERE IsDuplicate__c = true
-        ];
-        return (allTourists);  
-    }
-    
+       
     public static List<Tourist__c> getFreeTourists() {
         List<Tourist__c> freeTourist = [
             SELECT Id,
