@@ -13,6 +13,7 @@ public class Constants {
     public static final String HTTP_METHOD_GET = 'GET';
     public static final String URL_TEMPLATE_WEATHERBIT_REMOTE_SITE = '{0}?lat={1}&lon={2}&key={3}';
     public static final Integer RESPONSE_STATUS_CODE_200 = 200;
+    public static final Integer RESPONSE_STATUS_CODE_201 = 201;
     public static final Integer RESPONSE_STATUS_CODE_404 = 404;
     public static final Integer RESPONSE_STATUS_CODE_409 = 409;
     public static final Integer RESPONSE_STATUS_CODE_500 = 500;
