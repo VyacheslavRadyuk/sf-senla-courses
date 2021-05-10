@@ -33,7 +33,7 @@ private class TouristRestServiceTest {
         ];
         
         String touristName = touristsToInsert[0].Name;
-        String touristAge = String.valueOf(touristsFromDB[0].Age__c);
+        String touristAge = String.valueOf(touristsFromDB[0].Age__c); 
         
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
@@ -57,8 +57,7 @@ private class TouristRestServiceTest {
             Age__c 
             FROM Tourist__c
         ];
-        
-        String touristAge = String.valueOf(touristsFromDB[0].Age__c);
+        String touristAge = String.valueOf(touristsFromDB[0].Age__c); 
         
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
@@ -94,6 +93,7 @@ private class TouristRestServiceTest {
     private static void testCreateTourist() {       
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
+        
         RestContext.request.requestURI = '/services/apexrest/Tourist/';
         RestContext.request.httpMethod = 'POST';
          
@@ -105,13 +105,6 @@ private class TouristRestServiceTest {
         	TouristRestService.createTourist(name, birthday, email);
         Test.stopTest();
         
-        List<Tourist__c> tourists = [
-            SELECT Name, 
-            Email__c 
-            FROM Tourist__c 
-            WHERE Name = :name  AND Email__c = :email
-        ];
-        
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_201, RestContext.response.statusCode);  
     }
     
@@ -119,6 +112,7 @@ private class TouristRestServiceTest {
     private static void testCreateTouristErrors() {       
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
+        
         RestContext.request.requestURI = '/services/apexrest/Tourist/';
         RestContext.request.httpMethod = 'POST';
          
@@ -128,14 +122,7 @@ private class TouristRestServiceTest {
         
         Test.startTest();
         	TouristRestService.createTourist(name, birthday, email);
-        Test.stopTest();
-        
-        List<Tourist__c> tourists = [
-            SELECT Name, 
-            Email__c 
-            FROM Tourist__c 
-            WHERE Name = :name AND Email__c = :email
-        ];
+        Test.stopTest();       
         
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_409, RestContext.response.statusCode);
     }
