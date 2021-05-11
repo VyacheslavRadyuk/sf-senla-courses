@@ -34,6 +34,27 @@ private class TouristTriggerTest {
     }
     
     @IsTest
+    private static void testOnAfterInsertDuplicate() {
+        Tourist__c createDuplicateTourist = new Tourist__c(Name = 'Sasha', Email__c = 'vyacheslavradyuk@gmail.com', IsDuplicate__c = true);
+        insert createDuplicateTourist;
+        
+        Test.startTest(); 
+        Database.SaveResult[] result = Database.insert(tourists, false);
+        Test.stopTest();
+        
+        List<Tourist__c> touristDuplicates = [
+            SELECT  Name, 
+            Email__c, 
+            IsDuplicate__c 
+            FROM Tourist__c
+            WHERE IsDuplicate__c = true
+        ];
+        
+        System.assertEquals(2, touristDuplicates.size());
+        System.assertEquals(touristDuplicates[1].Id, createDuplicateTourist.Id);  
+    }
+    
+    @IsTest
     private static void testOnAfterUpdate() {
         tourists[0].Active__c = false;
         
