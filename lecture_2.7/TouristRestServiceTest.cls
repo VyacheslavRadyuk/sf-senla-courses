@@ -133,7 +133,8 @@ private class TouristRestServiceTest {
             FROM Tourist__c
         ];
                 
+        System.assertEquals(Constants.RESPONSE_BODY_DUPLICATE_RECORD, RestContext.response.responseBody.toString());
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_409, RestContext.response.statusCode);
-        System.assertEquals(3, touristsFromDb.size());
+        System.assertEquals(3, touristsFromDb.size());  
     }
 }

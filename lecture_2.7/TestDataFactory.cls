@@ -3,7 +3,7 @@ public class TestDataFactory {
     
     public static List<Space_Point__c> createSpacePoints() {
         List<Space_Point__c> spacePointsToInsert = new List<Space_Point__c>{
-            new Space_Point__c(Name = 'Grodnia'),
+            new Space_Point__c(Name = 'Grodnia', Latitude__c = 53.90, Longitude__c = 27.57),
             new Space_Point__c(Name = 'Borisov')   
         };
         insert spacePointsToInsert;
