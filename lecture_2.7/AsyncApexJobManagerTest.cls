@@ -1,15 +1,17 @@
 @IsTest
 private class AsyncApexJobManagerTest {
+    private static final String DELETE_FLIGHTS_CLASS_COPY_NAME = 'Delete flights';
+    private static final String DELETE_FLIGHTS_CLASS_NAME = 'DeleteFlightsBatch';
+    private static final String CRON_EXPRESSION = '0 0 0 * * ?';
     
     @IsTest
     private static void testGetJobs() { 
         Set<Id> jobIds = new Set<Id>();
         TestDataFactory.createFlights();
         DeleteFlightsSchedulable deleteFlights = new DeleteFlightsSchedulable();
-        String sch = '0 0 0 * * ?'; 
         
         Test.StartTest();	
-        String JobId = System.schedule('Delete flights', sch, deleteFlights);
+        	String JobId = System.schedule(DELETE_FLIGHTS_CLASS_COPY_NAME, CRON_EXPRESSION, deleteFlights);
         Test.stopTest();  
         
         List<AsyncApexJob> jobs  = [
@@ -27,7 +29,7 @@ private class AsyncApexJobManagerTest {
         List<AsyncApexJob> jobsApexBatch = AsyncApexJobManager.getById(jobIds);
         
         System.assertEquals(2, jobsApexBatch.size());
-        System.assertEquals('DeleteFlightsBatch', jobsApexBatch[1].ApexClass.Name);  
+        System.assertEquals(DELETE_FLIGHTS_CLASS_NAME, jobsApexBatch[1].ApexClass.Name);  
     }
     
     @IsTest
