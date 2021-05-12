@@ -1,8 +1,8 @@
 @IsTest
-private class WeatherForecastServiceTest {
-    
+private class WeatherForecastUpdaterTest {
+      
     @IsTest
-    private static void testUpdateForecasts() {
+    private static void testGetForecasts() {
         List<Space_Point__c> spacePointsToInsert =  TestDataFactory.createSpacePoints();
         
         Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
@@ -16,9 +16,27 @@ private class WeatherForecastServiceTest {
         System.assertEquals(1, dataMap.size());
         System.assertNotEquals(null, dataMap); 
     }
+       
+    @IsTest
+    private static void testUpdateForecasts() {
+        List<Space_Point__c> spacePointsToInsert =  TestDataFactory.createSpacePoints();
+        
+        Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
+        WeatherForecastHttpCalloutMock.successIndicator = 'success';
+        
+        Test.startTest();
+        	WeatherForecastUpdater.updateForecasts();
+        Test.stopTest();
+        
+        List<Weather_Daily_Forecast__c> weatherForecastsFromDb = WeatherDailyForecastManager.getByNotEmptySpacePoint();
+        
+        System.assertEquals(2, weatherForecastsFromDb.size());
+        System.assertEquals(spacePointsToInsert[0].Id, weatherForecastsFromDb[0].Space_Point__c);
+        System.assertEquals(spacePointsToInsert[1].Id, weatherForecastsFromDb[1].Space_Point__c);
+    }
     
     @IsTest
-    private static void testUpdateForecastsNullParameter() {
+    private static void testUpdateForecastsNullSpacePointParameter() {
         List<Space_Point__c> spacePointsToInsert =  TestDataFactory.createSpacePoints();        
         
         Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
@@ -26,10 +44,14 @@ private class WeatherForecastServiceTest {
         
         Test.startTest();	
         	try{	
-            	Map<Date, Decimal> dataMap = WeatherForecastService.getForecasts((Decimal)spacePointsToInsert[1].Latitude__c, (Decimal)spacePointsToInsert[1].Longitude__c);
-       	 	} catch (WeatherForecastService.WeatherForecastException ex) {
+        		WeatherForecastUpdater.updateForecasts();
+       		} catch (WeatherForecastService.WeatherForecastException ex) {
             	System.assertEquals(Constants.WEATHER_FORECAST_CUSTOM_EXCEPTION_ERROR, ex.getMessage());  
         	}        
-        Test.stopTest();      
+        Test.stopTest(); 
+        
+        List<Weather_Daily_Forecast__c> weatherForecastsFromDb = WeatherDailyForecastManager.getByNotEmptySpacePoint();
+
+        System.assertEquals(0, weatherForecastsFromDb.size());
     }
 }
