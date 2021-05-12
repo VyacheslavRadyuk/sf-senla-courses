@@ -1,10 +1,13 @@
 @IsTest
 private class WeatherForecastUpdaterTest {
+    private static List<Space_Point__c> spacePointsToInsert;
+    
+    static {
+        spacePointsToInsert = TestDataFactory.createSpacePoints();
+    }
       
     @IsTest
-    private static void testGetForecasts() {
-        List<Space_Point__c> spacePointsToInsert =  TestDataFactory.createSpacePoints();
-        
+    private static void testGetForecasts() {        
         Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
         WeatherForecastHttpCalloutMock.successIndicator = 'success';
         
@@ -18,9 +21,7 @@ private class WeatherForecastUpdaterTest {
     }
        
     @IsTest
-    private static void testUpdateForecasts() {
-        List<Space_Point__c> spacePointsToInsert =  TestDataFactory.createSpacePoints();
-        
+    private static void testUpdateForecasts() {        
         Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
         WeatherForecastHttpCalloutMock.successIndicator = 'success';
         
@@ -36,9 +37,7 @@ private class WeatherForecastUpdaterTest {
     }
     
     @IsTest
-    private static void testUpdateForecastsNullSpacePointParameter() {
-        List<Space_Point__c> spacePointsToInsert =  TestDataFactory.createSpacePoints();        
-        
+    private static void testUpdateForecastsNullSpacePointParameter() {              
         Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
         WeatherForecastHttpCalloutMock.successIndicator = 'noSuccess';
         
