@@ -10,5 +10,13 @@ private class BatchApexErrorEventTriggerTest {
         Test.startTest();
         Database.SaveResult[] sr = EventBus.publish(eventList);
         Test.stopTest();
+        
+        List<Error_Log__c> errors = [SELECT Records__c, JobId__c, Error__c FROM Error_Log__c];
+           
+        System.assertEquals(true, sr[0].isSuccess());
+        System.assertEquals(1, errors.size());
+        System.assertEquals('7075g000007wpcm', eve.AsyncApexJobId);
+        System.assertEquals('a0D5g000000qgth', eve.JobScope);
+        System.assertEquals('System.MathException', eve.ExceptionType);
     }
 }
