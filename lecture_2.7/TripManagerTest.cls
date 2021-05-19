@@ -26,6 +26,6 @@ private class TripManagerTest {
     private static void testGetByIdNullParameter() {
         List<Trip__c> tripsDbNull = TripManager.getById(null); 
         
-        System.assertEquals(new List<Trip__c>(), tripsDbNull);     
+        System.assertEquals(true, tripsDbNull.isEmpty());     
     }
 }

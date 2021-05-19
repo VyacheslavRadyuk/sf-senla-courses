@@ -139,7 +139,7 @@ private class TouristManagerTest {
     private static void testGetByIdNullParameter() {    
         List<Tourist__c> touristsFromDbNull = TouristManager.getById(null);
         
-        System.assertEquals(new List<Tourist__c>(), touristsFromDbNull);
+        System.assertEquals(true, touristsFromDbNull.isEmpty());
     }
     
     @IsTest
@@ -170,8 +170,8 @@ private class TouristManagerTest {
         List<Tourist__c> touristsFromDbNullName = TouristManager.getByParams(null, touristAge);
         List<Tourist__c> touristsFromDbNullAge = TouristManager.getByParams(touristName, null);
          
-        System.assertEquals(new List<Tourist__c>(), touristsFromDbNullName);  
-        System.assertEquals(new List<Tourist__c>(), touristsFromDbNullAge);  
+        System.assertEquals(true, touristsFromDbNullName.isEmpty());  
+        System.assertEquals(true, touristsFromDbNullAge.isEmpty());  
     }
     
     @IsTest
@@ -193,7 +193,7 @@ private class TouristManagerTest {
     private static void testGetByNameSoslNullParameter() {
         List<Tourist__c> touristsFromDbNull = TouristManager.getByNameSosl(null);
         
-        System.assertEquals(new List<Tourist__c>(), touristsFromDbNull);  
+        System.assertEquals(true, touristsFromDbNull.isEmpty());  
     }
     
     @IsTest
@@ -215,7 +215,7 @@ private class TouristManagerTest {
         List<Tourist__c> touristsFromDbNullEmail = TouristManager.getByResponseBody(touristName, null);
         List<Tourist__c> touristsFromDbNullName = TouristManager.getByResponseBody(null, touristEmail);
         
-        System.assertEquals(new List<Tourist__c>(), touristsFromDbNullEmail);
-        System.assertEquals(new List<Tourist__c>(), touristsFromDbNullName);       
+        System.assertEquals(true, touristsFromDbNullEmail.isEmpty());
+        System.assertEquals(true, touristsFromDbNullName.isEmpty());       
     }  
 }
