@@ -26,11 +26,14 @@
         </apex:pageBlockSection>
         
         <apex:pageBlockSection title="Upcoming flights information" columns="1">
-            <apex:pageBlockTable title="Upcoming flights" value="{!Trip__c.Flights__r}" var="flight">
-                <apex:column value="{!flight.Name}"/>
-                <apex:column value="{!flight.Status__c}"/>
-                <apex:column value="{!flight.SecondStatus__c}"/>
-                <apex:column value="{!flight.Tourist__c}"/>    
+            <apex:pageBlockTable title="Upcoming flights" value="{!Trip__c.Flights__r}" var="flight"> 
+                <apex:column >
+                    <apex:outputLink value="/{!flight.Tourist__c}" target="_new">
+                        <apex:outputText >{!flight.Tourist__r.Name}</apex:outputText>
+                    </apex:outputLink>
+                </apex:column>     
+                <apex:column value="{!flight.Tourist__r.Age__c}"/>
+                <apex:column value="{!flight.Name}"/>      
             </apex:pageBlockTable>
         </apex:pageBlockSection>
         
