@@ -1,0 +1,49 @@
+<apex:page standardController="Trip__c" extensions="TripInfoController">
+    <apex:pageBlock title="Trip Information">
+        <apex:pageBlockSection title="Trip Information" columns="1">
+            <apex:outputField value="{!Trip__c.Id}"/>
+            <apex:outputField value="{!Trip__c.Name}"/>
+            <apex:outputField value="{!Trip__c.Start_Date__c}"/>
+            <apex:outputField value="{!Trip__c.Minimum_Age__c}"/>
+            <apex:outputField value="{!Trip__c.Owner.Name}"/>        
+        </apex:pageBlockSection>
+        
+        <apex:form target="_new">
+            <apex:pageBlockSection title="Navigate to edit page" columns="1">
+                  <apex:commandButton action="{!edit}" value="Edit"/>
+            </apex:pageBlockSection>
+        </apex:form>
+        
+        <apex:pageBlockSection title="Related flights" columns="1">
+            <apex:repeat value="{!Trip__c.Flights__r}" var="flight">
+                <apex:outputField value="{!flight.Id}"/>
+                <apex:outputField value="{!flight.Name}"/>
+                <apex:outputField value="{!flight.Tourist__c}"/>
+                <apex:outputField value="{!flight.Trip__c}"/>
+                <apex:outputField value="{!flight.Status__c}"/>
+                <apex:outputField value="{!flight.SecondStatus__c}"/> <br/>
+            </apex:repeat>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Upcoming flights information" columns="1">
+            <apex:pageBlockTable title="Upcoming flights" value="{!Trip__c.Flights__r}" var="flight">
+                <apex:column value="{!flight.Name}"/>
+                <apex:column value="{!flight.Status__c}"/>
+                <apex:column value="{!flight.SecondStatus__c}"/>
+                <apex:column value="{!flight.Tourist__c}"/>    
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+        
+        <apex:pageBlockSection title="Available flights indormation" columns="1"  id="NotLinkedFlights">
+            <apex:pageBlockTable title="No related tourists" value="{!NotRelatedTourists}" var="tourist">
+                <apex:column >
+                    <apex:outputLink value="/{!tourist.Id}" target="_new">
+                        <apex:outputText >{!tourist.Name}</apex:outputText>
+                    </apex:outputLink>
+                </apex:column>    
+                <apex:column value="{!tourist.Upcoming_Flights_Count__c}"/>
+            </apex:pageBlockTable>
+        </apex:pageBlockSection>
+               
+    </apex:pageBlock>
+</apex:page>
