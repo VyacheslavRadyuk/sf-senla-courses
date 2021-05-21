@@ -23,13 +23,21 @@ private class TouristRestServiceTest {
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();      
         RestContext.request.addParameter('fuzzyname', touristName);
-               
+        
+        Id [] fixedSearchResults = new Id[1];
+        fixedSearchResults[0] = tourists[0].Id;
+        Test.setFixedSearchResults(fixedSearchResults);
+        
         Test.startTest();
         	TouristRestService.getTourists();
         Test.stopTest();
         
+        List<Tourist__c> touristsFromDbSosl = TouristManager.getByNameSosl(touristName);
+        
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_200, RestContext.response.statusCode);
-        System.assertEquals(3, RestContext.response.responseBody.size());
+        System.assertEquals(touristsFromDbSosl[0].Id, getTouristsFromDb()[0].Id);
+        System.assertEquals(1, touristsFromDbSosl.size());
+        System.assertNotEquals(null, touristsFromDbSosl[0]);
     }
     
     @IsTest
@@ -41,13 +49,21 @@ private class TouristRestServiceTest {
         RestContext.response = new RestResponse();          
         RestContext.request.addParameter('fuzzyname', touristName);
         RestContext.request.addParameter('age', touristAge);
-               
-        Test.startTest();
-        	TouristRestService.getTourists();
+        
+        Id [] fixedSearchResults = new Id[1];
+        fixedSearchResults[0] = tourists[0].Id;
+        Test.setFixedSearchResults(fixedSearchResults);
+
+        Test.startTest();    
+            TouristRestService.getTourists();
         Test.stopTest();
         
+		List<Tourist__c> touristsFromDbSosl = TouristManager.getByParams(touristName, Integer.valueOf(getTouristsFromDb()[0].Age__c));        
+
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_200, RestContext.response.statusCode);
-        System.assertEquals(3, RestContext.response.responseBody.size());
+        System.assertEquals(touristsFromDbSosl[0].Id, getTouristsFromDb()[0].Id);
+        System.assertEquals(1, touristsFromDbSosl.size());
+        System.assertNotEquals(null, touristsFromDbSosl[0]);
     }
     
     @IsTest

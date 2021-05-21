@@ -219,5 +219,27 @@ private class TouristManagerTest {
         
         System.assertEquals(true, touristsFromDbNullEmail.isEmpty());
         System.assertEquals(true, touristsFromDbNullName.isEmpty());       
+    }
+    
+    @IsTest
+    private static void testGetNotRelatedTourists() { 
+        List<Trip__c> trips = TestDataFactory.createTrips();
+        List<Flight__c> flight = new List<Flight__c> {
+           new Flight__c(Name = 'test1', Trip__c = trips[0].Id, Tourist__c = tourists[0].Id),
+           new Flight__c(Name = 'test2', Trip__c = trips[1].Id, Tourist__c = tourists[0].Id)    
+        };
+        insert flight;
+        List<Tourist__c> touristsFromDb = TouristManager.getNotRelatedTourists(trips[0].Id);
+        
+        System.assertEquals(2, touristsFromDb.size());
+        System.assertNotEquals(null, touristsFromDb.get(0).Id); 
+        System.assertNotEquals(null, touristsFromDb.get(1).Id);        
+    }
+    
+    @IsTest
+    private static void testGetNotRelatedTouristsNullParameter() {
+        List<Tourist__c> touristsFromDb = TouristManager.getNotRelatedTourists(null);
+        
+        System.assertEquals(true, touristsFromDb.isEmpty());  
     }  
 }

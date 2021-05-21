@@ -107,4 +107,21 @@ public class TouristManager {
         ];
         return touristsList;
     }
+    
+    public static List<Tourist__c> getNotRelatedTourists(String tripId) {
+        if (String.isBlank(tripId)) {
+            return new List<Tourist__c>();
+        }
+        List<Tourist__c> touristsList = [
+            SELECT Name,
+            Age__c,
+            Upcoming_Flights_Count__c
+            FROM Tourist__c
+            WHERE Id NOT IN
+            (SELECT Tourist__c FROM Flight__c WHERE Trip__c = :tripId)
+            ORDER BY Upcoming_Flights_Count__c
+            LIMIT 10
+        ];
+        return touristsList;
+    }
 }

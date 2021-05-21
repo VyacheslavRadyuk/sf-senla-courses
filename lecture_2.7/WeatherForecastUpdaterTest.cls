@@ -1,15 +1,14 @@
 @IsTest
 private class WeatherForecastUpdaterTest {
     private static List<Space_Point__c> spacePoints;
-    
+   
     static {
         spacePoints = TestDataFactory.createSpacePoints();
     }
       
     @IsTest
-    private static void testGetForecasts() {        
+    private static void testGetForecasts() {       
         Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
-        WeatherForecastHttpCalloutMock.successIndicator = 'success';
         
         Test.startTest();
         	Map<Date, Decimal> dataMap = WeatherForecastService.getForecasts((Decimal)spacePoints[0].Latitude__c, (Decimal)spacePoints[0].Longitude__c);
@@ -23,7 +22,6 @@ private class WeatherForecastUpdaterTest {
     @IsTest
     private static void testUpdateForecasts() {        
         Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
-        WeatherForecastHttpCalloutMock.successIndicator = 'success';
         
         Test.startTest();
         	WeatherForecastUpdater.updateForecasts();
@@ -37,9 +35,8 @@ private class WeatherForecastUpdaterTest {
     }
     
     @IsTest
-    private static void testUpdateForecastsNullSpacePointParameter() {              
-        Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMock());
-        WeatherForecastHttpCalloutMock.successIndicator = 'noSuccess';
+    private static void testUpdateForecastsNullSpacePointParameter() {  
+        Test.setMock(HttpCalloutMock.class, new WeatherForecastHttpCalloutMockError()); 
         
         Test.startTest();	
         	try{	
