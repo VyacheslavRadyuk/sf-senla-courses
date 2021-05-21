@@ -1,14 +1,14 @@
 @IsTest
 private class TouristRestServiceTest {
-    private static List<Tourist__c> touristsToInsert;
+    private static List<Tourist__c> tourists;
     
     static {
-        touristsToInsert = TestDataFactory.createTourists();
+        tourists = TestDataFactory.createTourists();
     }
     
     @IsTest
     private static void testGetTouristsByName() {
-        String touristName = touristsToInsert[0].Name;
+        String touristName = tourists[0].Name;
         
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();      
@@ -30,7 +30,7 @@ private class TouristRestServiceTest {
             FROM Tourist__c
         ];
         
-        String touristName = touristsToInsert[0].Name;
+        String touristName = tourists[0].Name;
         String touristAge = String.valueOf(touristsFromDB[0].Age__c); 
         
         RestContext.request = new RestRequest();
@@ -74,7 +74,7 @@ private class TouristRestServiceTest {
             Age__c 
             FROM Tourist__c
         ];
-        String touristName = touristsToInsert[0].Name;
+        String touristName = tourists[0].Name;
         
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();
@@ -110,8 +110,6 @@ private class TouristRestServiceTest {
         
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_201, RestContext.response.statusCode); 
         System.assertEquals(4, touristsFromDb.size());
-        System.assertEquals(email, touristsFromDb[3].Email__c);
-        System.assertEquals(name, touristsFromDb[3].Name);
     }
     
     @IsTest

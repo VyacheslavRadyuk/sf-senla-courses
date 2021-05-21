@@ -15,6 +15,7 @@ private class BatchApexErrorEventTriggerTest {
            
         System.assertEquals(true, sr[0].isSuccess());
         System.assertEquals(1, errors.size());
+        System.assertNotEquals(null, errors);
         System.assertEquals('7075g000007wpcm', eve.AsyncApexJobId);
         System.assertEquals('a0D5g000000qgth', eve.JobScope);
         System.assertEquals('System.MathException', eve.ExceptionType);

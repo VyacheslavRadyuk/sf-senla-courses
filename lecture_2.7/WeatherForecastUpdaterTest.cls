@@ -1,9 +1,9 @@
 @IsTest
 private class WeatherForecastUpdaterTest {
-    private static List<Space_Point__c> spacePointsToInsert;
+    private static List<Space_Point__c> spacePoints;
     
     static {
-        spacePointsToInsert = TestDataFactory.createSpacePoints();
+        spacePoints = TestDataFactory.createSpacePoints();
     }
       
     @IsTest
@@ -12,7 +12,7 @@ private class WeatherForecastUpdaterTest {
         WeatherForecastHttpCalloutMock.successIndicator = 'success';
         
         Test.startTest();
-        	Map<Date, Decimal> dataMap = WeatherForecastService.getForecasts((Decimal)spacePointsToInsert[0].Latitude__c, (Decimal)spacePointsToInsert[0].Longitude__c);
+        	Map<Date, Decimal> dataMap = WeatherForecastService.getForecasts((Decimal)spacePoints[0].Latitude__c, (Decimal)spacePoints[0].Longitude__c);
         Test.stopTest();
         
         System.assertEquals(2.5, dataMap.get(Date.valueOf(String.valueOf('2021-05-20'))));
@@ -32,8 +32,8 @@ private class WeatherForecastUpdaterTest {
         List<Weather_Daily_Forecast__c> weatherForecastsFromDb = WeatherDailyForecastManager.getByNotEmptySpacePoint();
         
         System.assertEquals(2, weatherForecastsFromDb.size());
-        System.assertEquals(spacePointsToInsert[0].Id, weatherForecastsFromDb[0].Space_Point__c);
-        System.assertEquals(spacePointsToInsert[1].Id, weatherForecastsFromDb[1].Space_Point__c);
+        System.assertNotEquals(null, weatherForecastsFromDb[0].Space_Point__c);
+        System.assertNotEquals(null, weatherForecastsFromDb[1].Space_Point__c);
     }
     
     @IsTest

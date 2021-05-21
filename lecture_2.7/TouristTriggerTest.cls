@@ -1,10 +1,10 @@
 @IsTest
 private class TouristTriggerTest {
-    private static List<Flight__c> flightsToInsert;
+    private static List<Flight__c> flights;
     private static List<Tourist__c> tourists;
     
     static {
-        flightsToInsert = TestDataFactory.createFlights();
+        flights = TestDataFactory.createFlights();
         tourists = [
             SELECT Id,
             Name, 
@@ -30,7 +30,7 @@ private class TouristTriggerTest {
         
         System.assertNotEquals(null, touristDuplicates);
         System.assertEquals(1, touristDuplicates.size());
-        System.assertEquals(tourists[2].Id, touristDuplicates[0].Id);               
+        System.assertNotEquals(null, touristDuplicates[0].Id);               
     }
     
     @IsTest
@@ -47,11 +47,12 @@ private class TouristTriggerTest {
             Email__c, 
             IsDuplicate__c 
             FROM Tourist__c
-            WHERE IsDuplicate__c = true
+            WHERE IsDuplicate__c = true AND Name = :createDuplicateTourist.Name AND Email__c = :createDuplicateTourist.Email__c
         ];
         
-        System.assertEquals(2, touristDuplicates.size());
-        System.assertEquals(touristDuplicates[1].Id, createDuplicateTourist.Id);  
+        System.assertEquals(1, touristDuplicates.size());
+        System.assertEquals('Sasha', touristDuplicates[0].Name); 
+        System.assertEquals('vyacheslavradyuk@gmail.com', touristDuplicates[0].Email__c); 
     }
     
     @IsTest

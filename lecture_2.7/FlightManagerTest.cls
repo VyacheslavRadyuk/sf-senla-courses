@@ -1,9 +1,9 @@
 @IsTest
 private class FlightManagerTest {
-    private static List<Flight__c> flightsToInsert;
+    private static List<Flight__c> flights;
     
     static {
-        flightsToInsert = TestDataFactory.createFlights();
+        flights = TestDataFactory.createFlights();
     }
         
     @IsTest
@@ -12,8 +12,8 @@ private class FlightManagerTest {
         
         System.assertNotEquals(null, flightFromDb);
         System.assertEquals(2, flightFromDb.size());
-        System.assertEquals(flightsToInsert[0].Id, flightFromDb[0].Id);
-        System.assertEquals(flightsToInsert[1].Id, flightFromDb[1].Id);    
+        System.assertNotEquals(null, flightFromDb[0].Id);
+        System.assertNotEquals(null, flightFromDb[1].Id);    
     }
     
     @IsTest
@@ -29,25 +29,24 @@ private class FlightManagerTest {
     private static void testGetFlights() {
         List<Flight__c> flightFromDb = FlightManager.getFlights();
         
-        System.assertNotEquals(null, flightFromDb);
         System.assertEquals(2, flightFromDb.size());
-        System.assertEquals(flightsToInsert[0].Id, flightFromDb[0].Id);
-        System.assertEquals(flightsToInsert[1].Id, flightFromDb[1].Id); 
+        System.assertNotEquals(null, flightFromDb[0].Id);
+        System.assertNotEquals(null, flightFromDb[1].Id); 
     }
     
     @IsTest
     private static void testGetByTouristsId() {
         Set<Id> touristsId = new Set<Id>();        
         
-        for (Flight__c flight : flightsToInsert) {
+        for (Flight__c flight : flights) {
             touristsId.add(flight.Tourist__c);
         }
         List<Flight__c> flightsFromDb = FlightManager.getByTouristsId(touristsId);
         
         System.assertNotEquals(null, flightsFromDb);
         System.assertEquals(2, flightsFromDb.size());
-        System.assertEquals(flightsToInsert[0].Id, flightsFromDb[0].Id);
-        System.assertEquals(flightsToInsert[1].Id, flightsFromDb[1].Id); 
+        System.assertNotEquals(null, flightsFromDb[0].Id);
+        System.assertNotEquals(null, flightsFromDb[1].Id); 
     }
     
     @IsTest

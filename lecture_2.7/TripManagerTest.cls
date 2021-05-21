@@ -1,25 +1,24 @@
 @IsTest
 private class TripManagerTest {
-    private static List<Trip__c> tripsToInsert;
+    private static List<Trip__c> trips;
     
     static {
-        tripsToInsert = TestDataFactory.createTrips();
+        trips = TestDataFactory.createTrips();
     }
     
     @IsTest
     private static void testGetById() {
         Set<Id> tripsId  = new Set<Id>();
         
-        for (Trip__c trip : tripsToInsert) {
+        for (Trip__c trip : trips) {
             tripsId.add(trip.Id);
         }
         List<Trip__c> tripsDb = TripManager.getById(tripsId);
         
-        System.assertNotEquals(null, tripsDb);
         System.assertEquals(3, tripsDb.size());
-        System.assertEquals(tripsToInsert[0].Id, tripsDb[0].Id);
-        System.assertEquals(tripsToInsert[1].Id, tripsDb[1].Id);
-        System.assertEquals(tripsToInsert[2].Id, tripsDb[2].Id);    
+        System.assertNotEquals(null, tripsDb[0].Id);
+        System.assertNotEquals(null, tripsDb[1].Id);
+        System.assertNotEquals(null, tripsDb[2].Id);    
     }
     
     @IsTest

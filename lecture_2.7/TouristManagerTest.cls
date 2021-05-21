@@ -3,19 +3,19 @@ private class TouristManagerTest {
     private static final Integer AGE_PARTICULAR_TOURIST = 21;
     private static final String NAME_FIRST_NEW_TOURIST = 'Ivan';
     private static final String NAME_SECOND_NEW_TOURIST = 'Ivanovich';
-    private static List<Tourist__c> touristsToInsert;
+    private static List<Tourist__c> tourists;
     
     static {
-        touristsToInsert = TestDataFactory.createTourists();
+        tourists = TestDataFactory.createTourists();
     }
     
     @IsTest
     private static void testGetByName() {
-        List<Tourist__c> touristsFromDb = TouristManager.getByName(touristsToInsert.get(0).Name);
+        List<Tourist__c> touristsFromDb = TouristManager.getByName(tourists.get(0).Name);
         
         System.assertNotEquals(null, touristsFromDb);
         System.assertEquals(1, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);
     }
     
      @IsTest
@@ -33,8 +33,8 @@ private class TouristManagerTest {
         
         System.assertNotEquals(null, touristsFromDb);
         System.assertEquals(2, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
-        System.assertEquals(touristsToInsert.get(1).Id, touristsFromDb.get(1).Id);
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);
+        System.assertNotEquals(null, touristsFromDb.get(1).Id);
     }
     
     @IsTest
@@ -51,9 +51,9 @@ private class TouristManagerTest {
         
         System.assertNotEquals(null, touristsFromDb);
         System.assertEquals(3, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
-        System.assertEquals(touristsToInsert.get(1).Id, touristsFromDb.get(1).Id);
-        System.assertEquals(touristsToInsert.get(2).Id, touristsFromDb.get(2).Id);
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);
+        System.assertNotEquals(null, touristsFromDb.get(1).Id);
+        System.assertNotEquals(null, touristsFromDb.get(2).Id);
     }
     
     @IsTest
@@ -71,7 +71,7 @@ private class TouristManagerTest {
             newIds.add(newTourist.Id);
         }
         
-        for (Tourist__c oldTourist : touristsToInsert) {
+        for (Tourist__c oldTourist : tourists) {
             oldNames.add(oldTourist.Name);
             oldEmail.add(oldTourist.Email__c);
         }
@@ -79,8 +79,8 @@ private class TouristManagerTest {
         
         System.assertNotEquals(null, touristsFromDb);
         System.assertEquals(2, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
-        System.assertEquals(touristsToInsert.get(1).Id, touristsFromDb.get(1).Id);
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);
+        System.assertNotEquals(null, touristsFromDb.get(1).Id);
     }
     
     @IsTest
@@ -98,7 +98,7 @@ private class TouristManagerTest {
             newIds.add(newTourist.Id);
         }
         
-        for (Tourist__c oldTourist : touristsToInsert) {
+        for (Tourist__c oldTourist : tourists) {
             oldNames.add(oldTourist.Name);
             oldEmail.add(oldTourist.Email__c);
         }
@@ -116,23 +116,25 @@ private class TouristManagerTest {
         List<Tourist__c> touristsFromDb = TouristManager.getFreeTourists();
         
         System.assertEquals(3, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);
+        System.assertNotEquals(null, touristsFromDb.get(1).Id);
+        System.assertNotEquals(null, touristsFromDb.get(2).Id);
     }
     
     @IsTest
     private static void testGetById() {
         Set<Id> touristIds = new Set<Id>();
         
-        for (Tourist__c tourist : touristsToInsert) {
+        for (Tourist__c tourist : tourists) {
             touristIds.add(tourist.Id);
         }
         List<Tourist__c> touristsFromDb = TouristManager.getById(touristIds);
         
         System.assertNotEquals(null, touristsFromDb);
         System.assertEquals(3, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);
-        System.assertEquals(touristsToInsert.get(1).Id, touristsFromDb.get(1).Id);
-        System.assertEquals(touristsToInsert.get(2).Id, touristsFromDb.get(2).Id);
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);
+        System.assertNotEquals(null, touristsFromDb.get(1).Id);
+        System.assertNotEquals(null, touristsFromDb.get(2).Id);
     }
     
     @IsTest
@@ -144,28 +146,28 @@ private class TouristManagerTest {
     
     @IsTest
     private static void testGetByParams() {
-        String touristName = touristsToInsert.get(0).Name;
+        String touristName = tourists.get(0).Name;
         Integer touristAge = AGE_PARTICULAR_TOURIST;
         
         Id [] fixedSearchResults = new Id[1];
-        fixedSearchResults[0] = touristsToInsert[0].Id;
-        System.Test.setFixedSearchResults(fixedSearchResults);
+        fixedSearchResults[0] = tourists[0].Id;
+        Test.setFixedSearchResults(fixedSearchResults);
         
         List<Tourist__c> touristsFromDb = TouristManager.getByParams(touristName, touristAge);
         
         System.assertNotEquals(null, touristsFromDb);
         System.assertEquals(1, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);   
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);   
     }
     
     @IsTest
     private static void testGetByParamsByllParameter() {
-        String touristName = touristsToInsert.get(0).Name;
+        String touristName = tourists.get(0).Name;
         Integer touristAge = AGE_PARTICULAR_TOURIST;
         
         Id [] fixedSearchResults = new Id[1];
-        fixedSearchResults[0] = touristsToInsert[0].Id;
-        System.Test.setFixedSearchResults(fixedSearchResults);
+        fixedSearchResults[0] = tourists[0].Id;
+        Test.setFixedSearchResults(fixedSearchResults);
         
         List<Tourist__c> touristsFromDbNullName = TouristManager.getByParams(null, touristAge);
         List<Tourist__c> touristsFromDbNullAge = TouristManager.getByParams(touristName, null);
@@ -176,17 +178,17 @@ private class TouristManagerTest {
     
     @IsTest
     private static void testGetByNameSosl() {
-        String touristName = touristsToInsert.get(0).Name;
+        String touristName = tourists.get(0).Name;
         
         Id [] fixedSearchResults = new Id[1];
-        fixedSearchResults[0] = touristsToInsert[0].Id;
-        System.Test.setFixedSearchResults(fixedSearchResults);
+        fixedSearchResults[0] = tourists[0].Id;
+        Test.setFixedSearchResults(fixedSearchResults);
         
         List<Tourist__c> touristsFromDb = TouristManager.getByNameSosl(touristName);
         
         System.assertNotEquals(null, touristsFromDb);
         System.assertEquals(1, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);   
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);   
     }
     
     @IsTest
@@ -198,19 +200,19 @@ private class TouristManagerTest {
     
     @IsTest
     private static void testGetByResponseBody() {
-        String touristName = touristsToInsert.get(0).Name;
-        String touristEmail = touristsToInsert.get(0).Email__c;   
+        String touristName = tourists.get(0).Name;
+        String touristEmail = tourists.get(0).Email__c;   
         List<Tourist__c> touristsFromDb = TouristManager.getByResponseBody(touristName, touristEmail);
         
         System.assertNotEquals(null, touristsFromDb);
         System.assertEquals(1, touristsFromDb.size());
-        System.assertEquals(touristsToInsert.get(0).Id, touristsFromDb.get(0).Id);      
+        System.assertNotEquals(null, touristsFromDb.get(0).Id);      
     }  
     
     @IsTest
     private static void testGetByResponseBodyNullParameter() {
-        String touristName = touristsToInsert.get(0).Name;
-        String touristEmail = touristsToInsert.get(0).Email__c;   
+        String touristName = tourists.get(0).Name;
+        String touristEmail = tourists.get(0).Email__c;   
         List<Tourist__c> touristsFromDb = TouristManager.getByResponseBody(touristName, touristEmail);
         List<Tourist__c> touristsFromDbNullEmail = TouristManager.getByResponseBody(touristName, null);
         List<Tourist__c> touristsFromDbNullName = TouristManager.getByResponseBody(null, touristEmail);
