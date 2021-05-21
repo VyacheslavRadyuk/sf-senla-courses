@@ -6,6 +6,16 @@ private class TouristRestServiceTest {
         tourists = TestDataFactory.createTourists();
     }
     
+    private static List<Tourist__c> getTouristsFromDb() {
+        List<Tourist__c> touristsFromDB = [
+            SELECT Name, 
+            Age__c,
+            Email__c
+            FROM Tourist__c
+        ];
+        return touristsFromDB;
+    }
+    
     @IsTest
     private static void testGetTouristsByName() {
         String touristName = tourists[0].Name;
@@ -23,15 +33,9 @@ private class TouristRestServiceTest {
     }
     
     @IsTest
-    private static void testGetTourists() {
-        List<Tourist__c> touristsFromDB = [
-            SELECT Name, 
-            Age__c 
-            FROM Tourist__c
-        ];
-        
+    private static void testGetTourists() {       
         String touristName = tourists[0].Name;
-        String touristAge = String.valueOf(touristsFromDB[0].Age__c); 
+        String touristAge = String.valueOf(getTouristsFromDb()[0].Age__c); 
         
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();          
@@ -47,13 +51,8 @@ private class TouristRestServiceTest {
     }
     
     @IsTest
-    private static void testGetTouristsErrorValidationName() {
-        List<Tourist__c> touristsFromDB = [
-            SELECT Name, 
-            Age__c 
-            FROM Tourist__c
-        ];
-        String touristAge = String.valueOf(touristsFromDB[0].Age__c); 
+    private static void testGetTouristsErrorValidationName() {      
+        String touristAge = String.valueOf(getTouristsFromDb()[0].Age__c); 
         
         RestContext.request = new RestRequest();
         RestContext.response = new RestResponse();  
@@ -69,11 +68,6 @@ private class TouristRestServiceTest {
     
     @IsTest
     private static void testGetTouristsErrorValidationTypeAge() {
-        List<Tourist__c> touristsFromDB = [
-            SELECT Name, 
-            Age__c 
-            FROM Tourist__c
-        ];
         String touristName = tourists[0].Name;
         
         RestContext.request = new RestRequest();
@@ -100,16 +94,10 @@ private class TouristRestServiceTest {
         
         Test.startTest();
         	TouristRestService.createTourist(name, birthday, email);
-        Test.stopTest();
-        
-        List<Tourist__c> touristsFromDb = [
-            SELECT Name, 
-            Email__c 
-            FROM Tourist__c
-        ];
+        Test.stopTest();       
         
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_201, RestContext.response.statusCode); 
-        System.assertEquals(4, touristsFromDb.size());
+        System.assertEquals(4, getTouristsFromDb().size());
     }
     
     @IsTest
@@ -124,15 +112,9 @@ private class TouristRestServiceTest {
         Test.startTest();
         	TouristRestService.createTourist(name, birthday, email);
         Test.stopTest();
-        
-        List<Tourist__c> touristsFromDb = [
-            SELECT Name, 
-            Email__c 
-            FROM Tourist__c
-        ];
                 
         System.assertEquals(Constants.RESPONSE_BODY_DUPLICATE_RECORD, RestContext.response.responseBody.toString());
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_409, RestContext.response.statusCode);
-        System.assertEquals(3, touristsFromDb.size());  
+        System.assertEquals(3, getTouristsFromDb().size());  
     }
 }

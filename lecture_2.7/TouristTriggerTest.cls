@@ -14,12 +14,7 @@ private class TouristTriggerTest {
         ];  
     }
     
-    @IsTest
-    private static void testOnAfterInsert() {         
-        Test.startTest(); 
-        Database.SaveResult[] result = Database.insert(tourists, false);
-        Test.stopTest();
-        
+    private static List<Tourist__c> getTouristDuplicates() {
         List<Tourist__c> touristDuplicates = [
             SELECT  Name, 
             Email__c, 
@@ -27,10 +22,18 @@ private class TouristTriggerTest {
             FROM Tourist__c
             WHERE IsDuplicate__c = true
         ];
-        
-        System.assertNotEquals(null, touristDuplicates);
-        System.assertEquals(1, touristDuplicates.size());
-        System.assertNotEquals(null, touristDuplicates[0].Id);               
+        return touristDuplicates;
+    }
+    
+    @IsTest
+    private static void testOnAfterInsert() {         
+        Test.startTest(); 
+        Database.SaveResult[] result = Database.insert(tourists, false);
+        Test.stopTest();
+ 
+        System.assertEquals(1, getTouristDuplicates().size());
+        System.assertEquals('Slava', getTouristDuplicates()[0].Name);
+        System.assertEquals('vyacheslavradyuk@gmail.com', getTouristDuplicates()[0].Email__c);
     }
     
     @IsTest
@@ -42,17 +45,7 @@ private class TouristTriggerTest {
         Database.SaveResult[] result = Database.insert(tourists, false);
         Test.stopTest();
         
-        List<Tourist__c> touristDuplicates = [
-            SELECT  Name, 
-            Email__c, 
-            IsDuplicate__c 
-            FROM Tourist__c
-            WHERE IsDuplicate__c = true AND Name = :createDuplicateTourist.Name AND Email__c = :createDuplicateTourist.Email__c
-        ];
-        
-        System.assertEquals(1, touristDuplicates.size());
-        System.assertEquals('Sasha', touristDuplicates[0].Name); 
-        System.assertEquals('vyacheslavradyuk@gmail.com', touristDuplicates[0].Email__c); 
+        System.assertEquals(2, getTouristDuplicates().size()); 
     }
     
     @IsTest
