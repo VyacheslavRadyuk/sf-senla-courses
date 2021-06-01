@@ -35,7 +35,7 @@ private class TouristRestServiceTest {
         List<Tourist__c> touristsFromDbSosl = TouristManager.getByNameSosl(touristName);
         
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_200, RestContext.response.statusCode);
-        System.assertEquals(touristsFromDbSosl[0].Id, getTouristsFromDb()[0].Id);
+        System.assertEquals(true, RestContext.response.responseBody.toString().contains(tourists[0].Name));
         System.assertEquals(1, touristsFromDbSosl.size());
         System.assertNotEquals(null, touristsFromDbSosl[0]);
     }
@@ -61,7 +61,7 @@ private class TouristRestServiceTest {
 		List<Tourist__c> touristsFromDbSosl = TouristManager.getByParams(touristName, Integer.valueOf(getTouristsFromDb()[0].Age__c));        
 
         System.assertEquals(Constants.RESPONSE_STATUS_CODE_200, RestContext.response.statusCode);
-        System.assertEquals(touristsFromDbSosl[0].Id, getTouristsFromDb()[0].Id);
+        System.assertEquals(true, RestContext.response.responseBody.toString().contains(tourists[0].Name));
         System.assertEquals(1, touristsFromDbSosl.size());
         System.assertNotEquals(null, touristsFromDbSosl[0]);
     }
