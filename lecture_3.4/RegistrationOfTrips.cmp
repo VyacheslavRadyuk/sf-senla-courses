@@ -4,7 +4,9 @@
     <aura:attribute name="recordId" type="Id"/>
     <aura:attribute name="selectedRows" type="List"/>
     <aura:attribute name="selectedTourists" type="Tourist__c[]" />
-    <aura:attribute name="spinner" type="boolean" default="false"/>>
+    <aura:attribute name="spinner" type="boolean" default="false"/>
+    <aura:attribute name="countSeats" type="Integer"/>
+    <aura:attribute name="countFlights" type="Integer"/>
     
     <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 

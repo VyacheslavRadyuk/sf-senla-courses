@@ -57,5 +57,35 @@
             setRows.push(selectedRow);
         })        
         component.set("v.selectedTourists", setRows);
+    },
+    
+    fetchSeats : function(component, event) {
+        var countSeats = component.get('c.getSeatsByTripId');
+        countSeats.setParams({
+            tripRecordId : component.get('v.recordId')
+        });
+        countSeats.setCallback(this, function(response){
+            var state = response.getState();        
+            if (state === "SUCCESS") {
+                var value = response.getReturnValue();     
+                component.set('v.countSeats', value);
+            }
+        });
+        $A.enqueueAction(countSeats);
+    },
+    
+    fetchFlights : function(component, event) {
+        var countFlights = component.get('c.getFlightsByTripId');
+        countFlights.setParams({
+            tripRecordId : component.get('v.recordId')
+        });
+        countFlights.setCallback(this, function(response){
+            var state = response.getState();           
+            if (state === "SUCCESS") {
+                var value = response.getReturnValue();
+                component.set('v.countFlights', value);
+            }
+        });
+        $A.enqueueAction(countFlights);
     }
 })

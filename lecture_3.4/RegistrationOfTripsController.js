@@ -6,15 +6,28 @@
             {label: 'Email', fieldName: 'Email__c', type: 'email'},
             {label: 'Gender', fieldName: 'Gender__c', type: 'picklist'}
         ]);
-        helper.fetchTourist(component, event);     
+        helper.fetchTourist(component, event);
+        helper.fetchSeats(component, event);
+        helper.fetchFlights(component, event);
     },
     
-    handleClick : function (component, event, helper) {
+    handleClick : function (component, event, helper) {               
         const msg = $A.get("$Label.c.confirmationWindow");
+        var countSeats = component.get('v.countSeats');
+        var countFlights = component.get('v.countFlights');
+        var selectedTourists = component.get('v.selectedTourists').length;
         
-        if (!confirm(msg)) {
+        if(countFlights + selectedTourists > countSeats) {
+            var toastError = $A.get("e.force:showToast");
+            toastError.setParams({
+                message: $A.get("$Label.c.createFlightsError"),
+                duration: 3000,
+                type: $A.get("$Label.c.toastTypeError")
+            });
+            toastError.fire();
+        } else if (!confirm(msg)) {
             return false;
-        } else {   
+        } else {
             helper.createFlights(component, event);          
         }   
     },

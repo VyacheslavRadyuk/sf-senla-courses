@@ -22,7 +22,8 @@ public class TripManager {
             SELECT Id,
             Minimum_Age__c,
             Start_Date__c,
-            End_Date__c
+            End_Date__c,
+            Seats__c
             FROM Trip__c
             WHERE Id = :tripRecordId         
         ];

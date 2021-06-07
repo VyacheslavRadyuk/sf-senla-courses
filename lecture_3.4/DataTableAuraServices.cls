@@ -33,4 +33,17 @@ public class DataTableAuraServices {
         insert flights;
         return flights;
     }
+    
+    @AuraEnabled  
+    public static Integer getFlightsByTripId(Id tripRecordId) {
+        List<Flight__c> flights = FlightManager.getByRecordId(tripRecordId);
+        Integer flightsCount = flights.size(); 
+        return flightsCount;
+    }
+    
+    @AuraEnabled  
+    public static Integer getSeatsByTripId(Id tripRecordId) {
+        Integer countSeats = Integer.valueOf(TripManager.getByRecordId(tripRecordId)[0].Seats__c);
+        return countSeats;
+    }
 }
