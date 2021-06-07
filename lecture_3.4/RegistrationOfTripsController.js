@@ -1,7 +1,8 @@
 ({
     doInit : function(component, event, helper) {
         component.set("v.columns", [
-            {label: 'Tourist Name', fieldName: 'Name', type: 'text'},
+            {label: 'Tourist Name', fieldName: 'linkName', type: 'url', 
+             typeAttributes: {label: {fieldName: 'Name'}, target: '_blank'}},
             {label: 'Email', fieldName: 'Email__c', type: 'email'},
             {label: 'Gender', fieldName: 'Gender__c', type: 'picklist'}
         ]);
