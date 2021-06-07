@@ -1,0 +1,37 @@
+<aura:component controller="DataTableAuraServices" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">    
+    <aura:attribute name="data" type="Object"/>
+    <aura:attribute name="columns" type="Object"/>
+    <aura:attribute name="recordId" type="Id"/>
+    <aura:attribute name="selectedRows" type="List"/>
+    <aura:attribute name="selectedTourists" type="Tourist__c[]" />
+    <aura:attribute name="spinner" type="boolean" default="false"/>>
+    
+    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
+    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    
+    <lightning:card iconName="standard:contact" title="POTENTIAL TOURISTS FOR THE TRIP">
+        <lightning:datatable aura:id="touristTable"
+                             keyField="id"
+                             recordId="{!v.recordId}"
+                             data="{!v.data}"
+                             columns="{!v.columns}"
+                             onrowselection="{!c.doSelectRecord}"
+                             />
+        
+        <center class="slds-m-top_x-small">
+            <lightning:button label="Add to trip" onclick="{!c.handleClick}"/>     
+        </center>
+               
+        <aura:if isTrue="{!v.spinner}">
+            <div aura:id="spinnerId" class="slds-spinner_container">
+                <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
+                    <div class="slds-spinner__dot-a"></div>
+                    <div class="slds-spinner__dot-b"></div>
+                </div>
+            </div>
+        </aura:if>
+        
+    </lightning:card>
+    
+</aura:component>
