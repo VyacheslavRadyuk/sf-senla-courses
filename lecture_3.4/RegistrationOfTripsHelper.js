@@ -8,6 +8,9 @@
             var state = response.getState();
             if (state === 'SUCCESS') {
                 var responseValue = response.getReturnValue();
+                responseValue.forEach(function(value){
+                    value.linkName = '/' + value.Id;
+                })
                 component.set('v.data', responseValue);
             }
         });
@@ -29,7 +32,7 @@
                     toastSuccess.setParams({
                         message: $A.get("$Label.c.createFlights"),
                         duration: 3000,
-                        type: 'success'
+                        type: $A.get("$Label.c.toastTypeSuccessfully")
                     });
                     toastSuccess.fire();
                 } else {
@@ -37,7 +40,7 @@
                     toastError.setParams({
                         message: $A.get("$Label.c.createFlightsError"),
                         duration: 3000,
-                        type: 'error'
+                        type: $A.get("$Label.c.toastTypeError")
                     });
                     toastError.fire();
                 }

@@ -10,8 +10,7 @@
     },
     
     handleClick : function (component, event, helper) {
-        const selectedEventId = event.target.id;
-        const msg ='Are you sure you want to create flight for this tourists?';
+        const msg = $A.get("$Label.c.confirmationWindow");
         
         if (!confirm(msg)) {
             return false;

@@ -20,5 +20,4 @@ public class Constants {
     public static final String TRIP_PLANE_FLEW_AWAY_ERROR = 'The plane flew away';
     public static final String TRIP_INSUFFICIENT_AGE_ERROR = 'Insufficient age';
     public static final String FLIGHT_SECOND_STATUS_OFFER_PENDING = 'Offer Pending';
-    
 }
