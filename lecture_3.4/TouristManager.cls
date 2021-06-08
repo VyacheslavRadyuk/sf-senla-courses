@@ -132,6 +132,7 @@ public class TouristManager {
         List<Tourist__c> status = [
             SELECT Name,
             Age__c,
+            Email__c,
             Gender__c
             FROM Tourist__c
             WHERE Age__c >= :trip.Minimum_Age__c

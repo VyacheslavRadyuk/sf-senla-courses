@@ -22,13 +22,17 @@
         const todayDate = component.get('v.today');
         const startDate = component.get('v.startDate');
         const selectedTourists = component.get('v.selectedTourists').length;
-        const isValidation = Boolean(countSeats == countFlights || startDate < todayDate);
-        const isCheckFreeSeats = Boolean(countFlights + selectedTourists > countSeats);
-        
-        if (isValidation) {
-            component.set('v.isNoActiveButton', true);
-        } else if (isCheckFreeSeats) {
-            helper.toastErrorNoTouristsSelected(component, event);
+
+        if (countSeats == countFlights || startDate < todayDate) {
+            component.set('v.isActiveButton', true);
+        } else if (countFlights + selectedTourists > countSeats) {
+            const toastError = $A.get("e.force:showToast");
+            toastError.setParams({
+                message: $A.get("$Label.c.createFlightsError"),
+                duration: 3000,
+                type: $A.get("$Label.c.toastTypeError")
+            });
+            toastError.fire();
         } else if (!confirm(msg)) {
             return false;
         } else {

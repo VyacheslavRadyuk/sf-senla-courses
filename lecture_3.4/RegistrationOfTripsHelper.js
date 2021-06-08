@@ -102,15 +102,5 @@
             }
         });
         $A.enqueueAction(startDate);
-    },
-    
-    toastErrorNoTouristsSelected : function(component, event) {
-        const toastError = $A.get("e.force:showToast");
-            toastError.setParams({
-                message: $A.get("$Label.c.createFlightsError"),
-                duration: 3000,
-                type: $A.get("$Label.c.toastTypeError")
-            });
-            toastError.fire();
     }
 })
