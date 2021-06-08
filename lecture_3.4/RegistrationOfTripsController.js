@@ -9,15 +9,25 @@
         helper.fetchTourist(component, event);
         helper.fetchSeats(component, event);
         helper.fetchFlights(component, event);
+        helper.fetchStartDate(component, event);       
+        
+        var today = $A.localizationService.formatDate(new Date(), "YYYY-MM-DD");
+        component.set('v.today', today);
     },
     
     handleClick : function (component, event, helper) {               
         const msg = $A.get("$Label.c.confirmationWindow");
         var countSeats = component.get('v.countSeats');
         var countFlights = component.get('v.countFlights');
+        var todayDate = component.get('v.today');
+        var startDate = component.get('v.startDate');
         var selectedTourists = component.get('v.selectedTourists').length;
         
-        if(countFlights + selectedTourists > countSeats) {
+        if (countSeats == countFlights || startDate < todayDate) {
+            component.set('v.isActiveButton', true);
+        }
+        
+        if (countFlights + selectedTourists > countSeats) {
             var toastError = $A.get("e.force:showToast");
             toastError.setParams({
                 message: $A.get("$Label.c.createFlightsError"),

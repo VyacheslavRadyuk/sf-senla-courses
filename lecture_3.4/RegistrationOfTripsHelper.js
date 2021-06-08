@@ -87,5 +87,20 @@
             }
         });
         $A.enqueueAction(countFlights);
+    },
+    
+    fetchStartDate : function(component, event) {
+        var startDate = component.get('c.getStartDate');
+        startDate.setParams({
+            tripRecordId : component.get('v.recordId')
+        });
+        startDate.setCallback(this, function(response){
+            var state = response.getState();           
+            if (state === "SUCCESS") {
+                var value = response.getReturnValue();
+                component.set('v.startDate', value);
+            }
+        });
+        $A.enqueueAction(startDate);
     }
 })

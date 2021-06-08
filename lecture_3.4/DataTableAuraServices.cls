@@ -46,4 +46,11 @@ public class DataTableAuraServices {
         Integer countSeats = Integer.valueOf(TripManager.getByRecordId(tripRecordId)[0].Seats__c);
         return countSeats;
     }
+    
+    @AuraEnabled 
+    public static Date getStartDate(Id tripRecordId) {
+        Trip__c trip = TripManager.getByRecordId(tripRecordId)[0];
+        Date StartDate = Date.valueOf(trip.Start_Date__c);   
+        return StartDate;
+    }
 }

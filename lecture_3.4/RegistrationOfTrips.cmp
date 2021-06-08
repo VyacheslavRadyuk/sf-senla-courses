@@ -7,6 +7,9 @@
     <aura:attribute name="spinner" type="boolean" default="false"/>
     <aura:attribute name="countSeats" type="Integer"/>
     <aura:attribute name="countFlights" type="Integer"/>
+    <aura:attribute name="startDate" type="Date"/>
+    <aura:attribute name="isActiveButton" type="boolean" default="false"/>
+    <aura:attribute name="today" type="Date"/>
     
     <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
@@ -21,10 +24,11 @@
                              onrowselection="{!c.doSelectRecord}"
                              />
         
+        
         <center class="slds-m-top_x-small">
-            <lightning:button label="Add to trip" onclick="{!c.handleClick}"/>     
+            <lightning:button label="Add to trip" onclick="{!c.handleClick}" disabled="{!v.isActiveButton}"/>     
         </center>
-               
+        
         <aura:if isTrue="{!v.spinner}">
             <div aura:id="spinnerId" class="slds-spinner_container">
                 <div class="slds-spinner--brand  slds-spinner slds-spinner--large slds-is-relative" role="alert">
