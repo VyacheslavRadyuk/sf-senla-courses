@@ -11,30 +11,24 @@
         helper.fetchFlights(component, event);
         helper.fetchStartDate(component, event);       
         
-        var today = $A.localizationService.formatDate(new Date(), "YYYY-MM-DD");
+        const today = $A.localizationService.formatDate(new Date(), "YYYY-MM-DD");
         component.set('v.today', today);
     },
     
     handleClick : function (component, event, helper) {               
         const msg = $A.get("$Label.c.confirmationWindow");
-        var countSeats = component.get('v.countSeats');
-        var countFlights = component.get('v.countFlights');
-        var todayDate = component.get('v.today');
-        var startDate = component.get('v.startDate');
-        var selectedTourists = component.get('v.selectedTourists').length;
+        const countSeats = component.get('v.countSeats');
+        const countFlights = component.get('v.countFlights');
+        const todayDate = component.get('v.today');
+        const startDate = component.get('v.startDate');
+        const selectedTourists = component.get('v.selectedTourists').length;
+        const isValidation = Boolean(countSeats == countFlights || startDate < todayDate);
+        const isCheckFreeSeats = Boolean(countFlights + selectedTourists > countSeats);
         
-        if (countSeats == countFlights || startDate < todayDate) {
-            component.set('v.isActiveButton', true);
-        }
-        
-        if (countFlights + selectedTourists > countSeats) {
-            var toastError = $A.get("e.force:showToast");
-            toastError.setParams({
-                message: $A.get("$Label.c.createFlightsError"),
-                duration: 3000,
-                type: $A.get("$Label.c.toastTypeError")
-            });
-            toastError.fire();
+        if (isValidation) {
+            component.set('v.isNoActiveButton', true);
+        } else if (isCheckFreeSeats) {
+            helper.toastErrorNoTouristsSelected(component, event);
         } else if (!confirm(msg)) {
             return false;
         } else {
