@@ -38,7 +38,7 @@
                 } else {
                     var toastError = $A.get("e.force:showToast");
                     toastError.setParams({
-                        message: $A.get("$Label.c.createFlightsError"),
+                        message: $A.get("$Label.c.flightCreationErrorNoTouristSelected"),
                         duration: 3000,
                         type: $A.get("$Label.c.toastTypeError")
                     });
