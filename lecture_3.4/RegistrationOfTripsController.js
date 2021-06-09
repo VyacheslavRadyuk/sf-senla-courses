@@ -33,11 +33,10 @@
                 type: $A.get("$Label.c.toastTypeError")
             });
             toastError.fire();
-        } else if (!confirm(msg)) {
-            return false;
         } else {
-            helper.createFlights(component, event);          
-        }   
+            component.set('v.showConfirmWindow', true);
+        }
+            
     },
     
     doSelectRecord : function(component, event, helper) {
@@ -50,5 +49,15 @@
     
     hideSpinner : function(component,event,helper){  
         component.set("v.spinner", false);
+    },
+    
+    confirmDialogNo : function(component,event,helper) {
+        component.set('v.showConfirmWindow', false);
+        return false;
+    },
+    
+    confirmDialogYes : function(component,event,helper) {
+        component.set('v.showConfirmWindow', false);
+        helper.createFlights(component, event);
     }
 })

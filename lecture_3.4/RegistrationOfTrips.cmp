@@ -11,33 +11,53 @@
     <aura:attribute name="isActiveButton" type="boolean" default="false"/>
     <aura:attribute name="today" type="Date"/>
     <aura:attribute name="refreshDataTable" type="boolean" default="false"/>
+    <aura:attribute name="showConfirmWindow" type="boolean" default="false"/>
     
     <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="change" value="{!v.refreshDataTable}" action="{!c.doInit}"/>
     
-        <lightning:card iconName="standard:contact" title="Potential Tourists For The Trip">
+    <lightning:card iconName="standard:contact" title="Potential Tourists For The Trip">
+        
+        <div class="slds-p-around_large">
+            <lightning:datatable aura:id="touristTable"
+                                 keyField="id"
+                                 recordId="{!v.recordId}"
+                                 data="{!v.data}"
+                                 columns="{!v.columns}"
+                                 onrowselection="{!c.doSelectRecord}"
+                                 />  
             
-            <div class="slds-p-around_large">
-                <lightning:datatable aura:id="touristTable"
-                                     keyField="id"
-                                     recordId="{!v.recordId}"
-                                     data="{!v.data}"
-                                     columns="{!v.columns}"
-                                     onrowselection="{!c.doSelectRecord}"
-                                     />  
-                
-                <div class="slds-m-top_small">
-                    <lightning:button variant="brand" label="Add to trip" onclick="{!c.handleClick}" disabled="{!v.isActiveButton}"/>     
-                </div>
-                
-                <div class="slds-m-around--xx-large">
-                    <aura:if isTrue="{!v.spinner}">
-                        <lightning:spinner variant="brand" size="large"/>
-                    </aura:if>
+            <div class="slds-m-top_small">
+                <lightning:button variant="brand" label="Add to trip" onclick="{!c.handleClick}" disabled="{!v.isActiveButton}"/>     
+            </div>
+            
+            <div class="slds-m-around--xx-large">
+                <aura:if isTrue="{!v.spinner}">
+                    <lightning:spinner variant="brand" size="large"/>
+                </aura:if>
+            </div>
+        </div>
+        
+        <aura:if isTrue="{!v.showConfirmWindow}">
+            <div role="dialog" class="slds-modal slds-fade-in-open ">
+                <div class="slds-modal__container">
+                    <header class="slds-modal__header">
+                        <h1 class="slds-text-heading--medium">Confirmation</h1>
+                    </header>
+                    <div class="slds-modal__content slds-p-around--medium">
+                        <center><b>{!$Label.c.confirmationWindow}</b></center>
+                    </div>
+                    
+                    <footer class="slds-modal__footer">
+                        <lightning:button name='No' label='No' onclick='{!c.confirmDialogNo}'/>
+                        <lightning:button variant="brand" name='Yes' label='Yes' onclick='{!c.confirmDialogYes}'/>
+                    </footer>
                 </div>
             </div>
-        </lightning:card> 
+            <div class="slds-backdrop slds-backdrop--open"></div>            
+        </aura:if>
+    </lightning:card> 
     
 </aura:component>
