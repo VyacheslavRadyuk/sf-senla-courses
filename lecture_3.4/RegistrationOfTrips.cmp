@@ -22,7 +22,7 @@
         <lightning:layoutItem size="6">
             <lightning:card iconName="standard:contact" title="Potential Tourists For The Trip">
                 
-                <div class="slds-p-around_large">
+                <div class="slds-p-around_large" style="height:250px;">
                     <lightning:datatable aura:id="touristTable"
                                          keyField="id"
                                          recordId="{!v.recordId}"
@@ -34,13 +34,14 @@
                     <div class="slds-m-top_small">
                         <lightning:button variant="brand" label="Add to trip" onclick="{!c.handleClick}" disabled="{!v.isActiveButton}"/>     
                     </div>
-                    
-                    <div class="slds-m-around--xx-large">
-                        <aura:if isTrue="{!v.spinner}">
-                            <lightning:spinner variant="brand" size="large"/>
-                        </aura:if>
-                    </div>
                 </div>
+                
+                <div class="slds-m-around--xx-large">
+                    <aura:if isTrue="{!v.spinner}">
+                        <lightning:spinner variant="brand" size="large"/>
+                    </aura:if>
+                </div>
+                
                 
                 <aura:if isTrue="{!v.showConfirmWindow}">
                     <div role="dialog" class="slds-modal slds-fade-in-open ">
