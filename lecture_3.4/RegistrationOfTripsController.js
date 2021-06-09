@@ -3,8 +3,8 @@
         component.set("v.columns", [
             {label: 'Tourist Name', fieldName: 'linkName', type: 'url', 
              typeAttributes: {label: {fieldName: 'Name'}, target: '_blank'}},
-            {label: 'Email', fieldName: 'Email__c', type: 'email'},
-            {label: 'Gender', fieldName: 'Gender__c', type: 'picklist'}
+            {label: 'Email', fieldName: 'Email__c', type: 'email', initialWidth: 300},
+            {label: 'Gender', fieldName: 'Gender__c', type: 'picklist', initialWidth: 95}
         ]);
         helper.fetchTourist(component, event);
         helper.fetchSeats(component, event);
