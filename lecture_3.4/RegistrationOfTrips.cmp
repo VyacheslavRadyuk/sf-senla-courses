@@ -10,12 +10,14 @@
     <aura:attribute name="startDate" type="Date"/>
     <aura:attribute name="isActiveButton" type="boolean" default="false"/>
     <aura:attribute name="today" type="Date"/>
+    <aura:attribute name="refreshDataTable" type="boolean" default="false"/>
     
     <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.refreshDataTable}" action="{!c.doInit}"/>
     
-    <lightning:card iconName="standard:contact" title="POTENTIAL TOURISTS FOR THE TRIP">
+    <lightning:card iconName="standard:contact" title="Potential Tourists For The Trip">
         <lightning:datatable aura:id="touristTable"
                              keyField="id"
                              recordId="{!v.recordId}"

@@ -34,6 +34,8 @@
                         duration: 3000,
                         type: $A.get("$Label.c.toastTypeSuccessfully")
                     });
+                    component.set('v.refreshDataTable', true);
+                    component.set('v.refreshDataTable', false);
                     toastSuccess.fire();
                 } else {
                     const toastError = $A.get("e.force:showToast");
