@@ -1,0 +1,74 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="DataTableAuraServices">
+    <aura:attribute name="dataTourist" type="Object"/>
+    <aura:attribute name="columnsTourist" type="Object"/>
+    <aura:attribute name="dataTrip" type="Object"/>
+    <aura:attribute name="columnsTrip" type="Object"/>
+    <aura:attribute name="selectedTourist" type="Tourist__c"/>
+    <aura:attribute name="selectedTrip" type="Trip__c"/>
+    <aura:attribute name="mapMarkers" type="Object[]"/>
+    <aura:attribute name="isNoActiveButton" type="boolean" default="false"/>
+    <aura:attribute name="isActiveGeolocationOfSpacePoint" type="boolean" default="true"/>
+    <aura:attribute name="refreshApp" type="boolean" default="false"/>
+    <aura:attribute name="date" type="date"/>
+    <aura:attribute name="averageTemperature" type="decimal"/>
+    <aura:attribute name="countOccupiedSeats" type="integer"/>
+    <aura:attribute name="refreshTripDatatable" type="boolean" default="false"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.refreshApp}" action="{!c.doInit}"/>
+    
+    <lightning:layout>
+        <lightning:layoutItem size="4" class="slds-p-around_x-small">   
+            <lightning:card iconName="standard:contact" title="Select a tourist for the trip">
+                <lightning:datatable aura:id="touristTable"
+                                     keyField="id"
+                                     data="{!v.dataTourist}"
+                                     columns="{!v.columnsTourist}"
+                                     onrowselection="{!c.doSelectRecordTourist}"
+                                     maxRowSelection="1"
+                                     />
+                <div class="slds-m-top_small">
+                    <lightning:button variant="brand" label="Submit" onclick="{!c.handleClick}" disabled="{!v.isNoActiveButton}"/>     
+                </div>
+            </lightning:card>          
+        </lightning:layoutItem>
+        
+        <aura:if isTrue="{!and(v.selectedTourist.length > 0, v.refreshTripDatatable == false)}">
+            <lightning:layoutItem size="4" class="slds-p-around_x-small">    
+                <lightning:card iconName="standard:contact" title="Select a trip">
+                    <lightning:datatable aura:id="tripTable"
+                                         keyField="id"
+                                         data="{!v.dataTrip}"
+                                         columns="{!v.columnsTrip}"
+                                         onrowselection="{!c.doSelectRecordTrip}"
+                                         maxRowSelection="1"
+                                         /> 
+                    <aura:if isTrue="{!v.selectedTrip.length > 0}">
+                        <lightning:card iconName="standard:contact" title="Trip information">
+                            <div class="slds-m-left_small">
+                                <p><b>Trip name: </b>{!v.selectedTrip[0].Name}</p>
+                                <p><b>End Date: </b>{!v.selectedTrip[0].End_Date__c}</p>
+                                <p><b>Minimum Age: </b>{!v.selectedTrip[0].Minimum_Age__c}</p>
+                                <p><b>Seats: </b>{!v.countOccupiedSeats} of {!v.selectedTrip[0].Seats__c}</p>
+                            </div>
+                        </lightning:card>
+                    </aura:if>
+                </lightning:card>    
+            </lightning:layoutItem> 
+        </aura:if>
+        <aura:if isTrue="{!and(v.selectedTrip.length > 0, v.isActiveGeolocationOfSpacePoint == true)}">
+            <lightning:layoutItem size="4" class="slds-p-around_x-small">
+                <lightning:card iconName="standard:contact" title="Spacepoint geolocation">
+                    <lightning:map 
+                                   mapMarkers="{! v.mapMarkers }"
+                                   zoomLevel="7"/>
+                    <aura:set attribute="footer">
+                        Date: <lightning:badge label="{!v.date}"/>
+                        Average Tempetarure: <lightning:badge label="{!v.averageTemperature}"/>
+                    </aura:set> 
+                </lightning:card>
+            </lightning:layoutItem>
+        </aura:if>
+    </lightning:layout>
+    
+</aura:component>
