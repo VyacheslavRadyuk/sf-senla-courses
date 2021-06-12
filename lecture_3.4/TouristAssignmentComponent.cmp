@@ -1,4 +1,4 @@
-<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="DataTableAuraServices">
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="TouristAssignmentController">
     <aura:attribute name="dataTourist" type="Object"/>
     <aura:attribute name="columnsTourist" type="Object"/>
     <aura:attribute name="dataTrip" type="Object"/>

@@ -17,6 +17,8 @@ public class TouristAssignmentController {
     
     @AuraEnabled 
     public static List<Trip__c> getTrips(Tourist__c selectedTourist) { 
+        Integer count;
+        
         List<Trip__c> trips = [
             SELECT Id, 
             Name, 
@@ -26,11 +28,29 @@ public class TouristAssignmentController {
             Departure_Space_Point__c,
             Departure_Space_Point__r.Latitude__c,
             Departure_Space_Point__r.Longitude__c,
-            Minimum_Age__c   
+            Minimum_Age__c    
             FROM Trip__c
             WHERE Minimum_Age__c <= :selectedTourist.Age__c
             AND Start_Date__c >= :Date.today()
         ];
+        
+        List<Flight__c> flights = [
+            SELECT Trip__c, Trip__r.Id FROM Flight__c  
+        ];
+        
+        for (Integer i = 0; i < trips.size(); i++) {
+            count = 0;
+
+            for (Flight__c flight : flights) {
+                if (flight.Trip__r.Id == trips[i].Id) {
+                    count++;
+                    
+                    if (count == trips[i].Seats__c) {
+                        trips.remove(i);
+                    }  
+                } 
+            } 
+        }  
         return trips;
     }
     
