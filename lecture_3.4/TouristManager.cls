@@ -126,7 +126,7 @@ public class TouristManager {
     }
     
     public static List<Tourist__c> getFreeTouristsForTheFlight(Trip__c trip, Set<Id> touristId) { 
-        if (touristId == null || touristId.isEmpty() || trip == null) {
+        if (trip == null) {
             return new List<Tourist__c>();
         }
         List<Tourist__c> status = [
@@ -137,8 +137,8 @@ public class TouristManager {
             FROM Tourist__c
             WHERE Age__c >= :trip.Minimum_Age__c
             AND Active__c = true
-            AND Id != :touristId     
+            AND Id NOT IN :touristId     
         ];
         return status;
-    }
+    }  
 }
