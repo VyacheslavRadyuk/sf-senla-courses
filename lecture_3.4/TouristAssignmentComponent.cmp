@@ -1,9 +1,7 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="TouristAssignmentController">
-    <aura:attribute name="dataTourist" type="List" access="public"/>
-    <aura:attribute name="columnsTourist" type="List" access="public"/>
     <aura:attribute name="dataTrip" type="List" access="public"/>
     <aura:attribute name="columnsTrip" type="List" access="public"/>
-    <aura:attribute name="selectedTourist" type="Tourist__c" access="public"/>
+    <aura:attribute name="selectedTourist" type="Id" access="public"/>
     <aura:attribute name="selectedTrip" type="Trip__c" access="public"/>
     <aura:attribute name="mapMarkers" type="List" access="public"/>
     <aura:attribute name="isNoActiveButton" type="boolean" default="false" access="public"/>
@@ -15,23 +13,21 @@
     <aura:attribute name="isRefreshTripDatatable" type="boolean" default="false" access="public"/>
     
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler name="change" value="{!v.isRefreshApp}" action="{!c.doInit}"/>
-    
+    <aura:handler name="change" value="{!v.selectedTourist}" action="{!c.doSelectRecordTourist}"/>
+
     <lightning:layout>
+        <aura:if isTrue='{!(!v.isRefreshApp)}'>
         <lightning:layoutItem size="4" class="slds-p-around_x-small">   
             <lightning:card iconName="standard:contact" title="Select a tourist for the trip">
-                <lightning:datatable aura:id="touristTable"
-                                     keyField="id"
-                                     data="{!v.dataTourist}"
-                                     columns="{!v.columnsTourist}"
-                                     onrowselection="{!c.doSelectRecordTourist}"
-                                     maxRowSelection="1"
-                                     />
+                <l_lookup:Lookup objectType="Tourist__c" 
+                                 selectedRecordId="{!v.selectedTourist}"
+                                 queryCondition="Active__c = true"/>    
                 <div class="slds-m-top_small">
                     <lightning:button variant="brand" label="Submit" onclick="{!c.handleClick}" disabled="{!v.isNoActiveButton}"/>     
                 </div>
             </lightning:card>          
         </lightning:layoutItem>
+        </aura:if>
         
         <aura:if isTrue="{!and(v.selectedTourist.length > 0, v.isRefreshTripDatatable == false)}">
             <lightning:layoutItem size="4" class="slds-p-around_x-small">    
@@ -43,7 +39,7 @@
                                          onrowselection="{!c.doSelectRecordTrip}"
                                          maxRowSelection="1"
                                          /> 
-                    <aura:if isTrue="{!v.selectedTrip.length > 0}">
+                    <aura:if isTrue="{!and(v.selectedTrip.length > 0, v.selectedTrip != null)}">
                         <lightning:card iconName="standard:contact" title="Trip information">
                             <div class="slds-m-left_small">
                                 <p><b>Trip name: </b>{!v.selectedTrip[0].Name}</p>

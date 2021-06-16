@@ -1,24 +1,9 @@
 ({
-    fetchTourist : function(component, event) {    
-        const action = component.get('c.getTourists');
-        action.setCallback(this, function(response) {
-            const state = response.getState();
-            if (state === 'SUCCESS') {
-                const responseValue = response.getReturnValue();
-                responseValue.forEach(function(value){
-                    value.linkName = '/' + value.Id;
-                })
-                component.set('v.dataTourist', responseValue);
-            }
-        });
-        $A.enqueueAction(action); 
-    },
-    
     fetchTrip : function(component) {    
         const action = component.get('c.getTrips');
         const selectedTourist = component.get('v.selectedTourist');
         action.setParams({            
-            selectedTourist: selectedTourist[0]
+            selectedTourist: selectedTourist
         });
         action.setCallback(this, function(response) {
             const state = response.getState();
@@ -31,19 +16,6 @@
             }               
         });
         $A.enqueueAction(action); 
-    },
-    
-    selectRecordsTourist : function(component, event) {
-        const selectedRows = event.getParam('selectedRows'); 
-        let setRows = [];
-        
-        selectedRows.forEach(function(selectedRow) {
-            setRows.push(selectedRow);
-        })        
-        component.set("v.selectedTourist", setRows); 
-        component.set("v.selectedTrip", []);
-        component.set("v.isRefreshTripDatatable", true);
-        component.set("v.isRefreshTripDatatable", false);
     },
     
     selectRecordsTrip : function(component, event) {
@@ -82,14 +54,14 @@
         $A.enqueueAction(action); 
     },
     
-    fetchFlights : function(component) {
+    fetchFlights : function(component, event) {
         const action = component.get('c.getFlightsBySelectedTrip');
         const selectedTrip = component.get('v.selectedTrip');
         action.setParams({            
             selectedTrip: selectedTrip[0]
         });
         action.setCallback(this, function(response) {
-            const state = response.getState();
+            const state = response.getState();   
             if (state === 'SUCCESS') {
                 const responseValue = response.getReturnValue();
                 component.set("v.countOccupiedSeats", responseValue.length);          

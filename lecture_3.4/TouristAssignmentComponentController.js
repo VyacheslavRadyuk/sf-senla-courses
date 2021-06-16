@@ -1,19 +1,11 @@
 ({
-    doInit : function(component, event, helper) {
-        component.set("v.columnsTourist", [
-            {label: 'Tourist Name', fieldName: 'linkName', type: 'url', 
-             typeAttributes: {label: {fieldName: 'Name'}, target: '_blank'}},
-            {label: 'Email', fieldName: 'Email__c', type: 'email'},
-            {label: 'Gender', fieldName: 'Gender__c', type: 'picklist'}
-        ]); 
+    doInit : function(component, helper) {     
         component.set('v.isNoActiveButton', true);
-        helper.fetchTourist(component, event);
         component.set("v.isActiveGeolocationOfSpacePoint", false);    
     },  
     
     doSelectRecordTourist : function(component, event, helper) {
-        helper.selectRecordsTourist(component, event);
-        helper.fetchTrip(component);
+        helper.fetchTrip(component, event);
         component.set("v.columnsTrip", [
             {label: 'Trip Name', fieldName: 'linkName', type: 'url', 
              typeAttributes: {label: {fieldName: 'Name'}, target: '_blank'}},
@@ -34,7 +26,7 @@
         const selectedTourist = component.get('v.selectedTourist');
         action.setParams({
             selectedTrip: selectedTrip[0],
-            selectedTourist: selectedTourist[0]
+            selectedTourist: selectedTourist
         });
         action.setCallback(this, function(response) {
             const state = response.getState();
@@ -52,7 +44,9 @@
             }  
         });
         $A.enqueueAction(action);
+        component.set("v.selectedTrip", null);
+        component.set("v.selectedTourist", null);    
         component.set('v.isRefreshApp', true);
-        component.set('v.isRefreshApp', false);        
+        component.set('v.isRefreshApp', false);
     }
 })

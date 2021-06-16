@@ -1,23 +1,12 @@
 public inherited sharing class TouristAssignmentController {
     
-	@AuraEnabled(cacheable=true) 
-    public static List<Tourist__c> getTourists() {
-        List<Tourist__c> tourists = [
-            SELECT Id, 
-            Name, 
-            Email__c, 
-            Gender__c,
-            Age__c,
-            Active__c
-            FROM Tourist__c
-            WHERE Active__c = true
-        ];
-        return tourists;
-    }
-    
     @AuraEnabled(cacheable=true) 
-    public static List<Trip__c> getTrips(Tourist__c selectedTourist) { 
+    public static List<Trip__c> getTrips(Id selectedTourist) { 
         Integer count;
+        
+        Tourist__c tourist = [
+            SELECT Id, Age__c FROM Tourist__c WHERE Id = :selectedTourist
+        ];
         
         List<Trip__c> trips = [
             SELECT Id, 
@@ -30,7 +19,7 @@ public inherited sharing class TouristAssignmentController {
             Departure_Space_Point__r.Longitude__c,
             Minimum_Age__c    
             FROM Trip__c
-            WHERE Minimum_Age__c <= :selectedTourist.Age__c
+            WHERE Minimum_Age__c <= :tourist.Age__c
             AND Start_Date__c >= :Date.today()
         ];
         
@@ -47,7 +36,6 @@ public inherited sharing class TouristAssignmentController {
                     
                     if (count == trips[i].Seats__c) {
                         trips.remove(i);
-                        break;
                     }  
                 } 
             } 
@@ -56,12 +44,12 @@ public inherited sharing class TouristAssignmentController {
     }
     
     @AuraEnabled   
-    public static Flight__c createFlightForTouristAssignment(trip__c selectedTrip, Tourist__c selectedTourist) { 
+    public static Flight__c createFlightForTouristAssignment(trip__c selectedTrip, Id selectedTourist) { 
         Integer randomNumber;
         randomNumber = Integer.valueof((Math.random() * 1000000));
         Flight__c flight = new Flight__c(
             Name = String.valueOf(randomNumber),
-            Tourist__c = selectedTourist.Id,
+            Tourist__c = selectedTourist,
             Status__c = 'Requested',
             Trip__c = selectedTrip.Id
         );         
@@ -83,7 +71,7 @@ public inherited sharing class TouristAssignmentController {
         return weatherForecast;
     }
     
-    @AuraEnabled(cacheable=true) 
+    @AuraEnabled 
     public static List<Flight__c> getFlightsBySelectedTrip(Trip__c selectedTrip) {
         List<Flight__c> flights = [
             SELECT Trip__c,
