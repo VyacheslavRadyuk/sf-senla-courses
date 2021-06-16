@@ -42,8 +42,8 @@
         })        
         component.set("v.selectedTourist", setRows); 
         component.set("v.selectedTrip", []);
-        component.set("v.refreshTripDatatable", true);
-        component.set("v.refreshTripDatatable", false);
+        component.set("v.isRefreshTripDatatable", true);
+        component.set("v.isRefreshTripDatatable", false);
     },
     
     selectRecordsTrip : function(component, event) {

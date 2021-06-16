@@ -35,18 +35,19 @@ public class TouristAssignmentController {
         ];
         
         List<Flight__c> flights = [
-            SELECT Trip__c, Trip__r.Id FROM Flight__c  
+            SELECT Trip__c, Trip__r.Id, Trip__r.Start_Date__c, Trip__r.End_Date__c FROM Flight__c  
         ];
         
         for (Integer i = 0; i < trips.size(); i++) {
             count = 0;
-
+            
             for (Flight__c flight : flights) {
                 if (flight.Trip__r.Id == trips[i].Id) {
                     count++;
                     
                     if (count == trips[i].Seats__c) {
                         trips.remove(i);
+                        break;
                     }  
                 } 
             } 

@@ -1,6 +1,6 @@
 ({
-    fetchTourist : function(component, event) {    
-        const action = component.get('c.fetchTourist');
+    fetchTourists : function(component, event) {    
+        const action = component.get('c.fetchTourists');
         action.setParams({
             tripRecordId: component.get('v.recordId')
         });
@@ -34,8 +34,8 @@
                         duration: 3000,
                         type: $A.get("$Label.c.toastTypeSuccessfully")
                     });
-                    component.set('v.refreshDataTable', true);
-                    component.set('v.refreshDataTable', false);
+                    component.set('v.isRefreshDataTable', true);
+                    component.set('v.isRefreshDataTable', false);
                     toastSuccess.fire();
                 } else {
                     const toastError = $A.get("e.force:showToast");

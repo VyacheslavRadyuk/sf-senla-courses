@@ -6,7 +6,7 @@
             {label: 'Email', fieldName: 'Email__c', type: 'email', initialWidth: 300},
             {label: 'Gender', fieldName: 'Gender__c', type: 'picklist', initialWidth: 95}
         ]);
-        helper.fetchTourist(component, event);
+        helper.fetchTourists(component, event);
         helper.fetchSeats(component, event);
         helper.fetchFlights(component, event);
         helper.fetchStartDate(component, event);       
@@ -44,11 +44,11 @@
     },
     
     showSpinner: function(component, event, helper) {
-        component.set("v.spinner", true); 
+        component.set("v.isSpinner", true); 
     },
     
     hideSpinner : function(component,event,helper){  
-        component.set("v.spinner", false);
+        component.set("v.isSpinner", false);
     },
     
     confirmDialogNo : function(component,event,helper) {

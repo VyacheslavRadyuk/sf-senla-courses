@@ -1,22 +1,22 @@
 <aura:component controller="DataTableAuraServices" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">    
-    <aura:attribute name="data" type="Object"/>
-    <aura:attribute name="columns" type="Object"/>
-    <aura:attribute name="recordId" type="Id"/>
-    <aura:attribute name="selectedRows" type="List"/>
-    <aura:attribute name="selectedTourists" type="Tourist__c[]" />
-    <aura:attribute name="spinner" type="boolean" default="false"/>
-    <aura:attribute name="countSeats" type="Integer"/>
-    <aura:attribute name="countFlights" type="Integer"/>
-    <aura:attribute name="startDate" type="Date"/>
-    <aura:attribute name="isActiveButton" type="boolean" default="false"/>
-    <aura:attribute name="today" type="Date"/>
-    <aura:attribute name="refreshDataTable" type="boolean" default="false"/>
-    <aura:attribute name="showConfirmWindow" type="boolean" default="false"/>
+    <aura:attribute name="data" type="List" access="public"/>
+    <aura:attribute name="columns" type="List" access="public"/>
+    <aura:attribute name="recordId" type="Id" access="public"/>
+    <aura:attribute name="selectedRows" type="List" access="public"/>
+    <aura:attribute name="selectedTourists" type="List" access="public"/>
+    <aura:attribute name="isSpinner" type="boolean" default="false" access="public"/>
+    <aura:attribute name="countSeats" type="Integer" access="public"/>
+    <aura:attribute name="countFlights" type="Integer" access="public"/>
+    <aura:attribute name="startDate" type="Date" access="public"/>
+    <aura:attribute name="isActiveButton" type="boolean" default="false" access="public"/>
+    <aura:attribute name="today" type="Date" access="public"/>
+    <aura:attribute name="isRefreshDataTable" type="boolean" default="false" access="public"/>
+    <aura:attribute name="showConfirmWindow" type="boolean" default="false" access="public"/>
     
     <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler name="change" value="{!v.refreshDataTable}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.isRefreshDataTable}" action="{!c.doInit}"/>
     
     <lightning:layout> 
         <lightning:layoutItem size="6">
@@ -37,7 +37,7 @@
                 </div>
                 
                 <div class="slds-m-around--xx-large">
-                    <aura:if isTrue="{!v.spinner}">
+                    <aura:if isTrue="{!v.isSpinner}">
                         <lightning:spinner variant="brand" size="large"/>
                     </aura:if>
                 </div>

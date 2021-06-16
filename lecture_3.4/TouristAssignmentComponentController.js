@@ -52,7 +52,7 @@
             }  
         });
         $A.enqueueAction(action);
-        component.set('v.refreshApp', true);
-        component.set('v.refreshApp', false);        
+        component.set('v.isRefreshApp', true);
+        component.set('v.isRefreshApp', false);        
     }
 })

@@ -1,21 +1,21 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="TouristAssignmentController">
-    <aura:attribute name="dataTourist" type="Object"/>
-    <aura:attribute name="columnsTourist" type="Object"/>
-    <aura:attribute name="dataTrip" type="Object"/>
-    <aura:attribute name="columnsTrip" type="Object"/>
-    <aura:attribute name="selectedTourist" type="Tourist__c"/>
-    <aura:attribute name="selectedTrip" type="Trip__c"/>
-    <aura:attribute name="mapMarkers" type="Object[]"/>
-    <aura:attribute name="isNoActiveButton" type="boolean" default="false"/>
-    <aura:attribute name="isActiveGeolocationOfSpacePoint" type="boolean" default="true"/>
-    <aura:attribute name="refreshApp" type="boolean" default="false"/>
-    <aura:attribute name="date" type="date"/>
-    <aura:attribute name="averageTemperature" type="decimal"/>
-    <aura:attribute name="countOccupiedSeats" type="integer"/>
-    <aura:attribute name="refreshTripDatatable" type="boolean" default="false"/>
+    <aura:attribute name="dataTourist" type="List" access="public"/>
+    <aura:attribute name="columnsTourist" type="List" access="public"/>
+    <aura:attribute name="dataTrip" type="List" access="public"/>
+    <aura:attribute name="columnsTrip" type="List" access="public"/>
+    <aura:attribute name="selectedTourist" type="Tourist__c" access="public"/>
+    <aura:attribute name="selectedTrip" type="Trip__c" access="public"/>
+    <aura:attribute name="mapMarkers" type="List" access="public"/>
+    <aura:attribute name="isNoActiveButton" type="boolean" default="false" access="public"/>
+    <aura:attribute name="isActiveGeolocationOfSpacePoint" type="boolean" default="true" access="public"/>
+    <aura:attribute name="isRefreshApp" type="boolean" default="false" access="public"/>
+    <aura:attribute name="date" type="date" access="public"/>
+    <aura:attribute name="averageTemperature" type="decimal" access="public"/>
+    <aura:attribute name="countOccupiedSeats" type="integer" access="public"/>
+    <aura:attribute name="isRefreshTripDatatable" type="boolean" default="false" access="public"/>
     
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler name="change" value="{!v.refreshApp}" action="{!c.doInit}"/>
+    <aura:handler name="change" value="{!v.isRefreshApp}" action="{!c.doInit}"/>
     
     <lightning:layout>
         <lightning:layoutItem size="4" class="slds-p-around_x-small">   
@@ -33,7 +33,7 @@
             </lightning:card>          
         </lightning:layoutItem>
         
-        <aura:if isTrue="{!and(v.selectedTourist.length > 0, v.refreshTripDatatable == false)}">
+        <aura:if isTrue="{!and(v.selectedTourist.length > 0, v.isRefreshTripDatatable == false)}">
             <lightning:layoutItem size="4" class="slds-p-around_x-small">    
                 <lightning:card iconName="standard:contact" title="Select a trip">
                     <lightning:datatable aura:id="tripTable"
