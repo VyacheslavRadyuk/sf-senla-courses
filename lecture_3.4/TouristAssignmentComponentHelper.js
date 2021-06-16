@@ -14,7 +14,7 @@
         $A.enqueueAction(action); 
     },
     
-    fetchTrip : function(component, event) {    
+    fetchTrip : function(component) {    
         const action = component.get('c.getTrips');
         const selectedTourist = component.get('v.selectedTourist');
         action.setParams({            
@@ -82,7 +82,7 @@
         $A.enqueueAction(action); 
     },
     
-    fetchFlights : function(component, event) {
+    fetchFlights : function(component) {
         const action = component.get('c.getFlightsBySelectedTrip');
         const selectedTrip = component.get('v.selectedTrip');
         action.setParams({            

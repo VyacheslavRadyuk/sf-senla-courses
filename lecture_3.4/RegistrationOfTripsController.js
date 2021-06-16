@@ -1,5 +1,5 @@
 ({
-    doInit : function(component, event, helper) {
+    doInit : function(component, event,helper) {
         component.set("v.columns", [
             {label: 'Tourist Name', fieldName: 'linkName', type: 'url', 
              typeAttributes: {label: {fieldName: 'Name'}, target: '_blank'}},
@@ -7,15 +7,15 @@
             {label: 'Gender', fieldName: 'Gender__c', type: 'picklist', initialWidth: 95}
         ]);
         helper.fetchTourists(component, event);
-        helper.fetchSeats(component, event);
-        helper.fetchFlights(component, event);
-        helper.fetchStartDate(component, event);       
+        helper.fetchSeats(component);
+        helper.fetchFlights(component);
+        helper.fetchStartDate(component);       
         
         const today = $A.localizationService.formatDate(new Date(), "YYYY-MM-DD");
         component.set('v.today', today);
     },
     
-    handleClick : function (component, event, helper) {               
+    handleClick : function (component, helper) {               
         const msg = $A.get("$Label.c.confirmationWindow");
         const countSeats = component.get('v.countSeats');
         const countFlights = component.get('v.countFlights');
@@ -43,20 +43,20 @@
         helper.selectRecords(component, event);
     },
     
-    showSpinner: function(component, event, helper) {
+    showSpinner: function(component, helper) {
         component.set("v.isSpinner", true); 
     },
     
-    hideSpinner : function(component,event,helper){  
+    hideSpinner : function(component, helper){  
         component.set("v.isSpinner", false);
     },
     
-    confirmDialogNo : function(component,event,helper) {
+    confirmDialogNo : function(component, helper) {
         component.set('v.showConfirmWindow', false);
         return false;
     },
     
-    confirmDialogYes : function(component,event,helper) {
+    confirmDialogYes : function(component, event, helper) {
         component.set('v.showConfirmWindow', false);
         helper.createFlights(component, event);
     }

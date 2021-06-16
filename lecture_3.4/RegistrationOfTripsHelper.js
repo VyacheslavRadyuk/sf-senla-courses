@@ -61,7 +61,7 @@
         component.set("v.selectedTourists", setRows);
     },
     
-    fetchSeats : function(component, event) {
+    fetchSeats : function(component) {
         const countSeats = component.get('c.getSeatsByTripId');
         countSeats.setParams({
             tripRecordId : component.get('v.recordId')
@@ -76,7 +76,7 @@
         $A.enqueueAction(countSeats);
     },
     
-    fetchFlights : function(component, event) {
+    fetchFlights : function(component) {
         const countFlights = component.get('c.getFlightsByTripId');
         countFlights.setParams({
             tripRecordId : component.get('v.recordId')
@@ -91,7 +91,7 @@
         $A.enqueueAction(countFlights);
     },
     
-    fetchStartDate : function(component, event) {
+    fetchStartDate : function(component) {
         const startDate = component.get('c.getStartDate');
         startDate.setParams({
             tripRecordId : component.get('v.recordId')

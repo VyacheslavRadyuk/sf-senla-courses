@@ -13,7 +13,7 @@
     
     doSelectRecordTourist : function(component, event, helper) {
         helper.selectRecordsTourist(component, event);
-        helper.fetchTrip(component, event);
+        helper.fetchTrip(component);
         component.set("v.columnsTrip", [
             {label: 'Trip Name', fieldName: 'linkName', type: 'url', 
              typeAttributes: {label: {fieldName: 'Name'}, target: '_blank'}},
@@ -25,7 +25,7 @@
     
     doSelectRecordTrip : function(component, event, helper) {
         helper.selectRecordsTrip(component, event);
-        helper.fetchFlights(component, event);
+        helper.fetchFlights(component);
     },
     
     handleClick : function(component, event, helper) {
