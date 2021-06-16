@@ -28,23 +28,17 @@
             if (state === "SUCCESS") {
                 const responseValue = response.getReturnValue();
                 if (responseValue.length > 0) {
-                    const toastSuccess = $A.get("e.force:showToast");
-                    toastSuccess.setParams({
-                        message: $A.get("$Label.c.createFlights"),
-                        duration: 3000,
-                        type: $A.get("$Label.c.toastTypeSuccessfully")
-                    });
+                    const message = $A.get("$Label.c.createFlights");
+                    const duration = 3000;
+                    const type = $A.get("$Label.c.toastTypeSuccessfully");      
+                    this.showToast(type, message, duration, event);
                     component.set('v.isRefreshDataTable', true);
                     component.set('v.isRefreshDataTable', false);
-                    toastSuccess.fire();
                 } else {
-                    const toastError = $A.get("e.force:showToast");
-                    toastError.setParams({
-                        message: $A.get("$Label.c.flightCreationErrorNoTouristSelected"),
-                        duration: 3000,
-                        type: $A.get("$Label.c.toastTypeError")
-                    });
-                    toastError.fire();
+                    const message = $A.get("$Label.c.flightCreationErrorNoTouristSelected");
+                    const duration = 3000;
+                    const type = $A.get("$Label.c.toastTypeError");
+                    this.showToast(type, message, duration, event);                  
                 }
             }  
         });
@@ -104,5 +98,11 @@
             }
         });
         $A.enqueueAction(startDate);
+    },
+    
+    showToast : function (type, message, duration, event) {
+        const toastEvent = $A.get('e.force:showToast');
+        toastEvent.setParams({type: type, message: message, duration: duration});
+        toastEvent.fire();
     }
 })

@@ -15,8 +15,7 @@
         component.set('v.today', today);
     },
     
-    handleClick : function (component, helper) {               
-        const msg = $A.get("$Label.c.confirmationWindow");
+    handleClick : function (component, event, helper) {               
         const countSeats = component.get('v.countSeats');
         const countFlights = component.get('v.countFlights');
         const todayDate = component.get('v.today');
@@ -26,13 +25,10 @@
         if (countSeats == countFlights || startDate < todayDate) {
             component.set('v.isActiveButton', true);
         } else if (countFlights + selectedTourists > countSeats) {
-            const toastError = $A.get("e.force:showToast");
-            toastError.setParams({
-                message: $A.get("$Label.c.createFlightsError"),
-                duration: 3000,
-                type: $A.get("$Label.c.toastTypeError")
-            });
-            toastError.fire();
+            const type = $A.get("$Label.c.toastTypeError");
+            const message = $A.get("$Label.c.createFlightsError");
+            const duration = 3000;
+            helper.showToast(type, message, duration, event);      
         } else {
             component.set('v.showConfirmWindow', true);
         }
