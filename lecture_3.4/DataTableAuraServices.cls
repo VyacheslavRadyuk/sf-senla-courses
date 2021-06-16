@@ -1,6 +1,6 @@
-public class DataTableAuraServices {
+public inherited sharing class DataTableAuraServices {
     
-    @AuraEnabled  
+    @AuraEnabled(cacheable=true)  
     public static List<Tourist__c> fetchTourists(Id tripRecordId) {
         Trip__c trip = TripManager.getByRecordId(tripRecordId)[0];
         List<Flight__c> flights = FlightManager.getByRecordId(tripRecordId);  
@@ -34,7 +34,7 @@ public class DataTableAuraServices {
         return flights;
     }
     
-    @AuraEnabled  
+    @AuraEnabled(cacheable=true)  
     public static Integer getFlightsByTripId(Id tripRecordId) {
         List<Flight__c> flights = FlightManager.getByRecordId(tripRecordId);
         Integer flightsCount = flights.size(); 

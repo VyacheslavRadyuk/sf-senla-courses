@@ -1,6 +1,6 @@
-public class TouristAssignmentController {
+public inherited sharing class TouristAssignmentController {
     
-	@AuraEnabled 
+	@AuraEnabled(cacheable=true) 
     public static List<Tourist__c> getTourists() {
         List<Tourist__c> tourists = [
             SELECT Id, 
@@ -15,7 +15,7 @@ public class TouristAssignmentController {
         return tourists;
     }
     
-    @AuraEnabled 
+    @AuraEnabled(cacheable=true) 
     public static List<Trip__c> getTrips(Tourist__c selectedTourist) { 
         Integer count;
         
@@ -55,7 +55,7 @@ public class TouristAssignmentController {
         return trips;
     }
     
-    @AuraEnabled  
+    @AuraEnabled   
     public static Flight__c createFlightForTouristAssignment(trip__c selectedTrip, Tourist__c selectedTourist) { 
         Integer randomNumber;
         randomNumber = Integer.valueof((Math.random() * 1000000));
@@ -69,7 +69,7 @@ public class TouristAssignmentController {
         return flight;
     }
     
-    @AuraEnabled  
+    @AuraEnabled(cacheable=true)   
     public static Weather_Daily_Forecast__c getWeatherForecastBySpacePoint(trip__c selectedTrip) {
         Weather_Daily_Forecast__c weatherForecast = [
             SELECT Id,
@@ -83,7 +83,7 @@ public class TouristAssignmentController {
         return weatherForecast;
     }
     
-    @AuraEnabled 
+    @AuraEnabled(cacheable=true) 
     public static List<Flight__c> getFlightsBySelectedTrip(Trip__c selectedTrip) {
         List<Flight__c> flights = [
             SELECT Trip__c,
