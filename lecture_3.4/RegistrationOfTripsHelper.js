@@ -14,7 +14,7 @@
                 component.set('v.data', responseValue);
             }
         });
-        $A.enqueueAction(action);       
+        $A.enqueueAction(action);      
     },
     
     createFlights : function(component, event) {
@@ -32,8 +32,7 @@
                     const duration = 3000;
                     const type = $A.get("$Label.c.toastTypeSuccessfully");      
                     this.showToast(type, message, duration, event);
-                    component.set('v.isRefreshDataTable', true);
-                    component.set('v.isRefreshDataTable', false);
+                    $A.get('e.force:refreshView').fire();
                 } else {
                     const message = $A.get("$Label.c.flightCreationErrorNoTouristSelected");
                     const duration = 3000;
@@ -43,6 +42,7 @@
             }  
         });
         $A.enqueueAction(action);
+        component.set("v.showDatatable", false);
     },
     
     selectRecords : function(component, event) {
@@ -53,52 +53,7 @@
             setRows.push(selectedRow);
         })        
         component.set("v.selectedTourists", setRows);
-    },
-    
-    fetchSeats : function(component) {
-        let countSeats = component.get('c.getSeatsByTripId');
-        countSeats.setParams({
-            tripRecordId : component.get('v.recordId')
-        });
-        countSeats.setCallback(this, function(response){
-            let state = response.getState();        
-            if (state === "SUCCESS") {
-                let value = response.getReturnValue();     
-                component.set('v.countSeats', value);
-            }
-        });
-        $A.enqueueAction(countSeats);
-    },
-    
-    fetchFlights : function(component) {
-        let countFlights = component.get('c.getFlightsByTripId');
-        countFlights.setParams({
-            tripRecordId : component.get('v.recordId')
-        });
-        countFlights.setCallback(this, function(response){
-            let state = response.getState();           
-            if (state === "SUCCESS") {
-                let value = response.getReturnValue();
-                component.set('v.countFlights', value);
-            }
-        });
-        $A.enqueueAction(countFlights);
-    },
-    
-    fetchStartDate : function(component) {
-        let startDate = component.get('c.getStartDate');
-        startDate.setParams({
-            tripRecordId : component.get('v.recordId')
-        });
-        startDate.setCallback(this, function(response){
-            let state = response.getState();           
-            if (state === "SUCCESS") {
-                let value = response.getReturnValue();
-                component.set('v.startDate', value);
-            }
-        });
-        $A.enqueueAction(startDate);
-    },
+    },   
     
     showToast : function (type, message, duration, event) {
         let toastEvent = $A.get('e.force:showToast');
@@ -133,5 +88,14 @@
             }
         ]
                      );
+    },
+    
+    validationTrip : function(component, event) {
+        let countFreeSeats = component.get("v.trip").Seats__c - component.get("v.trip").countOccupiedSeats__c;      
+        let today = $A.localizationService.formatDate(new Date(), "YYYY-MM-DD");
+        if (countFreeSeats > 0 && component.get("v.trip").Start_Date__c > today) {
+            component.set("v.showDatatable", true);
+            component.set('v.today', today);
+        }
     }
 })

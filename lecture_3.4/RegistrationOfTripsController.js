@@ -1,33 +1,28 @@
 ({
-    doInit : function(component, event,helper) {      
+    doInit : function(component, event,helper) {
         helper.touristTableBuilding(component);
-        helper.fetchTourists(component, event);
-        helper.fetchSeats(component);
-        helper.fetchFlights(component);
-        helper.fetchStartDate(component);       
-        
-        let today = $A.localizationService.formatDate(new Date(), "YYYY-MM-DD");
-        component.set('v.today', today);
+        helper.fetchTourists(component, event);       
+    },
+    
+    showTripsDatatable : function(component, event, helper) {
+        helper.validationTrip(component, event);
     },
     
     handleClick : function (component, event, helper) {               
-        let countSeats = component.get('v.countSeats');
-        let countFlights = component.get('v.countFlights');
+        let countSeats = component.get('v.trip').Seats__c;
+        let countOccupiedSeats = component.get('v.trip').countOccupiedSeats__c;    
+        let startDate = component.get('v.trip').Start_Date__c;
         let todayDate = component.get('v.today');
-        let startDate = component.get('v.startDate');
         let selectedTourists = component.get('v.selectedTourists').length;
-
-        if (countSeats == countFlights || startDate < todayDate) {
-            component.set('v.isActiveButton', true);
-        } else if (countFlights + selectedTourists > countSeats) {
+        
+        if (countOccupiedSeats + selectedTourists > countSeats) {
             const type = $A.get("$Label.c.toastTypeError");
             const message = $A.get("$Label.c.createFlightsError");
             const duration = 3000;
             helper.showToast(type, message, duration, event);      
         } else {
-            component.set('v.showConfirmWindow', true);
-        }
-            
+            component.set('v.showConfirmWindow', true);    
+        }     
     },
     
     doSelectRecord : function(component, event, helper) {

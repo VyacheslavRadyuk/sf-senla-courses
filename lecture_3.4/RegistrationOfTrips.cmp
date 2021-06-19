@@ -2,46 +2,48 @@
     <aura:attribute name="data" type="List" access="public"/>
     <aura:attribute name="columns" type="List" access="public"/>
     <aura:attribute name="recordId" type="Id" access="public"/>
+    <aura:attribute name="trip" type="Trip__c" access="public"/>
     <aura:attribute name="selectedRows" type="List" access="public"/>
     <aura:attribute name="selectedTourists" type="List" access="public"/>
     <aura:attribute name="isSpinner" type="boolean" default="false" access="public"/>
-    <aura:attribute name="countSeats" type="Integer" access="public"/>
-    <aura:attribute name="countFlights" type="Integer" access="public"/>
-    <aura:attribute name="startDate" type="Date" access="public"/>
-    <aura:attribute name="isActiveButton" type="boolean" default="false" access="public"/>
     <aura:attribute name="today" type="Date" access="public"/>
-    <aura:attribute name="isRefreshDataTable" type="boolean" default="false" access="public"/>
     <aura:attribute name="showConfirmWindow" type="boolean" default="false" access="public"/>
+    <aura:attribute name="showDatatable" type="boolean" default="false" access="public"/>
     
     <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
-    <aura:handler name="change" value="{!v.isRefreshDataTable}" action="{!c.doInit}"/>
+    <aura:handler event="force:refreshView" action="{!c.doInit}"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>   
+    
+    <force:recordData aura:id="tripRecordId" recordId="{!v.recordId}" targetFields="{!v.trip}" layoutType="FULL"
+                      recordUpdated="{!c.showTripsDatatable}" />
     
     <lightning:layout> 
         <lightning:layoutItem size="6">
             <lightning:card iconName="standard:contact" title="{!$Label.c.titlePotentialTouristDatatable}">
                 
-                <div class="slds-p-around_large" style="height:250px;">
-                    <lightning:datatable aura:id="touristTable"
-                                         keyField="id"
-                                         recordId="{!v.recordId}"
-                                         data="{!v.data}"
-                                         columns="{!v.columns}"
-                                         onrowselection="{!c.doSelectRecord}"
-                                         />  
-                    
-                    <div class="slds-m-top_small">
-                        <lightning:button variant="brand" label="{!$Label.c.buttonLabelAddToTrip}" onclick="{!c.handleClick}" disabled="{!v.isActiveButton}"/>     
+                <aura:if isTrue="{!v.showDatatable}">
+                    <div class="slds-p-around_large" style="height:250px;">
+                        <lightning:datatable aura:id="touristTable"
+                                             keyField="id"
+                                             recordId="{!v.recordId}"
+                                             data="{!v.data}"
+                                             columns="{!v.columns}"
+                                             onrowselection="{!c.doSelectRecord}"
+                                             />  
+                        
+                        <div class="slds-m-top_small">
+                            <lightning:button variant="brand" label="{!$Label.c.buttonLabelAddToTrip}" onclick="{!c.handleClick}"/>     
+                        </div>
                     </div>
-                </div>
+                </aura:if>
                 
                 <div class="slds-m-around--xx-large">
                     <aura:if isTrue="{!v.isSpinner}">
                         <lightning:spinner variant="brand" size="large"/>
                     </aura:if>
                 </div>
-                              
+                
                 <aura:if isTrue="{!v.showConfirmWindow}">
                     <div role="dialog" class="slds-modal slds-fade-in-open ">
                         <div class="slds-modal__container">

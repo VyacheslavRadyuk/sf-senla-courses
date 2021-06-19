@@ -1,6 +1,6 @@
 public inherited sharing class RegistrationOfTripsController {
     
-    @AuraEnabled  
+    @AuraEnabled(cacheable=true)  
     public static List<Tourist__c> fetchTourists(Id tripRecordId) {
         Trip__c trip = TripManager.getByRecordId(tripRecordId)[0];
         List<Flight__c> flights = FlightManager.getByRecordId(tripRecordId);  
@@ -31,25 +31,5 @@ public inherited sharing class RegistrationOfTripsController {
         }
         insert flights;
         return flights;
-    }
-    
-    @AuraEnabled(cacheable=true)  
-    public static Integer getFlightsByTripId(Id tripRecordId) {
-        List<Flight__c> flights = FlightManager.getByRecordId(tripRecordId);
-        Integer flightsCount = flights.size(); 
-        return flightsCount;
-    }
-    
-    @AuraEnabled  
-    public static Integer getSeatsByTripId(Id tripRecordId) {
-        Integer countSeats = Integer.valueOf(TripManager.getByRecordId(tripRecordId)[0].Seats__c);
-        return countSeats;
-    }
-    
-    @AuraEnabled 
-    public static Date getStartDate(Id tripRecordId) {
-        Trip__c trip = TripManager.getByRecordId(tripRecordId)[0];
-        Date StartDate = Date.valueOf(trip.Start_Date__c);   
-        return StartDate;
     }   
 }

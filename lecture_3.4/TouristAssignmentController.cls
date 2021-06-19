@@ -45,10 +45,9 @@ public inherited sharing class TouristAssignmentController {
     
     @AuraEnabled   
     public static Flight__c createFlightForTouristAssignment(Trip__c selectedTrip, Id selectedTourist) { 
-        Integer randomNumber;
-        randomNumber = Integer.valueof((Math.random() * 1000000));
+        Datetime now = system.now();
         Flight__c flight = new Flight__c(
-            Name = String.valueOf(randomNumber),
+            Name = String.valueOf(now),
             Tourist__c = selectedTourist,
             Status__c = 'Requested',
             Trip__c = selectedTrip.Id
