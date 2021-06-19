@@ -68,5 +68,27 @@
             }               
         });   
         $A.enqueueAction(action); 
+    },
+    
+    tripTableBuilding : function(component) {    
+        component.set("v.columnsTrip", [
+            {
+                label: 'Trip Name', 
+                fieldName: 'linkName', 
+                type: 'url', 
+                typeAttributes: {
+                    label: {
+                        fieldName: 'Name'
+                    }, 
+                    target: '_blank'
+                }
+            },
+            {
+                label: 'Start date', 
+                fieldName: 'Start_Date__c', 
+                type: 'date'
+            }
+        ]
+                     );
     }
 })

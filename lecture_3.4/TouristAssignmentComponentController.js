@@ -6,11 +6,7 @@
     
     doSelectRecordTourist : function(component, event, helper) {
         helper.fetchTrip(component, event);
-        component.set("v.columnsTrip", [
-            {label: 'Trip Name', fieldName: 'linkName', type: 'url', 
-             typeAttributes: {label: {fieldName: 'Name'}, target: '_blank'}},
-            {label: 'Start date', fieldName: 'Start_Date__c', type: 'date'}
-        ]); 
+        helper.tripTableBuilding(component);
         component.set("v.isActiveGeolocationOfSpacePoint", false);
         component.set("v.isNoActiveButton", true);
     },

@@ -44,7 +44,7 @@ public inherited sharing class TouristAssignmentController {
     }
     
     @AuraEnabled   
-    public static Flight__c createFlightForTouristAssignment(trip__c selectedTrip, Id selectedTourist) { 
+    public static Flight__c createFlightForTouristAssignment(Trip__c selectedTrip, Id selectedTourist) { 
         Integer randomNumber;
         randomNumber = Integer.valueof((Math.random() * 1000000));
         Flight__c flight = new Flight__c(
@@ -58,7 +58,7 @@ public inherited sharing class TouristAssignmentController {
     }
     
     @AuraEnabled(cacheable=true)   
-    public static Weather_Daily_Forecast__c getWeatherForecastBySpacePoint(trip__c selectedTrip) {
+    public static Weather_Daily_Forecast__c getWeatherForecastBySpacePoint(Trip__c selectedTrip) {
         Weather_Daily_Forecast__c weatherForecast = [
             SELECT Id,
             Date__c,
