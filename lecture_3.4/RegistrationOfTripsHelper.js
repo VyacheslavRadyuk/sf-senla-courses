@@ -1,13 +1,13 @@
 ({
     fetchTourists : function(component, event) {    
-        const action = component.get('c.fetchTourists');
+        let action = component.get('c.fetchTourists');
         action.setParams({
             tripRecordId: component.get('v.recordId')
         });
         action.setCallback(this, function(response) {
-            const state = response.getState();
+            let state = response.getState();
             if (state === 'SUCCESS') {
-                const responseValue = response.getReturnValue();
+                let responseValue = response.getReturnValue();
                 responseValue.forEach(function(value){
                     value.linkName = '/' + value.Id;
                 })
@@ -18,15 +18,15 @@
     },
     
     createFlights : function(component, event) {
-        const action = component.get('c.createFlights');
+        let action = component.get('c.createFlights');
         action.setParams({
             tripRecordId: component.get('v.recordId'),
             selectedTourists: component.get('v.selectedTourists')
         });
         action.setCallback(this, function(response) {
-            const state = response.getState();
+            let state = response.getState();
             if (state === "SUCCESS") {
-                const responseValue = response.getReturnValue();
+                let responseValue = response.getReturnValue();
                 if (responseValue.length > 0) {
                     const message = $A.get("$Label.c.createFlights");
                     const duration = 3000;
@@ -46,7 +46,7 @@
     },
     
     selectRecords : function(component, event) {
-        const selectedRows = event.getParam('selectedRows'); 
+        let selectedRows = event.getParam('selectedRows'); 
         let setRows = [];
         
         selectedRows.forEach(function(selectedRow) {
@@ -56,14 +56,14 @@
     },
     
     fetchSeats : function(component) {
-        const countSeats = component.get('c.getSeatsByTripId');
+        let countSeats = component.get('c.getSeatsByTripId');
         countSeats.setParams({
             tripRecordId : component.get('v.recordId')
         });
         countSeats.setCallback(this, function(response){
-            const state = response.getState();        
+            let state = response.getState();        
             if (state === "SUCCESS") {
-                const value = response.getReturnValue();     
+                let value = response.getReturnValue();     
                 component.set('v.countSeats', value);
             }
         });
@@ -71,14 +71,14 @@
     },
     
     fetchFlights : function(component) {
-        const countFlights = component.get('c.getFlightsByTripId');
+        let countFlights = component.get('c.getFlightsByTripId');
         countFlights.setParams({
             tripRecordId : component.get('v.recordId')
         });
         countFlights.setCallback(this, function(response){
-            const state = response.getState();           
+            let state = response.getState();           
             if (state === "SUCCESS") {
-                const value = response.getReturnValue();
+                let value = response.getReturnValue();
                 component.set('v.countFlights', value);
             }
         });
@@ -86,14 +86,14 @@
     },
     
     fetchStartDate : function(component) {
-        const startDate = component.get('c.getStartDate');
+        let startDate = component.get('c.getStartDate');
         startDate.setParams({
             tripRecordId : component.get('v.recordId')
         });
         startDate.setCallback(this, function(response){
-            const state = response.getState();           
+            let state = response.getState();           
             if (state === "SUCCESS") {
-                const value = response.getReturnValue();
+                let value = response.getReturnValue();
                 component.set('v.startDate', value);
             }
         });
@@ -101,8 +101,37 @@
     },
     
     showToast : function (type, message, duration, event) {
-        const toastEvent = $A.get('e.force:showToast');
+        let toastEvent = $A.get('e.force:showToast');
         toastEvent.setParams({type: type, message: message, duration: duration});
         toastEvent.fire();
+    },
+    
+    touristTableBuilding : function(component) {
+        component.set("v.columns", [
+            {
+                "label":"Tourist Name",
+                "fieldName":"linkName",
+                "type":"url",
+                "typeAttributes":{
+                    "label":{
+                        "fieldName":"Name"
+                    },
+                    "target":"_blank"
+                }
+            },
+            {
+                "label":"Email",
+                "fieldName":"Email__c",
+                "type":"email",
+                "initialWidth":300
+            },
+            {
+                "label":"Gender",
+                "fieldName":"Gender__c",
+                "type":"picklist",
+                "initialWidth":95
+            }
+        ]
+                     );
     }
 })

@@ -1,26 +1,21 @@
 ({
-    doInit : function(component, event,helper) {
-        component.set("v.columns", [
-            {label: 'Tourist Name', fieldName: 'linkName', type: 'url', 
-             typeAttributes: {label: {fieldName: 'Name'}, target: '_blank'}},
-            {label: 'Email', fieldName: 'Email__c', type: 'email', initialWidth: 300},
-            {label: 'Gender', fieldName: 'Gender__c', type: 'picklist', initialWidth: 95}
-        ]);
+    doInit : function(component, event,helper) {      
+        helper.touristTableBuilding(component);
         helper.fetchTourists(component, event);
         helper.fetchSeats(component);
         helper.fetchFlights(component);
         helper.fetchStartDate(component);       
         
-        const today = $A.localizationService.formatDate(new Date(), "YYYY-MM-DD");
+        let today = $A.localizationService.formatDate(new Date(), "YYYY-MM-DD");
         component.set('v.today', today);
     },
     
     handleClick : function (component, event, helper) {               
-        const countSeats = component.get('v.countSeats');
-        const countFlights = component.get('v.countFlights');
-        const todayDate = component.get('v.today');
-        const startDate = component.get('v.startDate');
-        const selectedTourists = component.get('v.selectedTourists').length;
+        let countSeats = component.get('v.countSeats');
+        let countFlights = component.get('v.countFlights');
+        let todayDate = component.get('v.today');
+        let startDate = component.get('v.startDate');
+        let selectedTourists = component.get('v.selectedTourists').length;
 
         if (countSeats == countFlights || startDate < todayDate) {
             component.set('v.isActiveButton', true);

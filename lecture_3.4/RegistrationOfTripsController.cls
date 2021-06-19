@@ -1,6 +1,6 @@
-public inherited sharing class DataTableAuraServices {
+public inherited sharing class RegistrationOfTripsController {
     
-    @AuraEnabled(cacheable=true)  
+    @AuraEnabled  
     public static List<Tourist__c> fetchTourists(Id tripRecordId) {
         Trip__c trip = TripManager.getByRecordId(tripRecordId)[0];
         List<Flight__c> flights = FlightManager.getByRecordId(tripRecordId);  
