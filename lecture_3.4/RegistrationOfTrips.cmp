@@ -20,7 +20,7 @@
     
     <lightning:layout> 
         <lightning:layoutItem size="6">
-            <lightning:card iconName="standard:contact" title="Potential Tourists For The Trip">
+            <lightning:card iconName="standard:contact" title="{!$Label.c.titlePotentialTouristDatatable}">
                 
                 <div class="slds-p-around_large" style="height:250px;">
                     <lightning:datatable aura:id="touristTable"
@@ -32,7 +32,7 @@
                                          />  
                     
                     <div class="slds-m-top_small">
-                        <lightning:button variant="brand" label="Add to trip" onclick="{!c.handleClick}" disabled="{!v.isActiveButton}"/>     
+                        <lightning:button variant="brand" label="{!$Label.c.buttonLabelAddToTrip}" onclick="{!c.handleClick}" disabled="{!v.isActiveButton}"/>     
                     </div>
                 </div>
                 
@@ -53,8 +53,8 @@
                             </div>
                             
                             <footer class="slds-modal__footer">
-                                <lightning:button name='No' label='No' onclick='{!c.confirmDialogNo}'/>
-                                <lightning:button variant="brand" name='Yes' label='Yes' onclick='{!c.confirmDialogYes}'/>
+                                <lightning:button name='No' label='{!$Label.c.buttonLabelNo}' onclick='{!c.confirmDialogNo}'/>
+                                <lightning:button variant="brand" name='Yes' label='{!$Label.c.buttonLabelYes}' onclick='{!c.confirmDialogYes}'/>
                             </footer>
                         </div>
                     </div>

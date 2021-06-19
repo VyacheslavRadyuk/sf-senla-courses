@@ -17,13 +17,12 @@ public inherited sharing class RegistrationOfTripsController {
     
     @AuraEnabled  
     public static List<Flight__c> createFlights(Id tripRecordId, List<Tourist__c> selectedTourists) { 
-        Integer randomNumber;
+        Datetime now = system.now();
         List<Flight__c> flights = new List<Flight__c>();
         
         for (Tourist__c tourist : selectedTourists) {
-            randomNumber = Integer.valueof((Math.random() * 1000000));
             Flight__c flight = new Flight__c(
-                Name = String.valueOf(randomNumber),
+                Name = String.valueOf(now),
                 Tourist__c = tourist.Id,
                 SecondStatus__c = constants.FLIGHT_SECOND_STATUS_OFFER_PENDING,
                 Trip__c = tripRecordId

@@ -44,7 +44,6 @@
     
     confirmDialogNo : function(component, helper) {
         component.set('v.showConfirmWindow', false);
-        return false;
     },
     
     confirmDialogYes : function(component, event, helper) {
