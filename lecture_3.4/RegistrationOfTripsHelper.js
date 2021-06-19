@@ -42,6 +42,7 @@
             }  
         });
         $A.enqueueAction(action);
+        component.find('tripRecordId').reloadRecord(true);
         component.set("v.showDatatable", false);
     },
     
