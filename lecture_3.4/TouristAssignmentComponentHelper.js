@@ -1,25 +1,29 @@
 ({
     fetchTrip : function(component) {    
-        const action = component.get('c.getTrips');
-        const selectedTourist = component.get('v.selectedTourist');
+        let action = component.get('c.getTrips'); 
+        let selectedTourist = component.get('v.selectedTourist');
+        let newTripList = [];
         action.setParams({            
             selectedTourist: selectedTourist
         });
         action.setCallback(this, function(response) {
-            const state = response.getState();
+            let state = response.getState();
             if (state === 'SUCCESS') {
-                const responseValue = response.getReturnValue();
+                let responseValue = response.getReturnValue();
                 responseValue.forEach(function(value){
-                    value.linkName = '/' + value.Id;
+                    if(value.Seats__c > value.countOccupiedSeats__c) {     
+                        value.linkName = '/' + value.Id;
+                        newTripList.push(value);
+                    }                    
                 })
-                component.set('v.dataTrip', responseValue);                            
+                component.set('v.dataTrip', newTripList);                            
             }               
         });
         $A.enqueueAction(action); 
     },
     
     selectRecordsTrip : function(component, event) {
-        const selectedRows = event.getParam('selectedRows'); 
+        let selectedRows = event.getParam('selectedRows'); 
         let setRows = [];
         
         selectedRows.forEach(function(selectedRow) {
@@ -27,7 +31,7 @@
         })        
         component.set("v.selectedTrip", setRows);
         component.set("v.isNoActiveButton", false);
-        const trip =  component.get('v.selectedTrip');       
+        let trip =  component.get('v.selectedTrip');       
         component.set('v.mapMarkers', [            
             {
                 location: {
@@ -38,38 +42,22 @@
         ]);
         component.set("v.isActiveGeolocationOfSpacePoint", true);
         
-        const action = component.get('c.getWeatherForecastBySpacePoint');
-        const selectedTrip = component.get('v.selectedTrip');
+        let action = component.get('c.getWeatherForecastBySpacePoint');
+        let selectedTrip = component.get('v.selectedTrip');
         action.setParams({            
             selectedTrip: selectedTrip[0]
         });
         action.setCallback(this, function(response) {
-            const state = response.getState();
+            let state = response.getState();
             if (state === 'SUCCESS') {
-                const responseValue = response.getReturnValue();
+                let responseValue = response.getReturnValue();
                 component.set("v.date", responseValue.Date__c); 
                 component.set("v.averageTemperature", responseValue.Average_Temperature__c);           
             }               
         });   
         $A.enqueueAction(action); 
     },
-    
-    fetchFlights : function(component, event) {
-        const action = component.get('c.getFlightsBySelectedTrip');
-        const selectedTrip = component.get('v.selectedTrip');
-        action.setParams({            
-            selectedTrip: selectedTrip[0]
-        });
-        action.setCallback(this, function(response) {
-            const state = response.getState();   
-            if (state === 'SUCCESS') {
-                const responseValue = response.getReturnValue();
-                component.set("v.countOccupiedSeats", responseValue.length);          
-            }               
-        });   
-        $A.enqueueAction(action); 
-    },
-    
+  
     tripTableBuilding : function(component) {    
         component.set("v.columnsTrip", [
             {

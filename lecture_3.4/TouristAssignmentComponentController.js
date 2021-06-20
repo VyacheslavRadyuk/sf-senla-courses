@@ -14,21 +14,20 @@
     
     doSelectRecordTrip : function(component, event, helper) {
         helper.selectRecordsTrip(component, event);
-        helper.fetchFlights(component);
     },
     
     handleClick : function(component, event, helper) {
-        const action = component.get('c.createFlightForTouristAssignment');
-        const selectedTrip = component.get('v.selectedTrip');
-        const selectedTourist = component.get('v.selectedTourist');
+        let action = component.get('c.createFlightForTouristAssignment');
+        let selectedTrip = component.get('v.selectedTrip');
+        let selectedTourist = component.get('v.selectedTourist');
         action.setParams({
             selectedTrip: selectedTrip[0],
             selectedTourist: selectedTourist
         });
         action.setCallback(this, function(response) {
-            const state = response.getState();
+            let state = response.getState();
             if (state === "SUCCESS") {
-                const responseValue = response.getReturnValue();
+                let responseValue = response.getReturnValue();
                 if (responseValue.length != 0) {
                     const toastSuccess = $A.get("e.force:showToast");
                     toastSuccess.setParams({

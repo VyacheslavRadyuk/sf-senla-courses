@@ -8,7 +8,6 @@
     <aura:attribute name="isActiveGeolocationOfSpacePoint" type="boolean" default="true" access="public"/>
     <aura:attribute name="date" type="date" access="public"/>
     <aura:attribute name="averageTemperature" type="decimal" access="public"/>
-    <aura:attribute name="countOccupiedSeats" type="integer" access="public"/>
     <aura:attribute name="isRefreshTripDatatable" type="boolean" default="false" access="public"/>
     
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
@@ -43,7 +42,7 @@
                                 <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip[0].Name}</p>
                                 <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip[0].End_Date__c}</p>
                                 <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip[0].Minimum_Age__c}</p>
-                                <p><b>{!$Label.c.seats}</b>{!v.countOccupiedSeats} of {!v.selectedTrip[0].Seats__c}</p>
+                                <p><b>{!$Label.c.seats}</b>{!v.selectedTrip[0].countOccupiedSeats__c} of {!v.selectedTrip[0].Seats__c}</p>
                             </div>
                         </lightning:card>
                     </aura:if>

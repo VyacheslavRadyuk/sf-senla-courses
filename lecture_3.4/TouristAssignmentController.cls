@@ -1,6 +1,6 @@
 public inherited sharing class TouristAssignmentController {
     
-    @AuraEnabled(cacheable=true) 
+    @AuraEnabled(cacheable=true)
     public static List<Trip__c> getTrips(Id selectedTourist) { 
         Integer count;
         
@@ -14,6 +14,7 @@ public inherited sharing class TouristAssignmentController {
             Start_Date__c,
             End_Date__c,
             Seats__c,
+            countOccupiedSeats__c,
             Departure_Space_Point__c,
             Departure_Space_Point__r.Latitude__c,
             Departure_Space_Point__r.Longitude__c,
@@ -21,25 +22,7 @@ public inherited sharing class TouristAssignmentController {
             FROM Trip__c
             WHERE Minimum_Age__c <= :tourist.Age__c
             AND Start_Date__c >= :Date.today()
-        ];
-        
-        List<Flight__c> flights = [
-            SELECT Trip__c, Trip__r.Id, Trip__r.Start_Date__c, Trip__r.End_Date__c FROM Flight__c  
-        ];
-        
-        for (Integer i = 0; i < trips.size(); i++) {
-            count = 0;
-            
-            for (Flight__c flight : flights) {
-                if (flight.Trip__r.Id == trips[i].Id) {
-                    count++;
-                    
-                    if (count == trips[i].Seats__c) {
-                        trips.remove(i);
-                    }  
-                } 
-            } 
-        }  
+        ];     
         return trips;
     }
     
@@ -68,16 +51,5 @@ public inherited sharing class TouristAssignmentController {
             LIMIT 1
         ]; 
         return weatherForecast;
-    }
-    
-    @AuraEnabled 
-    public static List<Flight__c> getFlightsBySelectedTrip(Trip__c selectedTrip) {
-        List<Flight__c> flights = [
-            SELECT Trip__c,
-            Trip__r.Id
-            FROM Flight__c
-            WHERE Trip__r.Id = :selectedTrip.Id
-        ];
-        return flights;
     }
 }
