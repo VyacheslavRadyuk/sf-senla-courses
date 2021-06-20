@@ -9,6 +9,7 @@
         helper.tripTableBuilding(component);
         component.set("v.isActiveGeolocationOfSpacePoint", false);
         component.set("v.isNoActiveButton", true);
+        component.set("v.selectedTrip", null);
     },
     
     doSelectRecordTrip : function(component, event, helper) {
@@ -36,13 +37,10 @@
                         type: $A.get("$Label.c.toastTypeSuccessfully")
                     });
                     toastSuccess.fire();
+                    $A.get('e.force:refreshView').fire();
                 } 
             }  
         });
-        $A.enqueueAction(action);
-        component.set("v.selectedTrip", null);
-        component.set("v.selectedTourist", null);    
-        component.set('v.isRefreshApp', true);
-        component.set('v.isRefreshApp', false);
+        $A.enqueueAction(action);       
     }
 })

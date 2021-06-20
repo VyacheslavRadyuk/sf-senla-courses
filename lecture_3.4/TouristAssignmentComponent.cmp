@@ -6,7 +6,6 @@
     <aura:attribute name="mapMarkers" type="List" access="public"/>
     <aura:attribute name="isNoActiveButton" type="boolean" default="false" access="public"/>
     <aura:attribute name="isActiveGeolocationOfSpacePoint" type="boolean" default="true" access="public"/>
-    <aura:attribute name="isRefreshApp" type="boolean" default="false" access="public"/>
     <aura:attribute name="date" type="date" access="public"/>
     <aura:attribute name="averageTemperature" type="decimal" access="public"/>
     <aura:attribute name="countOccupiedSeats" type="integer" access="public"/>
@@ -14,9 +13,9 @@
     
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="change" value="{!v.selectedTourist}" action="{!c.doSelectRecordTourist}"/>
+    <aura:handler event="force:refreshView" action="{!c.doInit}"/>
 
     <lightning:layout>
-        <aura:if isTrue='{!(!v.isRefreshApp)}'>
         <lightning:layoutItem size="4" class="slds-p-around_x-small">   
             <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTouristLookupInput}">
                 <l_lookup:Lookup objectType="Tourist__c" 
@@ -27,7 +26,6 @@
                 </div>
             </lightning:card>          
         </lightning:layoutItem>
-        </aura:if>
         
         <aura:if isTrue="{!and(v.selectedTourist.length > 0, v.isRefreshTripDatatable == false)}">
             <lightning:layoutItem size="4" class="slds-p-around_x-small">    
