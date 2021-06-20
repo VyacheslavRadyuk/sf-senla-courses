@@ -29,4 +29,26 @@ public class TripManager {
         ];
         return status;
     }
+    
+    public static List<Trip__c> getTripsByTourist(Tourist__c tourist) { 
+        if (tourist == null) {
+            return new List<Trip__c>();
+        }
+        List<Trip__c> trips = [
+            SELECT Id, 
+            Name, 
+            Start_Date__c,
+            End_Date__c,
+            Seats__c,
+            countOccupiedSeats__c,
+            Departure_Space_Point__c,
+            Departure_Space_Point__r.Latitude__c,
+            Departure_Space_Point__r.Longitude__c,
+            Minimum_Age__c    
+            FROM Trip__c
+            WHERE Minimum_Age__c <= :tourist.Age__c
+            AND Start_Date__c >= :Date.today()
+        ];     
+        return trips;
+    }
 }

@@ -140,5 +140,19 @@ public class TouristManager {
             AND Id NOT IN :touristId     
         ];
         return status;
-    }  
+    }
+    
+    public static List<Tourist__c> getBySelectedId(Id touristId) {  
+        if (touristId == null || String.isBlank(touristId)) {
+            return new List<Tourist__c>();
+        }
+        List<Tourist__c> tourist = [
+            SELECT Age__c,
+            Name, 
+            Email__c 
+            FROM Tourist__c
+            WHERE Id = :touristId
+        ];
+        return tourist;
+    }   
 }
