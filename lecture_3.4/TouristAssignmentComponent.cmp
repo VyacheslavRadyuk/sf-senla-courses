@@ -12,7 +12,7 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="change" value="{!v.selectedTourist}" action="{!c.doSelectRecordTourist}"/>
     <aura:handler event="force:refreshView" action="{!c.doInit}"/>
-
+    
     <lightning:layout>
         <lightning:layoutItem size="4" class="slds-p-around_x-small">   
             <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTouristLookupInput}">
@@ -42,22 +42,11 @@
                                     </p>
                                 </lightning:card> 
                             </lightning:layoutItem> 
-                            <lightning:layoutItem size="6">
+                            <lightning:layoutItem size="6" class="slds-p-top_large">
                                 <img src="{!$Resource.image_selected_trip + '/' + trip.Name + '.png'}" width="290" height="100"/>
                             </lightning:layoutItem>
                         </lightning:layout>  
-                    </aura:iteration>
-                    
-                    <aura:if isTrue="{!v.selectedTrip != null}">
-                        <lightning:card iconName="standard:contact" title="{!$Label.c.titleTripInformation}">
-                            <div class="slds-m-left_small">
-                                <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip.Name}</p>
-                                <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip.End_Date__c}</p>
-                                <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip.Minimum_Age__c}</p>
-                                <p><b>{!$Label.c.seats}</b>{!v.selectedTrip.countOccupiedSeats__c} of {!v.selectedTrip.Seats__c}</p>
-                            </div>
-                        </lightning:card>
-                    </aura:if>
+                    </aura:iteration>                                       
                 </lightning:card>    
             </lightning:layoutItem> 
         </aura:if>
@@ -73,8 +62,17 @@
                         {!$Label.c.averageTempetarure} <lightning:badge label="{!v.averageTemperature}"/>
                     </aura:set> 
                 </lightning:card>
+                <aura:if isTrue="{!v.selectedTrip != null}">
+                    <lightning:card iconName="standard:contact" title="{!$Label.c.titleTripInformation}">
+                        <div class="slds-m-left_small">
+                            <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip.Name}</p>
+                            <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip.End_Date__c}</p>
+                            <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip.Minimum_Age__c}</p>
+                            <p><b>{!$Label.c.seats}</b>{!v.selectedTrip.countOccupiedSeats__c} of {!v.selectedTrip.Seats__c}</p>
+                        </div>
+                    </lightning:card>
+                </aura:if>
             </lightning:layoutItem>
         </aura:if>
-    </lightning:layout>
-    
+    </lightning:layout>    
 </aura:component>
