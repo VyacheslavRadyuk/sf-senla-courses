@@ -12,7 +12,6 @@
                 let responseValue = response.getReturnValue();
                 responseValue.forEach(function(value){
                     if(value.Seats__c > value.countOccupiedSeats__c) {     
-                        value.linkName = '/' + value.Id;
                         newTripList.push(value);
                     }                    
                 })
@@ -23,20 +22,17 @@
     },
     
     selectRecordsTrip : function(component, event) {
-        let selectedRows = event.getParam('selectedRows'); 
-        let setRows = [];
-        
-        selectedRows.forEach(function(selectedRow) {
-            setRows.push(selectedRow);
-        })        
-        component.set("v.selectedTrip", setRows);
+        let selectedItem = event.currentTarget;
+        let index = selectedItem.dataset.record;
+        let selectedTripByIndex = component.get("v.dataTrip")[index];
+        component.set("v.selectedTrip", selectedTripByIndex);
         component.set("v.isNoActiveButton", false);
-        let trip =  component.get('v.selectedTrip');       
+        let trip =  component.get('v.selectedTrip');
         component.set('v.mapMarkers', [            
             {
                 location: {
-                    Latitude: trip[0].Departure_Space_Point__r.Latitude__c,
-                    Longitude: trip[0].Departure_Space_Point__r.Longitude__c
+                    Latitude: trip.Departure_Space_Point__r.Latitude__c,
+                    Longitude: trip.Departure_Space_Point__r.Longitude__c
                 }
             }
         ]);
@@ -45,38 +41,16 @@
         let action = component.get('c.getWeatherForecastBySpacePoint');
         let selectedTrip = component.get('v.selectedTrip');
         action.setParams({            
-            selectedTrip: selectedTrip[0]
+            selectedTrip: selectedTrip
         });
         action.setCallback(this, function(response) {
             let state = response.getState();
             if (state === 'SUCCESS') {
                 let responseValue = response.getReturnValue();
                 component.set("v.date", responseValue.Date__c); 
-                component.set("v.averageTemperature", responseValue.Average_Temperature__c);           
+                component.set("v.averageTemperature", responseValue.Average_Temperature__c);
             }               
         });   
         $A.enqueueAction(action); 
-    },
-  
-    tripTableBuilding : function(component) {    
-        component.set("v.columnsTrip", [
-            {
-                label: 'Trip Name', 
-                fieldName: 'linkName', 
-                type: 'url', 
-                typeAttributes: {
-                    label: {
-                        fieldName: 'Name'
-                    }, 
-                    target: '_blank'
-                }
-            },
-            {
-                label: 'Start date', 
-                fieldName: 'Start_Date__c', 
-                type: 'date'
-            }
-        ]
-                     );
     }
 })

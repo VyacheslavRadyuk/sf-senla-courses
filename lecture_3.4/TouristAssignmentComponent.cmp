@@ -1,6 +1,5 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global" controller="TouristAssignmentController">
     <aura:attribute name="dataTrip" type="List" access="public"/>
-    <aura:attribute name="columnsTrip" type="List" access="public"/>
     <aura:attribute name="selectedTourist" type="Id" access="public"/>
     <aura:attribute name="selectedTrip" type="Trip__c" access="public"/>
     <aura:attribute name="mapMarkers" type="List" access="public"/>
@@ -19,7 +18,8 @@
             <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTouristLookupInput}">
                 <l_lookup:Lookup objectType="Tourist__c" 
                                  selectedRecordId="{!v.selectedTourist}"
-                                 queryCondition="Active__c = true"/>    
+                                 queryCondition="Active__c = true"/> 
+                
                 <div class="slds-m-top_small">
                     <lightning:button variant="brand" label="Submit" onclick="{!c.handleClick}" disabled="{!v.isNoActiveButton}"/>     
                 </div>
@@ -29,27 +29,40 @@
         <aura:if isTrue="{!and(v.selectedTourist.length > 0, v.isRefreshTripDatatable == false)}">
             <lightning:layoutItem size="4" class="slds-p-around_x-small">    
                 <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTripDatatable}">
-                    <lightning:datatable aura:id="tripTable"
-                                         keyField="id"
-                                         data="{!v.dataTrip}"
-                                         columns="{!v.columnsTrip}"
-                                         onrowselection="{!c.doSelectRecordTrip}"
-                                         maxRowSelection="1"
-                                         /> 
-                    <aura:if isTrue="{!and(v.selectedTrip.length > 0, v.selectedTrip != null)}">
+                    <aura:iteration items="{!v.dataTrip}" var="trip" indexVar="idx">
+                        <lightning:layout>  
+                            <lightning:layoutItem size="6">
+                                <lightning:card variant="Narrow">
+                                    <p class="slds-p-horizontal_small">
+                                        <div class="slds-card slds-box slds-theme_shade" data-record="{!idx}" onclick="{!c.doSelectRecordTrip}">
+                                            <header class="slds-card__header slds-grid grid--flex-spread">
+                                                <h2 class="slds-text-heading--medium slds-truncate">{!trip.Name}</h2>
+                                            </header>
+                                        </div>
+                                    </p>
+                                </lightning:card> 
+                            </lightning:layoutItem> 
+                            <lightning:layoutItem size="6">
+                                <img src="{!$Resource.image_selected_trip + '/' + trip.Name + '.png'}" width="290" height="100"/>
+                            </lightning:layoutItem>
+                        </lightning:layout>  
+                    </aura:iteration>
+                    
+                    <aura:if isTrue="{!v.selectedTrip != null}">
                         <lightning:card iconName="standard:contact" title="{!$Label.c.titleTripInformation}">
                             <div class="slds-m-left_small">
-                                <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip[0].Name}</p>
-                                <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip[0].End_Date__c}</p>
-                                <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip[0].Minimum_Age__c}</p>
-                                <p><b>{!$Label.c.seats}</b>{!v.selectedTrip[0].countOccupiedSeats__c} of {!v.selectedTrip[0].Seats__c}</p>
+                                <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip.Name}</p>
+                                <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip.End_Date__c}</p>
+                                <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip.Minimum_Age__c}</p>
+                                <p><b>{!$Label.c.seats}</b>{!v.selectedTrip.countOccupiedSeats__c} of {!v.selectedTrip.Seats__c}</p>
                             </div>
                         </lightning:card>
                     </aura:if>
                 </lightning:card>    
             </lightning:layoutItem> 
         </aura:if>
-        <aura:if isTrue="{!and(v.selectedTrip.length > 0, v.isActiveGeolocationOfSpacePoint == true)}">
+        
+        <aura:if isTrue="{!and(v.selectedTrip != null, v.isActiveGeolocationOfSpacePoint == true)}">
             <lightning:layoutItem size="4" class="slds-p-around_x-small">
                 <lightning:card iconName="standard:contact" title="{!$Label.c.titleSpacepointGeolocation}">
                     <lightning:map 

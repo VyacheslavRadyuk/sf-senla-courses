@@ -6,7 +6,6 @@
     
     doSelectRecordTourist : function(component, event, helper) {
         helper.fetchTrip(component, event);
-        helper.tripTableBuilding(component);
         component.set("v.isActiveGeolocationOfSpacePoint", false);
         component.set("v.isNoActiveButton", true);
         component.set("v.selectedTrip", null);
@@ -21,7 +20,7 @@
         let selectedTrip = component.get('v.selectedTrip');
         let selectedTourist = component.get('v.selectedTourist');
         action.setParams({
-            selectedTrip: selectedTrip[0],
+            selectedTrip: selectedTrip,
             selectedTourist: selectedTourist
         });
         action.setCallback(this, function(response) {
@@ -35,11 +34,11 @@
                         duration: 3000,
                         type: $A.get("$Label.c.toastTypeSuccessfully")
                     });
-                    toastSuccess.fire();
+                    toastSuccess.fire();   
                     $A.get('e.force:refreshView').fire();
                 } 
             }  
         });
-        $A.enqueueAction(action);       
+        $A.enqueueAction(action);
     }
 })
