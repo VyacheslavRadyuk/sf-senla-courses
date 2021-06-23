@@ -3,11 +3,9 @@
     <aura:attribute name="selectedTourist" type="Id" access="public"/>
     <aura:attribute name="selectedTrip" type="Trip__c" access="public"/>
     <aura:attribute name="mapMarkers" type="List" access="public"/>
-    <aura:attribute name="isNoActiveButton" type="boolean" default="false" access="public"/>
-    <aura:attribute name="isActiveGeolocationOfSpacePoint" type="boolean" default="true" access="public"/>
+    <aura:attribute name="isNoActiveButton" type="boolean" default="false" access="public"/>   
     <aura:attribute name="date" type="date" access="public"/>
     <aura:attribute name="averageTemperature" type="decimal" access="public"/>
-    <aura:attribute name="isRefreshTripDatatable" type="boolean" default="false" access="public"/>
     
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="change" value="{!v.selectedTourist}" action="{!c.doSelectRecordTourist}"/>
@@ -26,7 +24,7 @@
             </lightning:card>          
         </lightning:layoutItem>
         
-        <aura:if isTrue="{!and(v.selectedTourist.length > 0, v.isRefreshTripDatatable == false)}">
+        <aura:if isTrue="{!v.selectedTourist.length > 0}">
             <lightning:layoutItem size="4" class="slds-p-around_x-small">    
                 <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTripDatatable}">
                     <aura:iteration items="{!v.dataTrip}" var="trip" indexVar="idx">
@@ -51,8 +49,8 @@
             </lightning:layoutItem> 
         </aura:if>
         
-        <aura:if isTrue="{!and(v.selectedTrip != null, v.isActiveGeolocationOfSpacePoint == true)}">
-            <lightning:layoutItem size="4" class="slds-p-around_x-small">
+        <lightning:layoutItem size="4" class="slds-p-around_x-small">
+            <aura:if isTrue="{!v.selectedTrip != null}">
                 <lightning:card iconName="standard:contact" title="{!$Label.c.titleSpacepointGeolocation}">
                     <lightning:map 
                                    mapMarkers="{! v.mapMarkers }"
@@ -62,17 +60,17 @@
                         {!$Label.c.averageTempetarure} <lightning:badge label="{!v.averageTemperature}"/>
                     </aura:set> 
                 </lightning:card>
-                <aura:if isTrue="{!v.selectedTrip != null}">
-                    <lightning:card iconName="standard:contact" title="{!$Label.c.titleTripInformation}">
-                        <div class="slds-m-left_small">
-                            <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip.Name}</p>
-                            <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip.End_Date__c}</p>
-                            <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip.Minimum_Age__c}</p>
-                            <p><b>{!$Label.c.seats}</b>{!v.selectedTrip.countOccupiedSeats__c} of {!v.selectedTrip.Seats__c}</p>
-                        </div>
-                    </lightning:card>
-                </aura:if>
-            </lightning:layoutItem>
-        </aura:if>
+            </aura:if>                     
+            <aura:if isTrue="{!v.selectedTrip != null}">
+                <lightning:card iconName="standard:contact" title="{!$Label.c.titleTripInformation}">
+                    <div class="slds-m-left_small">
+                        <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip.Name}</p>
+                        <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip.End_Date__c}</p>
+                        <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip.Minimum_Age__c}</p>
+                        <p><b>{!$Label.c.seats}</b>{!v.selectedTrip.countOccupiedSeats__c} of {!v.selectedTrip.Seats__c}</p>
+                    </div>
+                </lightning:card> 
+            </aura:if>
+        </lightning:layoutItem>
     </lightning:layout>    
 </aura:component>

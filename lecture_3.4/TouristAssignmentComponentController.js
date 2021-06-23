@@ -1,12 +1,10 @@
 ({
     doInit : function(component, helper) {     
-        component.set('v.isNoActiveButton', true);
-        component.set("v.isActiveGeolocationOfSpacePoint", false);    
+        component.set('v.isNoActiveButton', true);    
     },  
     
     doSelectRecordTourist : function(component, event, helper) {
         helper.fetchTrip(component, event);
-        component.set("v.isActiveGeolocationOfSpacePoint", false);
         component.set("v.isNoActiveButton", true);
         component.set("v.selectedTrip", null);
     },

@@ -36,7 +36,6 @@
                 }
             }
         ]);
-        component.set("v.isActiveGeolocationOfSpacePoint", true);
         
         let action = component.get('c.getWeatherForecastBySpacePoint');
         let selectedTrip = component.get('v.selectedTrip');
