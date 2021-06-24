@@ -8,20 +8,18 @@
     <aura:attribute name="isSpinner" type="boolean" default="false" access="public"/>
     <aura:attribute name="today" type="Date" access="public"/>
     <aura:attribute name="showConfirmWindow" type="boolean" default="false" access="public"/>
-    <aura:attribute name="showDatatable" type="boolean" default="false" access="public"/>
-    
-    <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
-    <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
-    <aura:handler event="force:refreshView" action="{!c.doInit}"/>
-    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>   
+    <aura:attribute name="showDatatable" type="boolean" default="false" access="public"/>  
+        
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler name="eventButtonNo" event="c:EventButtonNo" action="{!c.confirmDialogNo}"/>
+    <aura:handler name="eventButtonYes" event="c:EventButtonYes" action="{!c.confirmDialogYes}"/>
     
     <force:recordData aura:id="tripRecordId" recordId="{!v.recordId}" targetFields="{!v.trip}" layoutType="FULL"
-                      recordUpdated="{!c.showTripsDatatable}" />
+                      recordUpdated="{!c.showTripsDatatable}"/>
     
     <lightning:layout> 
         <lightning:layoutItem size="6">
-            <lightning:card iconName="standard:contact" title="{!$Label.c.titlePotentialTouristDatatable}">
-                
+            <lightning:card iconName="standard:contact" title="{!$Label.c.titlePotentialTouristDatatable}">     
                 <aura:if isTrue="{!v.showDatatable}">
                     <div class="slds-p-around_large" style="height:250px;">
                         <lightning:datatable aura:id="touristTable"
@@ -45,25 +43,9 @@
                 </div>
                 
                 <aura:if isTrue="{!v.showConfirmWindow}">
-                    <div role="dialog" class="slds-modal slds-fade-in-open ">
-                        <div class="slds-modal__container">
-                            <header class="slds-modal__header">
-                                <h1 class="slds-text-heading--medium">{!$Label.c.confirmationWindowHeader}</h1>
-                            </header>
-                            <div class="slds-modal__content slds-p-around--medium">
-                                <center><b>{!$Label.c.confirmationWindow}</b></center>
-                            </div>
-                            
-                            <footer class="slds-modal__footer">
-                                <lightning:button name='No' label='{!$Label.c.buttonLabelNo}' onclick='{!c.confirmDialogNo}'/>
-                                <lightning:button variant="brand" name='Yes' label='{!$Label.c.buttonLabelYes}' onclick='{!c.confirmDialogYes}'/>
-                            </footer>
-                        </div>
-                    </div>
-                    <div class="slds-backdrop slds-backdrop--open"></div>            
+                    <c:ConfirmationWindow />       
                 </aura:if>
             </lightning:card>
         </lightning:layoutItem>
-    </lightning:layout>
-    
+    </lightning:layout>  
 </aura:component>

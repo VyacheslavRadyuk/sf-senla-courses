@@ -32,7 +32,7 @@
                     const duration = 3000;
                     const type = $A.get("$Label.c.toastTypeSuccessfully");      
                     this.showToast(type, message, duration, event);
-                    $A.get('e.force:refreshView').fire();
+                    $A.get('e.force:refreshView').fire();                    
                 } else {
                     const message = $A.get("$Label.c.flightCreationErrorNoTouristSelected");
                     const duration = 3000;
