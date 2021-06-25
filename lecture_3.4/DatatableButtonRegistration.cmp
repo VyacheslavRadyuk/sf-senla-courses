@@ -1,0 +1,21 @@
+<aura:component >
+    <aura:attribute name="data" type="List" access="public"/>
+    <aura:attribute name="columns" type="List" access="public"/>
+    <aura:attribute name="recordId" type="Id" access="public"/>
+    <aura:registerEvent name="eventButtonAddToTrip" type="c:EventButtonAddToTrip"/>
+    <aura:registerEvent name="eventSelectRecord" type="c:EventSelectRecord"/>
+    
+    <div class="slds-p-around_large" style="height:250px;">
+        <lightning:datatable aura:id="touristTable"
+                             keyField="id"
+                             recordId="{!v.recordId}"
+                             data="{!v.data}"
+                             columns="{!v.columns}"
+                             onrowselection="{!c.doSelectRecord}"
+                             />  
+        
+        <div class="slds-m-top_small">
+            <lightning:button variant="brand" label="{!$Label.c.buttonLabelAddToTrip}" onclick="{!c.handleClick}"/>     
+        </div>
+    </div>
+</aura:component>

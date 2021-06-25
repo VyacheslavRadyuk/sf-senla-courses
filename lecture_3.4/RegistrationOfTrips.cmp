@@ -13,6 +13,8 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="eventButtonNo" event="c:EventButtonNo" action="{!c.confirmDialogNo}"/>
     <aura:handler name="eventButtonYes" event="c:EventButtonYes" action="{!c.confirmDialogYes}"/>
+    <aura:handler name="eventButtonAddToTrip" event="c:EventButtonAddToTrip" action="{!c.handleClick}"/>
+    <aura:handler name="eventSelectRecord" event="c:EventSelectRecord" action="{!c.doSelectRecord}"/>
     <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
     <aura:handler event="force:refreshView" action="{!c.doInit}"/>
@@ -24,19 +26,9 @@
         <lightning:layoutItem size="6">
             <lightning:card iconName="standard:contact" title="{!$Label.c.titlePotentialTouristDatatable}">     
                 <aura:if isTrue="{!v.showDatatable}">
-                    <div class="slds-p-around_large" style="height:250px;">
-                        <lightning:datatable aura:id="touristTable"
-                                             keyField="id"
-                                             recordId="{!v.recordId}"
-                                             data="{!v.data}"
-                                             columns="{!v.columns}"
-                                             onrowselection="{!c.doSelectRecord}"
-                                             />  
-                        
-                        <div class="slds-m-top_small">
-                            <lightning:button variant="brand" label="{!$Label.c.buttonLabelAddToTrip}" onclick="{!c.handleClick}"/>     
-                        </div>
-                    </div>
+                    <c:DatatableButtonRegistration data="{!v.data}"
+                                                   columns="{!v.columns}"
+                                                   recordId="{!v.recordId}"/>
                 </aura:if>
                 
                 <div class="slds-m-around--xx-large">
