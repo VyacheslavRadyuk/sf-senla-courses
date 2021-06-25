@@ -22,7 +22,7 @@
     },
     
     selectRecordsTrip : function(component, event) {
-        let selectedItem = event.currentTarget;
+        let selectedItem = event.getParam('currentTarget');
         let index = selectedItem.dataset.record;
         let selectedTripByIndex = component.get("v.dataTrip")[index];
         component.set("v.selectedTrip", selectedTripByIndex);

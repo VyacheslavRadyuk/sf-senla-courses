@@ -1,0 +1,28 @@
+<aura:component >
+    <aura:attribute name="dataTrip" type="List" access="public"/>
+    <aura:attribute name="selectedTourist" type="Id" access="public"/>
+    <aura:registerEvent name="eventSelectCardTrip" type="c:EventSelectTripCard"/>
+    
+    <aura:if isTrue="{!v.selectedTourist.length > 0}">
+        <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTripDatatable}">
+            <aura:iteration items="{!v.dataTrip}" var="trip" indexVar="idx">
+                <lightning:layout>  
+                    <lightning:layoutItem size="6">
+                        <lightning:card variant="Narrow">
+                            <p class="slds-p-horizontal_small">
+                                <div class="slds-card slds-box slds-theme_shade" data-record="{!idx}" onclick="{!c.doSelectRecordTrip}">
+                                    <header class="slds-card__header slds-grid grid--flex-spread">
+                                        <h2 class="slds-text-heading--medium slds-truncate">{!trip.Name}</h2>
+                                    </header>
+                                </div>
+                            </p>
+                        </lightning:card> 
+                    </lightning:layoutItem> 
+                    <lightning:layoutItem size="6" class="slds-p-top_large">
+                        <img src="{!$Resource.image_selected_trip + '/' + trip.Name + '.png'}" width="290" height="100"/>
+                    </lightning:layoutItem>
+                </lightning:layout>  
+            </aura:iteration>                                       
+        </lightning:card> 
+    </aura:if>
+</aura:component>

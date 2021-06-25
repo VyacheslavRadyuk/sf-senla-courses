@@ -10,67 +10,25 @@
     <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
     <aura:handler name="change" value="{!v.selectedTourist}" action="{!c.doSelectRecordTourist}"/>
     <aura:handler event="force:refreshView" action="{!c.doInit}"/>
+    <aura:handler name="eventButtonSubmit" event="c:EventButtonSubmit" action="{!c.handleClick}"/>
+    <aura:handler name="eventSelectCardTrip" event="c:EventSelectTripCard" action="{!c.doSelectRecordTrip}"/>
     
     <lightning:layout>
         <lightning:layoutItem size="4" class="slds-p-around_x-small">   
-            <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTouristLookupInput}">
-                <l_lookup:Lookup objectType="Tourist__c" 
-                                 selectedRecordId="{!v.selectedTourist}"
-                                 queryCondition="Active__c = true"/> 
-                
-                <div class="slds-m-top_small">
-                    <lightning:button variant="brand" label="{!$Label.c.buttonLabelSubmit}" onclick="{!c.handleClick}" disabled="{!v.isNoActiveButton}"/>     
-                </div>
-            </lightning:card>          
+            <c:LookupButtonRegistration selectedTourist="{!v.selectedTourist}"
+                                        isNoActiveButton="{!v.isNoActiveButton}"/>    
+        </lightning:layoutItem>  
+        
+        <lightning:layoutItem size="4" class="slds-p-around_x-small">         
+            <c:TripCards dataTrip="{!v.dataTrip}"
+                         selectedTourist="{!v.selectedTourist}"/>       
         </lightning:layoutItem>
         
-        <aura:if isTrue="{!v.selectedTourist.length > 0}">
-            <lightning:layoutItem size="4" class="slds-p-around_x-small">    
-                <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTripDatatable}">
-                    <aura:iteration items="{!v.dataTrip}" var="trip" indexVar="idx">
-                        <lightning:layout>  
-                            <lightning:layoutItem size="6">
-                                <lightning:card variant="Narrow">
-                                    <p class="slds-p-horizontal_small">
-                                        <div class="slds-card slds-box slds-theme_shade" data-record="{!idx}" onclick="{!c.doSelectRecordTrip}">
-                                            <header class="slds-card__header slds-grid grid--flex-spread">
-                                                <h2 class="slds-text-heading--medium slds-truncate">{!trip.Name}</h2>
-                                            </header>
-                                        </div>
-                                    </p>
-                                </lightning:card> 
-                            </lightning:layoutItem> 
-                            <lightning:layoutItem size="6" class="slds-p-top_large">
-                                <img src="{!$Resource.image_selected_trip + '/' + trip.Name + '.png'}" width="290" height="100"/>
-                            </lightning:layoutItem>
-                        </lightning:layout>  
-                    </aura:iteration>                                       
-                </lightning:card>    
-            </lightning:layoutItem> 
-        </aura:if>
-        
         <lightning:layoutItem size="4" class="slds-p-around_x-small">
-            <aura:if isTrue="{!v.selectedTrip != null}">
-                <lightning:card iconName="standard:contact" title="{!$Label.c.titleSpacepointGeolocation}">
-                    <lightning:map 
-                                   mapMarkers="{! v.mapMarkers }"
-                                   zoomLevel="7"/>
-                    <aura:set attribute="footer">
-                        {!$Label.c.date} <lightning:badge label="{!v.date}"/>
-                        {!$Label.c.averageTempetarure} <lightning:badge label="{!v.averageTemperature}"/>
-                    </aura:set> 
-                </lightning:card>
-            </aura:if>                     
-            <aura:if isTrue="{!v.selectedTrip != null}">
-                <lightning:card iconName="standard:contact" title="{!$Label.c.titleTripInformation}">
-                    <div class="slds-m-left_small">
-                        <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip.Name}</p>
-                        <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip.End_Date__c}</p>
-                        <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip.Minimum_Age__c}</p>
-                        <p><b>{!$Label.c.seats}</b>{!v.selectedTrip.countOccupiedSeats__c} of {!v.selectedTrip.Seats__c}</p>
-                    </div>
-                </lightning:card> 
-            </aura:if>
+            <c:GeolocationAndTripInformation selectedTrip="{!v.selectedTrip}"
+                                             mapMarkers="{!v.mapMarkers}"
+                                             date="{!v.date}"
+                                             averageTemperature="{!v.averageTemperature}"/>
         </lightning:layoutItem>
     </lightning:layout>    
 </aura:component>
