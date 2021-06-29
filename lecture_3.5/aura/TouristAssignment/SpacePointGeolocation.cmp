@@ -10,8 +10,10 @@
                            mapMarkers="{! v.mapMarkers }"
                            zoomLevel="7"/>
             <aura:set attribute="footer">
-                {!$Label.c.date} <lightning:badge label="{!v.date}"/>
-                {!$Label.c.averageTempetarure} <lightning:badge label="{!v.averageTemperature}"/>
+                <center>
+                    {!$Label.c.date} <lightning:badge label="{!v.date}"/>
+                    {!$Label.c.averageTempetarure} <lightning:badge label="{!v.averageTemperature}"/>
+                </center>
             </aura:set> 
         </lightning:card>
     </aura:if> 
