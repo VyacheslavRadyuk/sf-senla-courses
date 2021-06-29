@@ -26,7 +26,7 @@
         let index = selectedItem.dataset.record;
         let selectedTripByIndex = component.get("v.dataTrip")[index];
         component.set("v.selectedTrip", selectedTripByIndex);
-        component.set("v.isNoActiveButton", false);
+        component.set("v.isActiveInformationAndButton", false);
         let trip =  component.get('v.selectedTrip');
         component.set('v.mapMarkers', [            
             {

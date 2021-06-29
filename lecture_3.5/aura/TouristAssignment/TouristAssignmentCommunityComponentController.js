@@ -1,6 +1,6 @@
 ({
     doInit : function(component,event, helper) {     
-        component.set('v.isNoActiveButton', true);
+        component.set('v.isActiveInformationAndButton', true);
         helper.fetchTrip(component, event);
     },  
     

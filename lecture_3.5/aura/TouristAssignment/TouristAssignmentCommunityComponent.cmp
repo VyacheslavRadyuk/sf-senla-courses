@@ -3,7 +3,7 @@
     <aura:attribute name="selectedTourist" type="Id" access="public" default="a085g000000PvVsAAK"/>
     <aura:attribute name="selectedTrip" type="Trip__c" access="public"/>
     <aura:attribute name="mapMarkers" type="List" access="public"/>
-    <aura:attribute name="isNoActiveButton" type="boolean" default="false" access="public"/>   
+    <aura:attribute name="isActiveInformationAndButton" type="boolean" default="false" access="public"/>   
     <aura:attribute name="date" type="date" access="public"/>
     <aura:attribute name="averageTemperature" type="decimal" access="public"/>
     
@@ -19,12 +19,12 @@
         </lightning:layoutItem>
         
         <lightning:layoutItem size="6" class="slds-p-around_x-small">
-            <c:SpacePointGeolocation selectedTrip="{!v.selectedTrip}"
-                                     mapMarkers="{!v.mapMarkers}"
-                                     date="{!v.date}"
-                                     averageTemperature="{!v.averageTemperature}"/>
-            <c:TripInformation selectedTrip="{!v.selectedTrip}"/>
-            <aura:if isTrue="{!v.isNoActiveButton != true}">
+            <aura:if isTrue="{!v.isActiveInformationAndButton != true}">
+                <c:SpacePointGeolocation selectedTrip="{!v.selectedTrip}"
+                                         mapMarkers="{!v.mapMarkers}"
+                                         date="{!v.date}"
+                                         averageTemperature="{!v.averageTemperature}"/>
+                <c:TripInformation selectedTrip="{!v.selectedTrip}"/>
                 <c:ButtonRegistrationTourists/>
             </aura:if>
         </lightning:layoutItem>
