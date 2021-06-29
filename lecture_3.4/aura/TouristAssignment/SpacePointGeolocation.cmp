@@ -14,15 +14,5 @@
                 {!$Label.c.averageTempetarure} <lightning:badge label="{!v.averageTemperature}"/>
             </aura:set> 
         </lightning:card>
-    </aura:if>                     
-    <aura:if isTrue="{!v.selectedTrip != null}">
-        <lightning:card iconName="standard:contact" title="{!$Label.c.titleTripInformation}">
-            <div class="slds-m-left_small">
-                <p><b>{!$Label.c.tripName}</b>{!v.selectedTrip.Name}</p>
-                <p><b>{!$Label.c.endDate}</b>{!v.selectedTrip.End_Date__c}</p>
-                <p><b>{!$Label.c.minimumAge}</b>{!v.selectedTrip.Minimum_Age__c}</p>
-                <p><b>{!$Label.c.seats}</b>{!v.selectedTrip.countOccupiedSeats__c} of {!v.selectedTrip.Seats__c}</p>
-            </div>
-        </lightning:card> 
-    </aura:if>
+    </aura:if> 
 </aura:component>

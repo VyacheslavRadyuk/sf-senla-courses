@@ -1,0 +1,7 @@
+<aura:component >
+    <aura:attribute name="selectedTourist" type="Id" access="public"/>
+    
+        <l_lookup:Lookup objectType="Tourist__c" 
+                         selectedRecordId="{!v.selectedTourist}"
+                         queryCondition="Active__c = true"/> 
+</aura:component>

@@ -1,4 +1,4 @@
-<aura:component controller="RegistrationOfTripsController" implements="flexipage:availableForRecordHome,force:hasRecordId" access="global">    
+<aura:component controller="RegistrationOfTripsController" implements="flexipage:availableForRecordHome,force:hasRecordId,force:lightningQuickAction" access="global">    
     <aura:attribute name="data" type="List" access="public"/>
     <aura:attribute name="columns" type="List" access="public"/>
     <aura:attribute name="recordId" type="Id" access="public"/>
@@ -23,7 +23,7 @@
                       recordUpdated="{!c.showTripsDatatable}"/>
     
     <lightning:layout> 
-        <lightning:layoutItem size="6">
+        <lightning:layoutItem>
             <lightning:card iconName="standard:contact" title="{!$Label.c.titlePotentialTouristDatatable}">     
                 <aura:if isTrue="{!v.showDatatable}">
                     <c:DatatableButtonRegistration data="{!v.data}"

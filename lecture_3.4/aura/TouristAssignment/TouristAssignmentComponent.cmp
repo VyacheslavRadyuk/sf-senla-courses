@@ -14,9 +14,11 @@
     <aura:handler name="eventSelectCardTrip" event="c:EventSelectTripCard" action="{!c.doSelectRecordTrip}"/>
     
     <lightning:layout>
-        <lightning:layoutItem size="4" class="slds-p-around_x-small">   
-            <c:LookupButtonRegistration selectedTourist="{!v.selectedTourist}"
-                                        isNoActiveButton="{!v.isNoActiveButton}"/>    
+        <lightning:layoutItem size="4" class="slds-p-around_x-small">
+            <lightning:card iconName="standard:contact" title="{!$Label.c.titleSelectTouristLookupInput}">
+                <c:LookupTourists selectedTourist="{!v.selectedTourist}"/>  
+                <c:ButtonRegistrationTourists isNoActiveButton="{!v.isNoActiveButton}"/>
+            </lightning:card>
         </lightning:layoutItem>  
         
         <lightning:layoutItem size="4" class="slds-p-around_x-small">         
@@ -25,10 +27,11 @@
         </lightning:layoutItem>
         
         <lightning:layoutItem size="4" class="slds-p-around_x-small">
-            <c:GeolocationAndTripInformation selectedTrip="{!v.selectedTrip}"
-                                             mapMarkers="{!v.mapMarkers}"
-                                             date="{!v.date}"
-                                             averageTemperature="{!v.averageTemperature}"/>
+            <c:SpacePointGeolocation selectedTrip="{!v.selectedTrip}"
+                                     mapMarkers="{!v.mapMarkers}"
+                                     date="{!v.date}"
+                                     averageTemperature="{!v.averageTemperature}"/>
+            <c:TripInformation selectedTrip="{!v.selectedTrip}"/>
         </lightning:layoutItem>
     </lightning:layout>    
 </aura:component>

@@ -1,0 +1,8 @@
+<aura:component >
+    <aura:attribute name="isNoActiveButton" type="boolean" default="false" access="public"/>
+    <aura:registerEvent name="eventButtonSubmit" type="c:EventButtonSubmit"/>  
+        
+        <div class="slds-m-top_small">
+            <lightning:button variant="brand" label="{!$Label.c.buttonLabelSubmit}" onclick="{!c.handleClick}" disabled="{!v.isNoActiveButton}"/>     
+        </div>      
+</aura:component>
