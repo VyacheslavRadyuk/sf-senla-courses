@@ -1,0 +1,21 @@
+<aura:component >
+    <aura:registerEvent name="eventButtonNo" type="c:EventButtonNo"/>
+    <aura:registerEvent name="eventButtonYes" type="c:EventButtonYes"/>
+    
+    <div role="dialog" class="slds-modal slds-fade-in-open ">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h1 class="slds-text-heading--medium">{!$Label.c.confirmationWindowHeader}</h1>
+            </header>
+            <div class="slds-modal__content slds-p-around--medium">
+                <center><b>{!$Label.c.confirmationWindow}</b></center>
+            </div>
+            
+            <footer class="slds-modal__footer">
+                <lightning:button name='No' label='{!$Label.c.buttonLabelNo}' onclick='{!c.confirmDialogNo}'/>
+                <lightning:button variant="brand" name='Yes' label='{!$Label.c.buttonLabelYes}' onclick='{!c.confirmDialogYes}'/>
+            </footer>
+        </div>
+    </div>
+    <div class="slds-backdrop slds-backdrop--open"></div>     
+</aura:component>

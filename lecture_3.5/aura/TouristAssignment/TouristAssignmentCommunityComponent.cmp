@@ -1,0 +1,32 @@
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" controller="TouristAssignmentController">
+    <aura:attribute name="dataTrip" type="List" access="public"/>
+    <aura:attribute name="selectedTourist" type="Id" access="public" default="a085g000000PvVsAAK"/>
+    <aura:attribute name="selectedTrip" type="Trip__c" access="public"/>
+    <aura:attribute name="mapMarkers" type="List" access="public"/>
+    <aura:attribute name="isNoActiveButton" type="boolean" default="false" access="public"/>   
+    <aura:attribute name="date" type="date" access="public"/>
+    <aura:attribute name="averageTemperature" type="decimal" access="public"/>
+    
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:handler event="force:refreshView" action="{!c.doInit}"/>
+    <aura:handler name="eventButtonSubmit" event="c:EventButtonSubmit" action="{!c.handleClick}"/>
+    <aura:handler name="eventSelectCardTrip" event="c:EventSelectTripCard" action="{!c.doSelectRecordTrip}"/>
+    
+    <lightning:layout>  
+        <lightning:layoutItem size="6" class="slds-p-around_x-small">         
+            <c:TripCards dataTrip="{!v.dataTrip}"
+                         selectedTourist="{!v.selectedTourist}"/>       
+        </lightning:layoutItem>
+        
+        <lightning:layoutItem size="6" class="slds-p-around_x-small">
+            <c:SpacePointGeolocation selectedTrip="{!v.selectedTrip}"
+                                     mapMarkers="{!v.mapMarkers}"
+                                     date="{!v.date}"
+                                     averageTemperature="{!v.averageTemperature}"/>
+            <c:TripInformation selectedTrip="{!v.selectedTrip}"/>
+            <aura:if isTrue="{!v.isNoActiveButton != true}">
+                <c:ButtonRegistrationTourists/>
+            </aura:if>
+        </lightning:layoutItem>
+    </lightning:layout>    
+</aura:component>

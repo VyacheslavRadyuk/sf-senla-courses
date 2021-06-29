@@ -1,0 +1,7 @@
+<aura:component >
+    <aura:registerEvent name="eventButtonSubmit" type="c:EventButtonSubmit"/>  
+        
+        <div class="slds-m-top_small">
+            <lightning:button variant="brand" label="{!$Label.c.buttonLabelSubmit}" onclick="{!c.handleClick}"/>     
+        </div>      
+</aura:component>
