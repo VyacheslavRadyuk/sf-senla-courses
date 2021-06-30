@@ -1,5 +1,7 @@
 ({
-    doInit : function(component,event, helper) {     
+    doInit : function(component,event, helper) {  
+        var idParamValue = helper.getURLParameterValue().id;
+        component.set('v.selectedTourist', idParamValue);
         component.set('v.isActiveInformationAndButton', true);
         helper.fetchTrip(component, event);
     },  

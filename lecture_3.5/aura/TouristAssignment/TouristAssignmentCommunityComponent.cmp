@@ -1,6 +1,6 @@
 <aura:component implements="force:appHostable,flexipage:availableForAllPageTypes,forceCommunity:availableForAllPageTypes" access="global" controller="TouristAssignmentController">
     <aura:attribute name="dataTrip" type="List" access="public"/>
-    <aura:attribute name="selectedTourist" type="Id" access="public" default="a085g000000PvVsAAK"/>
+    <aura:attribute name="selectedTourist" type="Id" access="public"/>
     <aura:attribute name="selectedTrip" type="Trip__c" access="public"/>
     <aura:attribute name="mapMarkers" type="List" access="public"/>
     <aura:attribute name="isActiveInformationAndButton" type="boolean" default="false" access="public"/>   
