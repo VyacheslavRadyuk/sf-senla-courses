@@ -19,7 +19,9 @@
                         </lightning:card> 
                     </lightning:layoutItem> 
                     <lightning:layoutItem size="6" class="slds-p-top_large">
-                        <img src="{!$Resource.image_selected_trip + '/' + trip.Name + '.png'}" width="290" height="100"/>
+                        <div class="slds-m-right_xx-large">
+                            <img src="{!$Resource.image_selected_trip + '/' + trip.Name + '.png'}" width="290" height="100"/>
+                        </div>
                     </lightning:layoutItem>
                 </lightning:layout>  
             </aura:iteration>                                       
