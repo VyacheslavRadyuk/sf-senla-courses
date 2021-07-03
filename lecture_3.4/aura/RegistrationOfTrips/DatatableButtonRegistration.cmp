@@ -8,7 +8,7 @@
     <div class="slds-p-around_large" style="height:250px;">
         <lightning:datatable aura:id="touristTable"
                              keyField="id"
-                             recordId="{!v.recordId}"
+                             recordId="{#v.recordId}"
                              data="{!v.data}"
                              columns="{!v.columns}"
                              onrowselection="{!c.doSelectRecord}"

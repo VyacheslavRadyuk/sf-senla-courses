@@ -19,7 +19,7 @@
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
     <aura:handler event="force:refreshView" action="{!c.doInit}"/>
     
-    <force:recordData aura:id="tripRecordId" recordId="{!v.recordId}" targetFields="{!v.trip}" layoutType="FULL"
+    <force:recordData aura:id="tripRecordId" recordId="{#v.recordId}" targetFields="{!v.trip}" layoutType="FULL"
                       recordUpdated="{!c.showTripsDatatable}"/>
     
     <lightning:layout> 

@@ -2,5 +2,5 @@
     <aura:attribute name="recordId" type="Id" access="public"/>
     <aura:attribute name="tourist" type="Tourist__c" access="public"/> 
     
-    <force:recordData aura:id="touristRecordId" recordId="{!v.recordId}" targetFields="{!v.tourist}" layoutType="FULL" recordUpdated="{!c.sendEmail}"/>
+    <force:recordData aura:id="touristRecordId" recordId="{#v.recordId}" targetFields="{!v.tourist}" layoutType="FULL" recordUpdated="{!c.sendEmail}"/>
 </aura:component>
