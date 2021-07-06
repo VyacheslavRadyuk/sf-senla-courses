@@ -4,7 +4,7 @@
     },  
     
     doSelectRecordTourist : function(component, event, helper) {
-        helper.fetchTrip(component, event);
+        helper.fetchTrips(component, event);
         component.set("v.isNoActiveButton", true);
         component.set("v.selectedTrip", null);
     },

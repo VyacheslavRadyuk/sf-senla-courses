@@ -1,5 +1,5 @@
 ({
-    fetchTrip : function(component) {    
+    fetchTrips : function(component) {    
         let action = component.get('c.getTrips'); 
         let selectedTourist = component.get('v.selectedTourist');
         let newTripList = [];

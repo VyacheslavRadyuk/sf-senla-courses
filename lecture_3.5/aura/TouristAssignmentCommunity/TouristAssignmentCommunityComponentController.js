@@ -3,7 +3,7 @@
         var idParamValue = helper.getURLParameterValue().id;
         component.set('v.selectedTourist', idParamValue);
         component.set('v.isActiveInformationAndButton', true);
-        helper.fetchTrip(component, event);
+        helper.fetchTrips(component, event);
     },  
     
     doSelectRecordTrip : function(component, event, helper) {
