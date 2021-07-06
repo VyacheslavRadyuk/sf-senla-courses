@@ -8,7 +8,8 @@
         helper.validationTrip(component, event);
     },
     
-    handleClick : function (component, event, helper) {               
+    handleClick : function (component, event, helper) { 
+        component.set("v.showDatatable", false);
         let countSeats = component.get('v.trip').Seats__c;
         let countOccupiedSeats = component.get('v.trip').countOccupiedSeats__c;    
         let startDate = component.get('v.trip').Start_Date__c;
@@ -39,10 +40,12 @@
     
     confirmDialogNo : function(component, helper) {
         component.set('v.showConfirmWindow', false);
+        component.set("v.showDatatable", true);
     },
     
     confirmDialogYes : function(component, event, helper) {
         component.set('v.showConfirmWindow', false);
+        component.set("v.showDatatable", true);
         helper.createFlights(component, event);
     }
 })
