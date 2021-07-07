@@ -18,7 +18,7 @@
     <aura:handler event="aura:waiting" action="{!c.showSpinner}"/>
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
     <aura:handler event="force:refreshView" action="{!c.doInit}"/>
-    
+  
     <force:recordData aura:id="tripRecordId" 
                       recordId="{#v.recordId}" 
                       targetFields="{!v.trip}"

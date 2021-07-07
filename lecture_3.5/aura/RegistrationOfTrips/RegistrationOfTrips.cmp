@@ -19,31 +19,34 @@
     <aura:handler event="aura:doneWaiting" action="{!c.hideSpinner}"/> 
     <aura:handler event="force:refreshView" action="{!c.doInit}"/>
     
+    <c:QuickActionBodiless/>
+    
     <force:recordData aura:id="tripRecordId" 
                       recordId="{#v.recordId}" 
                       targetFields="{!v.trip}"
                       layoutType="FULL"
                       recordUpdated="{!c.showTripsDatatable}"/>
-              
+    
     <lightning:layout> 
         <lightning:layoutItem>
-            <lightning:card iconName="standard:contact" title="{!$Label.c.titlePotentialTouristDatatable}">     
-                <aura:if isTrue="{!v.showDatatable}">
+            <aura:if isTrue="{!v.showDatatable}">
+                <lightning:card iconName="standard:contact" title="{!$Label.c.titlePotentialTouristDatatable}">     
+                    
                     <c:DatatableButtonRegistration data="{!v.data}"
                                                    columns="{!v.columns}"
                                                    recordId="{!v.recordId}"/>
-                </aura:if>
-                
-                <div class="slds-m-around--xx-large">
-                    <aura:if isTrue="{!v.isSpinner}">
-                        <lightning:spinner variant="brand" size="large"/>
-                    </aura:if>
-                </div>
-                
-                <aura:if isTrue="{!v.showConfirmWindow}">
-                    <c:ConfirmationWindow />       
-                </aura:if>
-            </lightning:card>
+                </lightning:card>
+            </aura:if>
         </lightning:layoutItem>
-    </lightning:layout>  
+    </lightning:layout> 
+    
+    <div class="slds-m-around--xx-large">
+        <aura:if isTrue="{!v.isSpinner}">
+            <lightning:spinner variant="brand" size="large"/>
+        </aura:if>
+    </div>
+    
+    <aura:if isTrue="{!v.showConfirmWindow}">
+        <c:ConfirmationWindowQuickAction />       
+    </aura:if>    
 </aura:component>

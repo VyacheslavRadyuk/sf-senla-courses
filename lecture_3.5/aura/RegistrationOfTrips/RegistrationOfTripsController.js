@@ -20,7 +20,8 @@
             const type = $A.get("$Label.c.toastTypeError");
             const message = $A.get("$Label.c.createFlightsError");
             const duration = 3000;
-            helper.showToast(type, message, duration, event);      
+            helper.showToast(type, message, duration, event);
+            component.set("v.showDatatable", true);
         } else {
             component.set('v.showConfirmWindow', true);    
         }     
