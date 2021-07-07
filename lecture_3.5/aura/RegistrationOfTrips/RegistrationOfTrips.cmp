@@ -35,16 +35,15 @@
                     <c:DatatableButtonRegistration data="{!v.data}"
                                                    columns="{!v.columns}"
                                                    recordId="{!v.recordId}"/>
-                </lightning:card>
+                    <div class="slds-m-around--xx-large">
+                        <aura:if isTrue="{!v.isSpinner}">
+                            <lightning:spinner variant="brand" size="large"/>
+                        </aura:if>
+                    </div>
+                </lightning:card>        
             </aura:if>
         </lightning:layoutItem>
     </lightning:layout> 
-    
-    <div class="slds-m-around--xx-large">
-        <aura:if isTrue="{!v.isSpinner}">
-            <lightning:spinner variant="brand" size="large"/>
-        </aura:if>
-    </div>
     
     <aura:if isTrue="{!v.showConfirmWindow}">
         <c:ConfirmationWindowQuickAction />       
