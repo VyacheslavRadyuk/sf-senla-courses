@@ -12,9 +12,15 @@
                     value.linkName = '/' + value.Id;
                 })
                 component.set('v.data', responseValue);
+            } else if (state == 'ERROR') {
+                const errors = action.getError();
+                const errorMsg = (errors.length) ? errors[0].message : $A.get("$Label.c.assignScreenErrorMissingTripId");
+                const duration = 3000;
+                const type = $A.get("$Label.c.toastTypeError");
+                this.showToast(type, errorMsg, duration, event);
             }
         });
-        $A.enqueueAction(action);      
+        $A.enqueueAction(action);       
     },
     
     createFlights : function(component, event) {
@@ -25,20 +31,19 @@
         });
         action.setCallback(this, function(response) {
             let state = response.getState();
-            if (state === "SUCCESS") {
-                let responseValue = response.getReturnValue();
-                if (responseValue.length > 0) {
-                    const message = $A.get("$Label.c.createFlights");
-                    const duration = 3000;
-                    const type = $A.get("$Label.c.toastTypeSuccessfully");      
-                    this.showToast(type, message, duration, event);
-                    $A.get('e.force:refreshView').fire();                    
-                } else {
-                    const message = $A.get("$Label.c.flightCreationErrorNoTouristSelected");
-                    const duration = 3000;
-                    const type = $A.get("$Label.c.toastTypeError");
-                    this.showToast(type, message, duration, event);                  
-                }
+            if (state === "SUCCESS") {                
+                const message = $A.get("$Label.c.createFlights");
+                const duration = 3000;
+                const type = $A.get("$Label.c.toastTypeSuccessfully");      
+                this.showToast(type, message, duration, event);
+                component.set("v.selectedTourists", []);
+                $A.get('e.force:refreshView').fire();                    
+            } else if (state == 'ERROR') {
+                const errors = action.getError();
+                const message = (errors.length) ? errors[0].message : $A.get("$Label.c.flightCreationErrorNoTouristSelected");
+                const duration = 3000;
+                const type = $A.get("$Label.c.toastTypeError");
+                this.showToast(type, message, duration, event);                 
             }  
         });
         $A.enqueueAction(action);

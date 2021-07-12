@@ -15,7 +15,7 @@
         let selectedTrip = component.get('v.selectedTrip');
         let selectedTourist = component.get('v.selectedTourist');
         action.setParams({
-            selectedTrip: null,
+            selectedTrip: selectedTrip,
             selectedTourist: selectedTourist
         });
         action.setCallback(this, function(response) {

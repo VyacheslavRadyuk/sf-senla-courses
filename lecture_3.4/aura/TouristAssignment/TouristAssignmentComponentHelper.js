@@ -16,7 +16,13 @@
                     }                    
                 })
                 component.set('v.dataTrip', newTripList);                            
-            }               
+            } else if (state === "ERROR") {
+                const errors = action.getError();
+                const errorMsg = (errors.length) ? errors[0].message : $A.get("$Label.c.flightCreationErrorNoTouristSelected");
+                const duration = 3000;
+                const type = $A.get("$Label.c.toastTypeError");
+                this.showToast(type, errorMsg, duration, event);
+            }             
         });
         $A.enqueueAction(action); 
     },
@@ -51,5 +57,11 @@
             }               
         });   
         $A.enqueueAction(action); 
+    },
+    
+    showToast : function (type, message, duration, event) {
+        let toastEvent = $A.get('e.force:showToast');
+        toastEvent.setParams({type: type, message: message, duration: duration});
+        toastEvent.fire();
     }
 })
