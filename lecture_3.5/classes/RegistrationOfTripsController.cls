@@ -2,6 +2,10 @@ public inherited sharing class RegistrationOfTripsController {
     
     @AuraEnabled(cacheable=true) 
     public static List<Tourist__c> fetchTourists(Id tripRecordId) {
+        if(tripRecordId == null) {
+            throw new AuraHandledException(Constants.ASSIGN_SCREEN_ERROR_MSG_MISSING_TRIP_ID);
+        }
+        
         Trip__c trip = TripManager.getByRecordId(tripRecordId)[0];
         List<Flight__c> flights = FlightManager.getByRecordId(tripRecordId);  
         Set<Id> touristId = new Set<Id>();
@@ -16,7 +20,10 @@ public inherited sharing class RegistrationOfTripsController {
     }
     
     @AuraEnabled  
-    public static List<Flight__c> createFlights(Id tripRecordId, List<Tourist__c> selectedTourists) { 
+    public static List<Flight__c> createFlights(Id tripRecordId, List<Tourist__c> selectedTourists) {
+        if(selectedTourists == null || selectedTourists.isEmpty()) {
+            throw new AuraHandledException(Constants.ASSIGN_SCREEN_ERROR_MSG_NO_TOURISTS_SELECTED);
+        }
         Datetime now = system.now();
         List<Flight__c> flights = new List<Flight__c>();
         

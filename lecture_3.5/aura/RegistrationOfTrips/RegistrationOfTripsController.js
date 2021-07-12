@@ -42,6 +42,7 @@
     confirmDialogNo : function(component, helper) {
         component.set('v.showConfirmWindow', false);
         component.set("v.showDatatable", true);
+        component.set("v.selectedTourists", []);
     },
     
     confirmDialogYes : function(component, event, helper) {

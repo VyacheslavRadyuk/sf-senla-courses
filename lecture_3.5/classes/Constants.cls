@@ -20,4 +20,6 @@ public class Constants {
     public static final String TRIP_PLANE_FLEW_AWAY_ERROR = 'The plane flew away';
     public static final String TRIP_INSUFFICIENT_AGE_ERROR = 'Insufficient age';
     public static final String FLIGHT_SECOND_STATUS_OFFER_PENDING = 'Offer Pending';
+    public static final String ASSIGN_SCREEN_ERROR_MSG_MISSING_TRIP_ID = System.Label.assignScreenErrorMissingTripId;
+    public static final String ASSIGN_SCREEN_ERROR_MSG_NO_TOURISTS_SELECTED = System.Label.flightCreationErrorNoTouristSelected;
 }
