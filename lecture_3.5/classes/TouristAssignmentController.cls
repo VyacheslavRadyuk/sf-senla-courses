@@ -1,7 +1,11 @@
 public without sharing class TouristAssignmentController {
     
     @AuraEnabled(cacheable=true)
-    public static List<Trip__c> getTrips(Id selectedTourist) { 
+    public static List<Trip__c> getTrips(Id selectedTourist) {
+        if(selectedTourist == null || String.isBlank(selectedTourist) ) {
+            throw new AuraHandledException(Constants.ASSIGN_SCREEN_ERROR_MSG_NO_TOURISTS_SELECTED);
+        }
+
         Integer count;     
         Tourist__c tourist = TouristManager.getBySelectedId(selectedTourist)[0];      
         List<Trip__c> trips = TripManager.getTripsByTourist(tourist);
@@ -10,6 +14,10 @@ public without sharing class TouristAssignmentController {
     
     @AuraEnabled   
     public static Flight__c createFlightForTouristAssignment(Trip__c selectedTrip, Id selectedTourist) { 
+        if(selectedTrip == null) {
+            throw new AuraHandledException(Constants.ASSIGN_SCREEN_ERROR_MSG_NO_TRIPS_SELECTED);
+        }
+        
         Datetime now = system.now();
         Flight__c flight = new Flight__c(
             Name = String.valueOf(now),
