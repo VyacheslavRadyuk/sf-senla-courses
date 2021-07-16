@@ -54,4 +54,19 @@ public class FlightManager {
         ];
         return status;
     }
+    
+    public static List<Flight__c> getByTouristId(Id touristId) { 
+        if (touristId == null || String.isBlank(touristId)) {
+            return new List<Flight__c>();
+        }
+        List<Flight__c> status = [
+            SELECT Id,
+            Tourist__c,
+            Trip__r.Start_Date__c,
+            Trip__r.End_Date__c
+            FROM Flight__c
+            WHERE Tourist__c = :touristId        
+        ];
+        return status;
+    }
 }

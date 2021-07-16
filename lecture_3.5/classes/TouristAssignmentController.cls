@@ -5,10 +5,21 @@ public without sharing class TouristAssignmentController {
         if(selectedTourist == null || String.isBlank(selectedTourist) ) {
             throw new AuraHandledException(Constants.ASSIGN_SCREEN_ERROR_MSG_NO_TOURISTS_SELECTED);
         }
-
-        Integer count;     
+    
         Tourist__c tourist = TouristManager.getBySelectedId(selectedTourist)[0];      
         List<Trip__c> trips = TripManager.getTripsByTourist(tourist);
+        List<Flight__c> flightsByTouristId = FlightManager.getByTouristId(tourist.Id);
+        
+        if (flightsByTouristId.size() > 0) {    
+            for (Integer i = 0; i < trips.size(); i++) {
+                
+                for (Flight__c flight : flightsByTouristId) {
+                    if(flight.Trip__r.Start_Date__c <= trips[i].End_Date__c && trips[i].Start_Date__c <= flight.Trip__r.End_Date__c) {
+                        trips.remove(i);     
+                    }
+                }
+            }
+        }
         return trips;
     }
     
