@@ -48,6 +48,9 @@ public class TripManager {
             FROM Trip__c
             WHERE Minimum_Age__c <= :tourist.Age__c
             AND Start_Date__c >= :Date.today()
+            AND Id NOT IN (SELECT Trip__c 
+                FROM Flight__c 
+                WHERE Tourist__c = :tourist.Id)
         ];     
         return trips;
     }
