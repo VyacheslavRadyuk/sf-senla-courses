@@ -23,4 +23,5 @@ public class Constants {
     public static final String ASSIGN_SCREEN_ERROR_MSG_MISSING_TRIP_ID = System.Label.assignScreenErrorMissingTripId;
     public static final String ASSIGN_SCREEN_ERROR_MSG_NO_TOURISTS_SELECTED = System.Label.flightCreationErrorNoTouristSelected;
     public static final String ASSIGN_SCREEN_ERROR_MSG_NO_TRIPS_SELECTED = System.Label.flightCreationErrorNoTripsSelected;
+    public static final String UNEXPECTED_ERROR_CONTACT_SYSTEM_ADMINISTRATOR = 'UNEXPECTED ERROR, CONTACT YOUR SYSTEM ADMINISTRATOR';
 }

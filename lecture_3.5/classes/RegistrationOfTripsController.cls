@@ -10,11 +10,16 @@ public inherited sharing class RegistrationOfTripsController {
         List<Flight__c> flights = FlightManager.getByRecordId(tripRecordId);  
         Set<Id> touristId = new Set<Id>();
         
-        for (Flight__c flight : flights) {
-            if(flight.Trip__r.Start_Date__c <= trip.End_Date__c && trip.Start_Date__c <= flight.Trip__r.End_Date__c) {
-                touristId.add(flight.Tourist__c);
-            }
-        }    
+        try {
+            for (Flight__c flight : flights) {
+                if(flight.Trip__r.Start_Date__c <= trip.End_Date__c && trip.Start_Date__c <= flight.Trip__r.End_Date__c) {
+                    touristId.add(flight.Tourist__c);
+                }
+            } 
+        } catch(Exception ex) {
+            throw new AuraHandledException(Constants.UNEXPECTED_ERROR_CONTACT_SYSTEM_ADMINISTRATOR);
+        }
+        
         List<Tourist__c> tourists = TouristManager.getFreeTouristsForTheFlight(trip, touristId);        
         return tourists;   
     }
@@ -24,18 +29,24 @@ public inherited sharing class RegistrationOfTripsController {
         if(selectedTourists == null || selectedTourists.isEmpty()) {
             throw new AuraHandledException(Constants.ASSIGN_SCREEN_ERROR_MSG_NO_TOURISTS_SELECTED);
         }
+        
         Datetime now = system.now();
         List<Flight__c> flights = new List<Flight__c>();
         
-        for (Tourist__c tourist : selectedTourists) {
-            Flight__c flight = new Flight__c(
-                Name = String.valueOf(now),
-                Tourist__c = tourist.Id,
-                SecondStatus__c = constants.FLIGHT_SECOND_STATUS_OFFER_PENDING,
-                Trip__c = tripRecordId
-            );
-            flights.add(flight);          
+        try {
+            for (Tourist__c tourist : selectedTourists) {
+                Flight__c flight = new Flight__c(
+                    Name = String.valueOf(now),
+                    Tourist__c = tourist.Id,
+                    SecondStatus__c = constants.FLIGHT_SECOND_STATUS_OFFER_PENDING,
+                    Trip__c = tripRecordId
+                );
+                flights.add(flight);          
+            }
+        } catch (Exception ex) {
+            throw new AuraHandledException(Constants.UNEXPECTED_ERROR_CONTACT_SYSTEM_ADMINISTRATOR);
         }
+        
         insert flights;
         return flights;
     }   
