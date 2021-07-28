@@ -2,20 +2,25 @@ global class EmailToLead implements Messaging.InboundEmailHandler {
     public static string companyName = 'from email';
     
     global Messaging.InboundEmailResult handleInboundEmail(Messaging.inboundEmail email, 
-                                                           Messaging.InboundEnvelope env){
-        
-        Messaging.InboundEmailResult result = new Messaging.InboundEmailResult();
+                                                           Messaging.InboundEnvelope env){ 
                                                                
+        Messaging.InboundEmailResult result = new Messaging.InboundEmailResult();      
         String myPlainText= '';       
         myPlainText = email.plainTextBody;
         
-        Lead newLead = new Lead(Email = email.fromAddress, 
-                                LastName = email.fromName, 
-                                Company = companyName,                                                                                      
-                                Description = myPlainText
-                               );
+        List<Lead> leads = [SELECT Id, Name, Email
+                            FROM Lead
+                            WHERE Email = :email.fromAddress];
         
-        insert newLead;      
+        if (leads.size() == 0) {            
+            Lead newLead = new Lead(Email = email.fromAddress, 
+                                    LastName = email.fromName, 
+                                    Company = companyName,                                                                                      
+                                    Description = myPlainText
+                                   );
+            insert newLead;
+        }
+        
         return result;
     }
 }
