@@ -1,5 +1,5 @@
 global class EmailToLead implements Messaging.InboundEmailHandler {  
-    public static string companyName = 'from email';
+    public static final String companyName = 'from email';
     
     global Messaging.InboundEmailResult handleInboundEmail(Messaging.inboundEmail email, 
                                                            Messaging.InboundEnvelope env){ 
