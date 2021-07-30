@@ -39,5 +39,9 @@
             }
         });
         $A.enqueueAction(action);
+    },
+    
+    goToUrlVfPage : function(component, event, helper) {
+        helper.goToUrlVfPage(component, event);
     }
 })

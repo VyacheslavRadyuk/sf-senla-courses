@@ -73,5 +73,11 @@
         let toastEvent = $A.get('e.force:showToast');
         toastEvent.setParams({type: type, message: message, duration: duration});
         toastEvent.fire();
+    },
+    
+    goToUrlVfPage : function (component, event) {     
+        const touristId = component.get('v.selectedTourist');
+        const url = 'https://eponecsites-developer-edition.ap24.force.com/PriceListOfTrips?Id=' + touristId;
+        window.open(url);
     }
 })

@@ -15,7 +15,12 @@
     <lightning:layout>  
         <lightning:layoutItem size="6" class="slds-p-around_x-small">         
             <c:TripCards dataTrip="{!v.dataTrip}"
-                         selectedTourist="{!v.selectedTourist}"/>       
+                         selectedTourist="{!v.selectedTourist}"/> 
+            
+            <div class="slds-m-top_small">
+                <lightning:button variant="brand" label="{!$Label.c.buttonLabelCreatePdf}" onclick="{!c.goToUrlVfPage}"/>     
+            </div>  
+            
         </lightning:layoutItem>
         
         <lightning:layoutItem size="6" class="slds-p-around_x-small">

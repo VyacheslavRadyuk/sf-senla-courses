@@ -43,6 +43,7 @@ public class TripManager {
             countOccupiedSeats__c,
             Departure_Space_Point__c,
             Departure_Space_Point__r.Latitude__c,
+            Departure_Space_Point__r.City__c,
             Departure_Space_Point__r.Longitude__c,
             Minimum_Age__c    
             FROM Trip__c
@@ -52,6 +53,6 @@ public class TripManager {
                 FROM Flight__c 
                 WHERE Tourist__c = :tourist.Id)
         ];     
-        return trips;
+        return trips; 
     }
 }
