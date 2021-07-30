@@ -1,0 +1,7 @@
+<aura:component >
+    <aura:registerEvent name="eventButtonCreatePdf" type="c:EventButtonCreatePdf"/>
+    
+    <div class="slds-m-top_small">
+        <lightning:button variant="brand" label="{!$Label.c.buttonLabelCreatePdf}" onclick="{!c.goToUrlVfPage}"/>     
+    </div> 
+</aura:component>

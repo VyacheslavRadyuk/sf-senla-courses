@@ -11,16 +11,13 @@
     <aura:handler event="force:refreshView" action="{!c.doInit}"/>
     <aura:handler name="eventButtonSubmit" event="c:EventButtonSubmit" action="{!c.handleClick}"/>
     <aura:handler name="eventSelectCardTrip" event="c:EventSelectTripCard" action="{!c.doSelectRecordTrip}"/>
+    <aura:handler name="eventButtonCreatePdf" event="c:EventButtonCreatePdf" action="{!c.goToUrlVfPage}"/>
     
     <lightning:layout>  
         <lightning:layoutItem size="6" class="slds-p-around_x-small">         
             <c:TripCards dataTrip="{!v.dataTrip}"
                          selectedTourist="{!v.selectedTourist}"/> 
-            
-            <div class="slds-m-top_small">
-                <lightning:button variant="brand" label="{!$Label.c.buttonLabelCreatePdf}" onclick="{!c.goToUrlVfPage}"/>     
-            </div>  
-            
+            <c:ButtonSavePdf/>
         </lightning:layoutItem>
         
         <lightning:layoutItem size="6" class="slds-p-around_x-small">
